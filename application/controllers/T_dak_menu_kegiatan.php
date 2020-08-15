@@ -104,6 +104,27 @@ class T_dak_menu_kegiatan extends CI_Controller
             redirect(site_url('t_dak_menu_kegiatan/list/' . $id_dak_komponen_sub . '/' . $id_dak_alokasi . '/' . $id_dak_sub_bidang));
         }
     }
+    public function create_subkegiatan()
+    {
+        $data = array(
+            'id_menu_kegiatan' => $this->input->post('id_menu_kegiatan', TRUE),
+            'nama_kegiatan' => $this->input->post('nama_kegiatan', TRUE),
+            'created_by' => $this->input->post('created_by', TRUE),
+            'created_date' => $this->input->post('created_date', TRUE),
+            'updated_by' => $this->input->post('updated_by', TRUE),
+            'updated_date' => $this->input->post('updated_date', TRUE),
+            'isdeleted' => $this->input->post('isdeleted', TRUE),
+        );
+        $id_dak_komponen_sub = $this->input->post('id_dak_komponen_sub');
+        $id_dak_alokasi = $this->input->post('id_dak_alokasi');
+        $id_dak_sub_bidang = $this->input->post('id_dak_sub_bidang');
+        $this->T_dak_menu_kegiatan_model->insert_subkegiatan($data);
+        $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> Create Record Success 2</strong></div>');
+        redirect(site_url('t_dak_menu_kegiatan/list/' . $id_dak_komponen_sub . '/' . $id_dak_alokasi . '/' . $id_dak_sub_bidang));
+    }
 
     public function update($id)
     {

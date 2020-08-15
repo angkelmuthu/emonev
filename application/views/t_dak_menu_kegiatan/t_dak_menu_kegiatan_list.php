@@ -45,7 +45,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $this->db->select('id_dak_komponen_sub,id_dak_alokasi,id_menu_kegiatan,nama_menu_kegiatan,SUM(total) AS gtotal');
+                                $this->db->select('id_dak_komponen_sub,id_dak_alokasi,id_menu_kegiatan,id_kegiatan,nama_menu_kegiatan,SUM(total) AS gtotal');
                                 $this->db->from('v_rincian');
                                 $this->db->where('id_dak_komponen_sub', $this->uri->segment(3));
                                 $this->db->where('id_dak_alokasi', $this->uri->segment(4));
@@ -59,50 +59,114 @@
                                         <th class="text-right">
                                             <h5><b>Rp. <?php echo angka($row->gtotal) ?></b></h5>
                                         </th>
-                                        <td class="text-center"><a href="<?php echo base_url() . 't_dak_rincian/create/' . $row->id_dak_komponen_sub . '/' . $row->id_dak_alokasi . '/' . $row->id_menu_kegiatan . '/' . $this->uri->segment(5) ?>" class="btn btn-xs btn-success"><i class="fal fa-plus"></i> Input Rincian Kegiatan</a></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-xs btn-info waves-effect waves-themed" data-toggle="modal" data-target="#modal-<?php echo $row->id_menu_kegiatan ?>"><i class="fal fa-plus-square" aria-hidden="true"></i> Input Sub Menu</button>
+                                        </td>
                                     </tr>
+                                    <div class="modal fade" id="modal-<?php echo $row->id_menu_kegiatan ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">
+                                                        Input Sub Kegiatan
+                                                    </h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                    </button>
+                                                </div>
+                                                <form action="<?php echo base_url() ?>t_dak_menu_kegiatan/create_subkegiatan" method="post">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Sub Kegiatan</label>
+                                                            <input type="text" name="nama_kegiatan" class="form-control" placeholder="Sub Kegiatan">
+                                                        </div>
+                                                        <input type="hidden" name="id_dak_komponen_sub" value="<?php echo $this->uri->segment(3); ?>" />
+                                                        <input type="hidden" name="id_dak_alokasi" value="<?php echo $this->uri->segment(4); ?>" />
+                                                        <input type="hidden" name="id_dak_sub_bidang" value="<?php echo $this->uri->segment(5); ?>" />
+                                                        <input type="hidden" name="id_menu_kegiatan" value="<?php echo $row->id_menu_kegiatan ?>">
+                                                        <input type="hidden" name="id_kegiatan" value="" />
+                                                        <input type="hidden" name="created_by" value="<?php echo $this->session->userdata('nama') ?>" readonly />
+                                                        <input type="hidden" name="created_date" value="<?php echo date('Y-m-d H:s:i'); ?>" />
+                                                        <input type="hidden" name="updated_by" id="updated_by" value="<?php echo $this->session->userdata('nama') ?>" />
+                                                        <input type="hidden" name="updated_date" value="<?php echo date('Y-m-d H:s:i'); ?>" />
+                                                        <input type="hidden" name="isdeleted" value="0" />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary waves-effect waves-themed">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php
+                                    $this->db->select('id_kegiatan,nama_kegiatan,SUM(total) AS gtotal');
                                     $this->db->from('v_rincian');
-                                    $this->db->where('id_dak_komponen_sub', $row->id_dak_komponen_sub);
-                                    $this->db->where('id_dak_alokasi', $row->id_dak_alokasi);
                                     $this->db->where('id_menu_kegiatan', $row->id_menu_kegiatan);
-                                    $query2 = $this->db->get();
-                                    //if ($query2->num_rows > 0) {
-                                    foreach ($query2->result() as $dt) {
+                                    $where = "id_kegiatan IS NOT NULL";
+                                    $this->db->where($where);
+                                    $this->db->group_by('id_menu_kegiatan');
+                                    $query = $this->db->get()->result();
+                                    //if ($query->num_rows > 0) {
+                                    //echo $this->db->last_query();
+                                    foreach ($query as $row2) {
                                     ?>
                                         <tr>
-                                            <td><?php if (!empty($dt->id_dak_rincian)) {
-                                                    echo $dt->nama_dak_rincian;
-                                                } else {
-                                                    echo $dt->nama_alkes;
-                                                } ?></td>
-                                            <?php if (!empty($dt->nama_rs_instalasi)) { ?>
-                                                <td width="10%">
-                                                    <span class="badge badge-primary">Installasi: <?php echo $dt->nama_rs_instalasi ?></span>
-                                                    <span class="badge badge-success">Ruangan: <?php echo $dt->nama_rs_ruangan ?></span>
-                                                    <span class="badge badge-warning">Sarana: <?php echo $dt->nama_rs_sarana ?></span>
-
-                                                </td>
-                                                <td class="text-center"><?php echo $dt->volume ?></td>
-                                                <td class="text-center"><?php echo $dt->satuan ?></td>
-                                                <td class="text-right">Rp. <?php echo angka($dt->harga_satuan) ?></td>
-                                                <th class="text-right">
-                                                    <h5>Rp. <?php echo angka($dt->total) ?></h5>
-                                                </th>
-                                                <td class="text-center">
-                                                    <!-- <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-warning"><i class="fal fa-pencil"></i></a>
-                                                    <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-danger"><i class="fal fa-trash"></i></a> -->
-                                                </td>
-                                            <?php } else { ?>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            <?php } ?>
+                                            <th colspan="5"><i class="fal fa-angle-right"></i> <?php echo $row2->nama_kegiatan ?></th>
+                                            <th class="text-right">
+                                                <h5><b>Rp. <?php echo angka($row2->gtotal) ?></b></h5>
+                                            </th>
+                                            <td class="text-center">
+                                                <a href="<?php echo base_url() . 't_dak_rincian/create/' . $row->id_dak_komponen_sub . '/' . $row->id_dak_alokasi . '/' . $row2->id_kegiatan . '/' . $this->uri->segment(5) ?>" class="btn btn-xs btn-success"><i class="fal fa-plus"></i> Input Rincian Kegiatan</a>
+                                            </td>
                                         </tr>
+                                        <?php
+                                        $this->db->from('v_rincian');
+                                        $this->db->where('id_kegiatan', $row2->id_kegiatan);
+                                        $this->db->where('id_rincian', $row2->id_kegiatan);
+                                        $query2 = $this->db->get();
+                                        //echo $this->db->last_query();
+                                        //if ($query2->num_rows > 0) {
+                                        foreach ($query2->result() as $dt) {
+                                        ?>
+                                            <tr>
+                                                <td>
+                                                    <li style="margin-left: 15px;">
+                                                        <?php if (!empty($dt->id_dak_rincian)) {
+                                                            echo $dt->nama_dak_rincian;
+                                                        } else {
+                                                            echo $dt->nama_alkes;
+                                                        } ?>
+                                                    </li>
+                                                </td>
+                                                <?php if (!empty($dt->nama_rs_instalasi)) { ?>
+                                                    <td width="10%">
+                                                        <span class="badge badge-primary">Installasi: <?php echo $dt->nama_rs_instalasi ?></span>
+                                                        <span class="badge badge-success">Ruangan: <?php echo $dt->nama_rs_ruangan ?></span>
+                                                        <span class="badge badge-warning">Sarana: <?php echo $dt->nama_rs_sarana ?></span>
+
+                                                    </td>
+                                                    <td class="text-center"><?php echo $dt->volume ?></td>
+                                                    <td class="text-center"><?php echo $dt->satuan ?></td>
+                                                    <td class="text-right">Rp. <?php echo angka($dt->harga_satuan) ?></td>
+                                                    <th class="text-right">
+                                                        <h5>Rp. <?php echo angka($dt->total) ?></h5>
+                                                    </th>
+                                                    <td class="text-center">
+                                                        <!-- <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-warning"><i class="fal fa-pencil"></i></a>
+                                                    <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-danger"><i class="fal fa-trash"></i></a> -->
+                                                    </td>
+                                                <?php } else { ?>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                <?php } ?>
+                                            </tr>
                                 <?php
+                                        }
                                     }
                                 }
                                 //}

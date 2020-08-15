@@ -123,7 +123,7 @@
                                         <input type="hidden" name="updated_by" value="<?php echo $this->session->userdata('nama') ?>" /><input type="hidden" name="updated_date" value="<?php echo date('Y-m-d H:s:i'); ?>" />
                                         <input type="hidden" name="id_dak_sub_komponen" value="<?php echo $this->uri->segment(3); ?>" />
                                         <input type="hidden" name="id_dak_alokasi" value="<?php echo $this->uri->segment(4); ?>" />
-                                        <input type="hidden" name="id_menu_kegiatan" value="<?php echo $this->uri->segment(5); ?>" />
+                                        <input type="hidden" name="id_kegiatan" value="<?php echo $this->uri->segment(5); ?>" />
                                         <input type="hidden" name="id_dak_sub_bidang" value="<?php echo $this->uri->segment(6); ?>" />
                                         <input type="hidden" name="id_rincian" value="<?php echo $id_rincian; ?>" />
                                         <input type="hidden" name="isdeleted" value="0" />

@@ -114,7 +114,7 @@ class T_dak_rincian extends CI_Controller
             'button' => 'Create',
             'action' => site_url('t_dak_rincian/create_action'),
             'id_rincian' => set_value('id_rincian'),
-            'id_menu_kegiatan' => set_value('id_menu_kegiatan'),
+            'id_kegiatan' => set_value('id_kegiatan'),
             'id_dak_alokasi' => set_value('id_dak_alokasi'),
             'id_dak_rincian' => set_value('id_dak_rincian'),
             'id_alkes' => set_value('alkes'),
@@ -142,7 +142,7 @@ class T_dak_rincian extends CI_Controller
             $this->create();
         } else {
             $data = array(
-                'id_menu_kegiatan' => $this->input->post('id_menu_kegiatan', TRUE),
+                'id_kegiatan' => $this->input->post('id_kegiatan', TRUE),
                 'id_dak_alokasi' => $this->input->post('id_dak_alokasi', TRUE),
                 'id_dak_rincian' => $this->input->post('id_dak_rincian', TRUE),
                 'id_alkes' => $this->input->post('alkes', TRUE),
@@ -178,7 +178,7 @@ class T_dak_rincian extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('t_dak_rincian/update_action'),
                 'id_rincian' => set_value('id_rincian', $row->id_rincian),
-                'id_menu_kegiatan' => set_value('id_menu_kegiatan', $row->id_menu_sub),
+                'id_kegiatan' => set_value('id_kegiatan', $row->id_menu_sub),
                 'id_dak_alokasi' => set_value('id_dak_alokasi', $row->id_dak_alokasi),
                 'id_dak_rincian' => set_value('id_dak_rincian', $row->id_dak_rincian),
                 'volume' => set_value('volume', $row->volume),
@@ -209,7 +209,7 @@ class T_dak_rincian extends CI_Controller
             $this->update($this->input->post('id_rincian', TRUE));
         } else {
             $data = array(
-                'id_menu_kegiatan' => $this->input->post('id_menu_kegiatan', TRUE),
+                'id_kegiatan' => $this->input->post('id_kegiatan', TRUE),
                 'id_dak_alokasi' => $this->input->post('id_dak_alokasi', TRUE),
                 //'id_dak_rincian' => $this->input->post('id_dak_rincian', TRUE),
                 //'id_alkes' => $this->input->post('alkes', TRUE),
@@ -255,7 +255,7 @@ class T_dak_rincian extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('id_menu_kegiatan', 'id menu kegiatan', 'trim|required');
+        $this->form_validation->set_rules('id_kegiatan', 'id menu kegiatan', 'trim|required');
         $this->form_validation->set_rules('id_dak_alokasi', 'id dak alokasi', 'trim|required');
         //$this->form_validation->set_rules('id_dak_rincian', 'id dak rincian', 'trim|required');
         $this->form_validation->set_rules('volume', 'volume', 'trim|required');

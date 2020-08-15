@@ -89,6 +89,10 @@ class T_dak_menu_kegiatan_model extends CI_Model
     {
         $this->db->insert($this->table, $data);
     }
+    function insert_subkegiatan($data)
+    {
+        $this->db->insert('t_dak_kegiatan', $data);
+    }
 
     // update data
     function update($id, $data)
