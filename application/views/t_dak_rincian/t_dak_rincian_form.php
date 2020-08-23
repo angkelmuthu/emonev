@@ -62,7 +62,7 @@
                                     </tr>
                                 <?php } else { ?>
                                     <tr>
-                                        <td width='200'>Lokasi <?php echo form_error('sarana') ?></td>
+                                        <td width='200'>Fasyankes <?php echo form_error('sarana') ?></td>
                                         <td>
                                             <div class="form-group">
                                                 <label for="sel1">Fasilitas Layanan Kesehatan:</label>
@@ -108,13 +108,33 @@
                                 </tr>
                                 <tr>
                                     <td width='200'>Satuan <?php echo form_error('satuan') ?></td>
-                                    <td><?php echo radiobtn_dinamis('satuan', 'm_satuan', 'satuan', 'kdsatuan') ?></td>
+                                    <td><?php echo cmb_dinamis('satuan', 'm_satuan', 'satuan', 'kdsatuan') ?></td>
                                 </tr>
                                 <tr>
                                     <td width='200'>Total <?php echo form_error('total') ?></td>
                                     <td><input type="number" class="form-control" name="total" id="total" placeholder="Total" value="<?php echo $total; ?>" readonly /></td>
                                 </tr>
-
+                                <tr>
+                                    <td width='200'>Jenis Output <?php echo form_error('Jenis Output') ?></td>
+                                    <td><?php echo select2_dinamis('output', 'm_jenis_output', 'nama', 'id_jenis_output') ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Puskesmas</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <select class="select2 form-control" name="lokasi[]" multiple="multiple" id="multiple-basic">
+                                                <?php
+                                                $this->db->from('m_puskesmas');
+                                                $this->db->where('provinsi', $this->session->userdata('nama'));
+                                                $query3 = $this->db->get();
+                                                foreach ($query3->result() as $dtlokasi) {
+                                                    echo "<option value='$dtlokasi->id_puskesmas'>" . $dtlokasi->kode . " - " . $dtlokasi->nama . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td></td>
                                     <td>

@@ -100,72 +100,76 @@
                                         </div>
                                     </div>
                                     <?php
-                                    $this->db->select('id_kegiatan,nama_kegiatan,SUM(total) AS gtotal');
+                                    $this->db->select('id_kegiatan,nama_kegiatan');
                                     $this->db->from('v_rincian');
                                     $this->db->where('id_menu_kegiatan', $row->id_menu_kegiatan);
-                                    $where = "id_kegiatan IS NOT NULL";
-                                    $this->db->where($where);
-                                    $this->db->group_by('id_menu_kegiatan');
+                                    //$where = "id_kegiatan IS NOT NULL";
+                                    //$this->db->where($where);
+                                    //$this->db->group_by('id_menu_kegiatan');
                                     $query = $this->db->get()->result();
                                     //if ($query->num_rows > 0) {
                                     //echo $this->db->last_query();
                                     foreach ($query as $row2) {
+                                        if (!empty($row2->id_kegiatan)) {
                                     ?>
-                                        <tr>
-                                            <th colspan="5"><i class="fal fa-angle-right"></i> <?php echo $row2->nama_kegiatan ?></th>
-                                            <th class="text-right">
-                                                <h5><b>Rp. <?php echo angka($row2->gtotal) ?></b></h5>
-                                            </th>
-                                            <td class="text-center">
-                                                <a href="<?php echo base_url() . 't_dak_rincian/create/' . $row->id_dak_komponen_sub . '/' . $row->id_dak_alokasi . '/' . $row2->id_kegiatan . '/' . $this->uri->segment(5) ?>" class="btn btn-xs btn-success"><i class="fal fa-plus"></i> Input Rincian Kegiatan</a>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                        $this->db->from('v_rincian');
-                                        $this->db->where('id_kegiatan', $row2->id_kegiatan);
-                                        $this->db->where('id_rincian', $row2->id_kegiatan);
-                                        $query2 = $this->db->get();
-                                        //echo $this->db->last_query();
-                                        //if ($query2->num_rows > 0) {
-                                        foreach ($query2->result() as $dt) {
-                                        ?>
                                             <tr>
-                                                <td>
-                                                    <li style="margin-left: 15px;">
-                                                        <?php if (!empty($dt->id_dak_rincian)) {
-                                                            echo $dt->nama_dak_rincian;
-                                                        } else {
-                                                            echo $dt->nama_alkes;
-                                                        } ?>
-                                                    </li>
+                                                <th colspan="6"><i class="fal fa-angle-right"></i> <?php echo $row2->nama_kegiatan ?></th>
+                                                <!-- <th class="text-right">
+                                                <h5><b>Rp. <?php echo angka($row2->gtotal) ?></b></h5>
+                                            </th> -->
+                                                <td class="text-center">
+                                                    <a href="<?php echo base_url() . 't_dak_rincian/create/' . $row->id_dak_komponen_sub . '/' . $row->id_dak_alokasi . '/' . $row2->id_kegiatan . '/' . $this->uri->segment(5) ?>" class="btn btn-xs btn-success"><i class="fal fa-plus"></i> Input Rincian Kegiatan</a>
                                                 </td>
-                                                <?php if (!empty($dt->nama_rs_instalasi)) { ?>
-                                                    <td width="10%">
-                                                        <span class="badge badge-primary">Installasi: <?php echo $dt->nama_rs_instalasi ?></span>
-                                                        <span class="badge badge-success">Ruangan: <?php echo $dt->nama_rs_ruangan ?></span>
-                                                        <span class="badge badge-warning">Sarana: <?php echo $dt->nama_rs_sarana ?></span>
-
-                                                    </td>
-                                                    <td class="text-center"><?php echo $dt->volume ?></td>
-                                                    <td class="text-center"><?php echo $dt->satuan ?></td>
-                                                    <td class="text-right">Rp. <?php echo angka($dt->harga_satuan) ?></td>
-                                                    <th class="text-right">
-                                                        <h5>Rp. <?php echo angka($dt->total) ?></h5>
-                                                    </th>
-                                                    <td class="text-center">
-                                                        <!-- <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-warning"><i class="fal fa-pencil"></i></a>
-                                                    <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-danger"><i class="fal fa-trash"></i></a> -->
-                                                    </td>
-                                                <?php } else { ?>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                <?php } ?>
                                             </tr>
+                                            <?php
+                                            $this->db->from('v_rincian');
+                                            $this->db->where('id_kegiatan', $row2->id_kegiatan);
+                                            //$this->db->where('id_rincian', $row2->id_kegiatan);
+                                            $query2 = $this->db->get();
+                                            //echo $this->db->last_query();
+                                            //if ($query2->num_rows() > 0) {
+                                            foreach ($query2->result() as $dt) {
+                                                if (!empty($dt->id_rincian)) {
+                                            ?>
+                                                    <tr>
+                                                        <td>
+                                                            <li style="margin-left: 15px;">
+                                                                <?php if (!empty($dt->id_dak_rincian)) {
+                                                                    echo $dt->nama_dak_rincian;
+                                                                } else {
+                                                                    echo $dt->nama_alkes;
+                                                                } ?>
+                                                            </li>
+                                                        </td>
+                                                        <?php if (!empty($dt->nama_rs_instalasi)) { ?>
+                                                            <td width="10%">
+                                                                <span class="badge badge-primary">Installasi: <?php echo $dt->nama_rs_instalasi ?></span>
+                                                                <span class="badge badge-success">Ruangan: <?php echo $dt->nama_rs_ruangan ?></span>
+                                                                <span class="badge badge-warning">Sarana: <?php echo $dt->nama_rs_sarana ?></span>
+
+                                                            </td>
+                                                            <td class="text-center"><?php echo $dt->volume ?></td>
+                                                            <td class="text-center"><?php echo $dt->satuan ?></td>
+                                                            <td class="text-right">Rp. <?php echo angka($dt->harga_satuan) ?></td>
+                                                            <th class="text-right">
+                                                                <h5>Rp. <?php echo angka($dt->total) ?></h5>
+                                                            </th>
+                                                            <td class="text-center">
+                                                                <!-- <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-warning"><i class="fal fa-pencil"></i></a>
+                                                    <a href="<?php echo base_url() . 't_dak_menu_kegiatan/create/' . $dt->id_dak_komponen_sub . '/' . $dt->id_dak_alokasi . '/' . $dt->id_menu_kegiatan ?>" class="btn btn-danger"><i class="fal fa-trash"></i></a> -->
+                                                            </td>
+                                                        <?php } else { ?>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        <?php } ?>
+                                                    </tr>
                                 <?php
+                                                }
+                                            }
                                         }
                                     }
                                 }

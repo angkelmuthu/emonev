@@ -107,7 +107,13 @@ class T_dak_rincian extends CI_Controller
         $data = $this->T_dak_rincian_model->get_alkes($kode_sarana_alkes);
         echo json_encode($data);
     }
-
+    /////////////////////////////////////////////////////////////////////
+    function data_lokasi()
+    {
+        $data = $this->T_dak_rincian_model->lokasi_list();
+        echo json_encode($data);
+    }
+    ///////////////////////////////////////////////////////////////////////
     public function create()
     {
         $data = array(
@@ -118,6 +124,7 @@ class T_dak_rincian extends CI_Controller
             'id_dak_alokasi' => set_value('id_dak_alokasi'),
             'id_dak_rincian' => set_value('id_dak_rincian'),
             'id_alkes' => set_value('alkes'),
+            'id_jenis_output' => set_value('output'),
             'volume' => set_value('volume'),
             'harga_satuan' => set_value('harga_satuan'),
             'satuan' => set_value('satuan'),
@@ -128,6 +135,7 @@ class T_dak_rincian extends CI_Controller
             'updated_by' => set_value('updated_by'),
             'updated_date' => set_value('updated_date'),
             'isdeleted' => set_value('isdeleted'),
+            'lokasi' => set_value('lokasi'),
             'instalasi' => $this->T_dak_rincian_model->get_instalasi(),
             'fasyankes' => $this->T_dak_rincian_model->get_fasyankes(),
         );
@@ -141,11 +149,18 @@ class T_dak_rincian extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            // $this->db->select_max('id_rincian');
+            // $this->db->from('t_dak_rincian');
+            // $query = $this->db->get();
+            $maxid = $this->db->query('SELECT MAX(id_rincian) AS `maxid` FROM `t_dak_rincian`')->row()->maxid;
+            $id_rincian = $maxid + 1;
             $data = array(
+                'id_rincian' => $id_rincian,
                 'id_kegiatan' => $this->input->post('id_kegiatan', TRUE),
                 'id_dak_alokasi' => $this->input->post('id_dak_alokasi', TRUE),
                 'id_dak_rincian' => $this->input->post('id_dak_rincian', TRUE),
                 'id_alkes' => $this->input->post('alkes', TRUE),
+                'id_jenis_output' => $this->input->post('output', TRUE),
                 'volume' => $this->input->post('volume', TRUE),
                 'harga_satuan' => $this->input->post('harga_satuan', TRUE),
                 'satuan' => $this->input->post('satuan', TRUE),
@@ -161,6 +176,21 @@ class T_dak_rincian extends CI_Controller
             $id_dak_sub_komponen = $this->input->post('id_dak_sub_komponen');
             $id_dak_sub_bidang = $this->input->post('id_dak_sub_bidang');
             $this->T_dak_rincian_model->insert($data);
+            $lokasi = $this->input->post('lokasi');
+            foreach ($lokasi as $lokasi_list) {
+                $data_lokasi = array(
+                    'id_rincian' => $id_rincian,
+                    'id_rumah_sakit' => '',
+                    'id_puskemas' => $lokasi_list,
+                    'nama_lokasi' => '',
+                    'created_by' => $this->input->post('created_by', TRUE),
+                    'created_date' => $this->input->post('created_date', TRUE),
+                    'updated_by' => $this->input->post('updated_by', TRUE),
+                    'updated_date' => $this->input->post('updated_date', TRUE),
+                    'isdeleted' => $this->input->post('isdeleted', TRUE),
+                );
+                $this->T_dak_rincian_model->insert_lokasi($data_lokasi);
+            }
             $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>

@@ -90,6 +90,13 @@ class T_dak_rincian_model extends CI_Model
         $this->db->order_by($this->id, $this->order);
         return $this->db->get()->result();
     }
+    // get lokasi
+    function lokasi_list()
+    {
+        $this->db->select('*');
+        $this->db->from('t_dak_lokasi');
+        return $this->db->get()->result();
+    }
 
     // get data by id
     function get_by_id($id)
@@ -143,6 +150,10 @@ class T_dak_rincian_model extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
+    }
+    function insert_lokasi($data_lokasi)
+    {
+        $this->db->insert('t_dak_lokasi', $data_lokasi);
     }
 
     // update data
