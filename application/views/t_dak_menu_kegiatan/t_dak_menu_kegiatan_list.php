@@ -109,7 +109,7 @@
                                         $this->db->group_by('id_menu_kegiatan');
                                         $query = $this->db->get()->result();
                                         //if ($query->num_rows > 0) {
-                                        echo $this->db->last_query();
+                                        //echo $this->db->last_query();
                                         foreach ($query as $row2) {
                                             if (!empty($row2->id_kegiatan)) {
                                                 ?>
