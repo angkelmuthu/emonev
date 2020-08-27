@@ -137,11 +137,11 @@
                             </a>
                         </div>
                         <!-- app settings -->
-                        <div class="hidden-md-down">
+                        <!-- <div class="hidden-md-down">
                             <a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-settings">
                                 <i class="fal fa-cog"></i>
                             </a>
-                        </div>
+                        </div> -->
                         <!-- app shortcuts -->
                         <!-- <div>
                             <a href="#" class="header-icon" data-toggle="dropdown" title="My Apps">
@@ -328,11 +328,11 @@
                                 <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                                         <span class="mr-2">
-                                            <img src="<?php echo base_url() ?>assets/foto_profil/<?php echo $this->session->userdata('images'); ?>" class="rounded-circle profile-image" alt="<?php echo $this->session->userdata('full_name'); ?>">
+                                            <img src="<?php echo base_url() ?>assets/foto_profil/<?php echo $this->session->userdata('images'); ?>" class="rounded-circle profile-image" alt="<?php echo $this->session->userdata('nama'); ?>">
                                         </span>
                                         <div class="info-card-text">
-                                            <div class="fs-lg text-truncate text-truncate-lg"><?php echo $this->session->userdata('full_name'); ?></div>
-                                            <span class="text-truncate text-truncate-md opacity-80"><?php echo $this->session->userdata('email'); ?></span>
+                                            <div class="fs-lg text-truncate text-truncate-lg"><?php echo $this->session->userdata('nama'); ?></div>
+                                            <span class="text-truncate text-truncate-md opacity-80"><?php echo $this->session->userdata('kode_satker'); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -340,12 +340,12 @@
                                 <a href="<?php echo base_url() ?>user/update/<?php echo $this->session->userdata('id_users'); ?>" class="dropdown-item">
                                     <span data-i18n="drpdwn.reset_layout">Edit Profil</span>
                                 </a>
-                                <a href="#" class="dropdown-item" data-action="app-reset">
+                                <!-- <a href="#" class="dropdown-item" data-action="app-reset">
                                     <span data-i18n="drpdwn.reset_layout">Reset Layout</span>
-                                </a>
-                                <a href="#" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
+                                </a> -->
+                                <!-- <a href="#" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
                                     <span data-i18n="drpdwn.settings">Settings</span>
-                                </a>
+                                </a> -->
                                 <div class="dropdown-divider m-0"></div>
                                 <a href="#" class="dropdown-item" data-action="app-fullscreen">
                                     <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
@@ -790,7 +790,7 @@
         </div>
     </div> <!-- END Messenger -->
     <!-- BEGIN Page Settings -->
-    <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- <div class="modal fade js-modal-settings modal-backdrop-transparent" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-right modal-md">
             <div class="modal-content">
                 <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center w-100">
@@ -1009,7 +1009,8 @@
                 </div>
             </div>
         </div>
-    </div> <!-- END Page Settings -->
+    </div>  -->
+    <!-- END Page Settings -->
 
 </body>
 
