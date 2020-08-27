@@ -176,20 +176,38 @@ class T_dak_rincian extends CI_Controller
             $id_dak_sub_komponen = $this->input->post('id_dak_sub_komponen');
             $id_dak_sub_bidang = $this->input->post('id_dak_sub_bidang');
             $this->T_dak_rincian_model->insert($data);
-            $lokasi = $this->input->post('lokasi');
-            foreach ($lokasi as $lokasi_list) {
-                $data_lokasi = array(
-                    'id_rincian' => $id_rincian,
-                    'id_rumah_sakit' => '',
-                    'id_puskemas' => $lokasi_list,
-                    'nama_lokasi' => '',
-                    'created_by' => $this->input->post('created_by', TRUE),
-                    'created_date' => $this->input->post('created_date', TRUE),
-                    'updated_by' => $this->input->post('updated_by', TRUE),
-                    'updated_date' => $this->input->post('updated_date', TRUE),
-                    'isdeleted' => $this->input->post('isdeleted', TRUE),
-                );
-                $this->T_dak_rincian_model->insert_lokasi($data_lokasi);
+            if ($this->session->userdata('id_jenis_satker') == 3) {
+                $lokasi = $this->input->post('lokasi');
+                foreach ($lokasi as $lokasi_list) {
+                    $data_lokasi = array(
+                        'id_rincian' => $id_rincian,
+                        'id_rumah_sakit' => $lokasi_list,
+                        'id_puskemas' => '',
+                        'nama_lokasi' => '',
+                        'created_by' => $this->input->post('created_by', TRUE),
+                        'created_date' => $this->input->post('created_date', TRUE),
+                        'updated_by' => $this->input->post('updated_by', TRUE),
+                        'updated_date' => $this->input->post('updated_date', TRUE),
+                        'isdeleted' => $this->input->post('isdeleted', TRUE),
+                    );
+                    $this->T_dak_rincian_model->insert_lokasi($data_lokasi);
+                }
+            } else {
+                $lokasi = $this->input->post('lokasi');
+                foreach ($lokasi as $lokasi_list) {
+                    $data_lokasi = array(
+                        'id_rincian' => $id_rincian,
+                        'id_rumah_sakit' => '',
+                        'id_puskemas' => $lokasi_list,
+                        'nama_lokasi' => '',
+                        'created_by' => $this->input->post('created_by', TRUE),
+                        'created_date' => $this->input->post('created_date', TRUE),
+                        'updated_by' => $this->input->post('updated_by', TRUE),
+                        'updated_date' => $this->input->post('updated_date', TRUE),
+                        'isdeleted' => $this->input->post('isdeleted', TRUE),
+                    );
+                    $this->T_dak_rincian_model->insert_lokasi($data_lokasi);
+                }
             }
             $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

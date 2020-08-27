@@ -53,7 +53,7 @@
                                 $query = $this->db->get()->result();
                                 //if ($query->num_rows > 0) {
                                 foreach ($query as $row) {
-                                ?>
+                                    ?>
                                     <tr>
                                         <th style="text-transform: uppercase;" colspan="5"><?php echo $row->nama_menu_kegiatan ?></th>
                                         <th class="text-right">
@@ -100,18 +100,19 @@
                                         </div>
                                     </div>
                                     <?php
-                                    $this->db->select('id_kegiatan,nama_kegiatan');
-                                    $this->db->from('v_rincian');
-                                    $this->db->where('id_menu_kegiatan', $row->id_menu_kegiatan);
-                                    //$where = "id_kegiatan IS NOT NULL";
-                                    //$this->db->where($where);
-                                    //$this->db->group_by('id_menu_kegiatan');
-                                    $query = $this->db->get()->result();
-                                    //if ($query->num_rows > 0) {
-                                    //echo $this->db->last_query();
-                                    foreach ($query as $row2) {
-                                        if (!empty($row2->id_kegiatan)) {
-                                    ?>
+                                        $this->db->select('id_kegiatan,nama_kegiatan');
+                                        $this->db->from('v_rincian');
+                                        $this->db->where('id_menu_kegiatan', $row->id_menu_kegiatan);
+                                        //$this->db->where('id_dak_alokasi', $row->id_dak_alokasi);
+                                        //$where = "id_kegiatan IS NOT NULL";
+                                        //$this->db->where($where);
+                                        $this->db->group_by('id_menu_kegiatan');
+                                        $query = $this->db->get()->result();
+                                        //if ($query->num_rows > 0) {
+                                        //echo $this->db->last_query();
+                                        foreach ($query as $row2) {
+                                            if (!empty($row2->id_kegiatan)) {
+                                                ?>
                                             <tr>
                                                 <th colspan="6"><i class="fal fa-angle-right"></i> <?php echo $row2->nama_kegiatan ?></th>
                                                 <!-- <th class="text-right">
@@ -122,23 +123,23 @@
                                                 </td>
                                             </tr>
                                             <?php
-                                            $this->db->from('v_rincian');
-                                            $this->db->where('id_kegiatan', $row2->id_kegiatan);
-                                            //$this->db->where('id_rincian', $row2->id_kegiatan);
-                                            $query2 = $this->db->get();
-                                            //echo $this->db->last_query();
-                                            //if ($query2->num_rows() > 0) {
-                                            foreach ($query2->result() as $dt) {
-                                                if (!empty($dt->id_rincian)) {
-                                            ?>
+                                                        $this->db->from('v_rincian');
+                                                        $this->db->where('id_kegiatan', $row2->id_kegiatan);
+                                                        //$this->db->where('id_rincian', $row2->id_kegiatan);
+                                                        $query2 = $this->db->get();
+                                                        //echo $this->db->last_query();
+                                                        //if ($query2->num_rows() > 0) {
+                                                        foreach ($query2->result() as $dt) {
+                                                            if (!empty($dt->id_rincian)) {
+                                                                ?>
                                                     <tr>
                                                         <td>
                                                             <li style="margin-left: 15px;">
                                                                 <?php if (!empty($dt->id_dak_rincian)) {
-                                                                    echo $dt->nama_dak_rincian;
-                                                                } else {
-                                                                    echo $dt->nama_alkes;
-                                                                } ?>
+                                                                                        echo $dt->nama_dak_rincian;
+                                                                                    } else {
+                                                                                        echo $dt->nama_alkes;
+                                                                                    } ?>
                                                             </li>
                                                         </td>
                                                         <?php if (!empty($dt->nama_rs_instalasi)) { ?>

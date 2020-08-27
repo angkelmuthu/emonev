@@ -18,7 +18,7 @@
                                 <?php
                                 $flag = $this->db->get_where('m_dak_komponen_sub', array('id_dak_komponen_sub' => $this->uri->segment(3)))->row();
                                 if ($flag->isalkes == 0) {
-                                ?>
+                                    ?>
                                     <tr>
                                         <td width='200'>Lokasi <?php echo form_error('sarana') ?></td>
                                         <td>
@@ -26,10 +26,10 @@
                                                 <label for="sel1">Pilih Installasi:</label>
                                                 <select class="form-control" name="instalasi" id="instalasi">
                                                     <?php
-                                                    foreach ($instalasi as $value) {
-                                                        echo "<option value='$value->kode_rs_instalasi'>$value->nama_rs_instalasi</option>";
-                                                    }
-                                                    ?>
+                                                        foreach ($instalasi as $value) {
+                                                            echo "<option value='$value->kode_rs_instalasi'>$value->nama_rs_instalasi</option>";
+                                                        }
+                                                        ?>
                                                 </select>
                                             </div>
 
@@ -49,13 +49,13 @@
                                         <td>
                                             <select class="form-control" name="id_dak_rincian" id="id_dak_rincian">
                                                 <?php
-                                                $this->db->from('m_dak_rincian');
-                                                $this->db->where('id_dak_komponen_sub', $this->uri->segment(3));
-                                                $query2 = $this->db->get();
-                                                foreach ($query2->result() as $dt) {
-                                                    echo "<option value='$dt->id_dak_rincian'>$dt->nama_dak_rincian</option>";
-                                                }
-                                                ?>
+                                                    $this->db->from('m_dak_rincian');
+                                                    $this->db->where('id_dak_komponen_sub', $this->uri->segment(3));
+                                                    $query2 = $this->db->get();
+                                                    foreach ($query2->result() as $dt) {
+                                                        echo "<option value='$dt->id_dak_rincian'>$dt->nama_dak_rincian</option>";
+                                                    }
+                                                    ?>
                                             </select>
                                             <input type="hidden" name="alkes" value="">
                                         </td>
@@ -69,10 +69,10 @@
                                                 <select class="form-control" name="faskes" id="faskes">
                                                     <option value="">Pilih Fasyankes</option>
                                                     <?php
-                                                    foreach ($fasyankes as $value) {
-                                                        echo "<option value='$value->id_jenis_faskes'>$value->jenis_alkes</option>";
-                                                    }
-                                                    ?>
+                                                        foreach ($fasyankes as $value) {
+                                                            echo "<option value='$value->id_jenis_faskes'>$value->jenis_alkes</option>";
+                                                        }
+                                                        ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -118,23 +118,27 @@
                                     <td width='200'>Jenis Output <?php echo form_error('Jenis Output') ?></td>
                                     <td><?php echo select2_dinamis('output', 'm_jenis_output', 'nama', 'id_jenis_output') ?></td>
                                 </tr>
-                                <tr>
-                                    <td>Puskesmas</td>
-                                    <td>
-                                        <div class="form-group">
-                                            <select class="select2 form-control" name="lokasi[]" multiple="multiple" id="multiple-basic">
-                                                <?php
-                                                $this->db->from('m_puskesmas');
-                                                $this->db->where('provinsi', $this->session->userdata('nama'));
-                                                $query3 = $this->db->get();
-                                                foreach ($query3->result() as $dtlokasi) {
-                                                    echo "<option value='$dtlokasi->id_puskesmas'>" . $dtlokasi->kode . " - " . $dtlokasi->nama . "</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <?php if ($this->session->userdata('id_jenis_satker') != 3) { ?>
+                                    <tr>
+                                        <td>Puskesmas</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select class="select2 form-control" name="lokasi[]" multiple="multiple" id="multiple-basic">
+                                                    <?php
+                                                        $this->db->from('m_puskesmas');
+                                                        $this->db->where('provinsi', $this->session->userdata('nama'));
+                                                        $query3 = $this->db->get();
+                                                        foreach ($query3->result() as $dtlokasi) {
+                                                            echo "<option value='$dtlokasi->id_puskesmas'>" . $dtlokasi->kode . " - " . $dtlokasi->nama . "</option>";
+                                                        }
+                                                        ?>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php } else { ?>
+                                    <input type="hidden" name="lokasi[]" value="<?php echo $this->session->userdata('id_rumah_sakit') ?>" />
+                                <?php } ?>
                                 <tr>
                                     <td></td>
                                     <td>
