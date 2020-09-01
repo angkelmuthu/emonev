@@ -16,86 +16,22 @@ class T_dak_rincian_model extends CI_Model
     }
 
     // datatables
-    function json($id_dak_alokasi, $id_dak_menu_sub)
+    function get_rincian($id_alokasi)
     {
-        $this->datatables->select('id_rincian,id_menu_sub,id_dak_alokasi,id_dak_rincian,volume,harga_satuan,satuan,total,created_by,created_date,updated_by,updated_date,isdeleted');
-        $this->datatables->from('t_dak_rincian');
-        $this->datatables->where('id_dak_alokasi', $id_dak_alokasi);
-        $this->datatables->where('id_menu_sub', $id_dak_menu_sub);
-        //add this line for join
-        //$this->datatables->join('table2', 't_dak_rincian.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('t_dak_rincian/read/$1'), '<i class="fal fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-info btn-sm waves-effect waves-themed')) . "
-            " . anchor(site_url('t_dak_rincian/update/$1'), '<i class="fal fa-pencil" aria-hidden="true"></i>', array('class' => 'btn btn-warning btn-sm waves-effect waves-themed')) . "
-                " . anchor(site_url('t_dak_rincian/delete/$1'), '<i class="fal fa-trash" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm waves-effect waves-themed" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_rincian');
-        return $this->datatables->generate();
+        $this->db->where('id_dak_alokasi', $id_alokasi);
+        $this->db->order_by('created_date', $this->order);
+        return $this->db->get('t_dak_rincian')->result();
     }
-
-    function get_instalasi()
+    function get_alokasi($id_alokasi)
     {
-        $this->db->order_by('nama_rs_instalasi', 'ASC');
-        return $this->db->from('m_rs_instalasi')->get()->result();
+        $this->db->where('id_dak_alokasi', $id_alokasi);
+        return $this->db->get('v_dak_alokasi')->row();
     }
-
-    function get_ruangan($kode_instalasi)
-    {
-        $this->db->where('kode_rs_instalasi', $kode_instalasi);
-        $this->db->order_by('nama_rs_ruangan', 'ASC');
-        return $this->db->from('m_rs_ruangan')->get()->result();
-    }
-    function get_sarana($id_ruangan)
-    {
-        $this->db->where('kode_rs_ruangan', $id_ruangan);
-        $this->db->order_by('nama_rs_sarana', 'ASC');
-        return $this->db->from('m_rs_sarana')->get()->result();
-    }
-
-    /////////////////////////////////////////////////////////////
-    function get_fasyankes()
-    {
-        $this->db->group_by('id_jenis_faskes');
-        return $this->db->from('v_alkes')->get()->result();
-    }
-
-    function get_instalasi_alkes($kode_faskes)
-    {
-        $this->db->where('id_jenis_faskes', $kode_faskes);
-        $this->db->group_by('kode_instalasi');
-        return $this->db->from('v_alkes')->get()->result();
-    }
-    function get_ruangan_alkes($kode_instalasi_alkes)
-    {
-        $this->db->where('kode_instalasi', $kode_instalasi_alkes);
-        $this->db->group_by('kode_ruangan');
-        return $this->db->from('v_alkes')->get()->result();
-    }
-    function get_sarana_alkes($kode_ruangan_alkes)
-    {
-        $this->db->where('kode_ruangan', $kode_ruangan_alkes);
-        $this->db->group_by('kode_sarana', 'ASC');
-        return $this->db->from('v_alkes')->get()->result();
-    }
-    function get_alkes($kode_sarana_alkes)
-    {
-        $this->db->where('kode_sarana', $kode_sarana_alkes);
-        $this->db->group_by('kode_alkes', 'ASC');
-        return $this->db->from('v_alkes')->get()->result();
-    }
-    ///////////////////////////////////////////////////////////
     // get all
-    function get_all($id_dak_alokasi, $id_dak_menu_sub)
+    function get_all()
     {
-        $this->db->from('t_dak_rincian');
-        $this->db->where('id_dak_alokasi', $id_dak_alokasi);
-        $this->db->where('id_menu_sub', $id_dak_menu_sub);
         $this->db->order_by($this->id, $this->order);
-        return $this->db->get()->result();
-    }
-    // get lokasi
-    function lokasi_list()
-    {
-        $this->db->select('*');
-        $this->db->from('t_dak_lokasi');
-        return $this->db->get()->result();
+        return $this->db->get($this->table)->result();
     }
 
     // get data by id
@@ -109,13 +45,24 @@ class T_dak_rincian_model extends CI_Model
     function total_rows($q = NULL)
     {
         $this->db->like('id_rincian', $q);
-        $this->db->or_like('id_menu_sub', $q);
+        $this->db->or_like('id_satker', $q);
         $this->db->or_like('id_dak_alokasi', $q);
+        $this->db->or_like('tahun_anggaran', $q);
+        $this->db->or_like('id_dak_bidang', $q);
+        $this->db->or_like('id_dak_sub_bidang', $q);
+        $this->db->or_like('id_dak_komponen', $q);
+        $this->db->or_like('id_dak_komponen_sub', $q);
+        $this->db->or_like('menu_kegiatan', $q);
+        $this->db->or_like('kegiatan', $q);
         $this->db->or_like('id_dak_rincian', $q);
-        $this->db->or_like('volume', $q);
+        $this->db->or_like('id_alkes', $q);
+        $this->db->or_like('id_jenis_output', $q);
         $this->db->or_like('harga_satuan', $q);
+        $this->db->or_like('volume', $q);
+        $this->db->or_like('volume_perubahan', $q);
         $this->db->or_like('satuan', $q);
         $this->db->or_like('total', $q);
+        $this->db->or_like('sarana', $q);
         $this->db->or_like('created_by', $q);
         $this->db->or_like('created_date', $q);
         $this->db->or_like('updated_by', $q);
@@ -130,13 +77,24 @@ class T_dak_rincian_model extends CI_Model
     {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_rincian', $q);
-        $this->db->or_like('id_menu_sub', $q);
+        $this->db->or_like('id_satker', $q);
         $this->db->or_like('id_dak_alokasi', $q);
+        $this->db->or_like('tahun_anggaran', $q);
+        $this->db->or_like('id_dak_bidang', $q);
+        $this->db->or_like('id_dak_sub_bidang', $q);
+        $this->db->or_like('id_dak_komponen', $q);
+        $this->db->or_like('id_dak_komponen_sub', $q);
+        $this->db->or_like('menu_kegiatan', $q);
+        $this->db->or_like('kegiatan', $q);
         $this->db->or_like('id_dak_rincian', $q);
-        $this->db->or_like('volume', $q);
+        $this->db->or_like('id_alkes', $q);
+        $this->db->or_like('id_jenis_output', $q);
         $this->db->or_like('harga_satuan', $q);
+        $this->db->or_like('volume', $q);
+        $this->db->or_like('volume_perubahan', $q);
         $this->db->or_like('satuan', $q);
         $this->db->or_like('total', $q);
+        $this->db->or_like('sarana', $q);
         $this->db->or_like('created_by', $q);
         $this->db->or_like('created_date', $q);
         $this->db->or_like('updated_by', $q);
@@ -150,10 +108,6 @@ class T_dak_rincian_model extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
-    }
-    function insert_lokasi($data_lokasi)
-    {
-        $this->db->insert('t_dak_lokasi', $data_lokasi);
     }
 
     // update data
@@ -174,5 +128,5 @@ class T_dak_rincian_model extends CI_Model
 /* End of file T_dak_rincian_model.php */
 /* Location: ./application/models/T_dak_rincian_model.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2020-07-18 18:17:16 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2020-09-01 16:32:34 */
 /* http://harviacode.com */

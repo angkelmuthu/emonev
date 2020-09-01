@@ -52,7 +52,8 @@ function isdelete($name, $table, $field, $pk)
 function select2_dinamis($name, $table, $field, $pk)
 {
     $ci = get_instance();
-    $select2 = '<select name="' . $name . '" class="select2 form-control w-100" id="single-default" >';
+    //$select2 = '<select name="' . $name . '" class="select2 form-control w-100" id="single-default" >';
+    $select2 = '<select name="' . $name . '" class="select2 form-control w-100">';
     $data = $ci->db->get($table)->result();
     foreach ($data as $row) {
         $select2 .= ' <option value="' . $row->$pk . '">' . $row->$field . '</option>';
