@@ -51,8 +51,11 @@ class M_dak_rincian extends CI_Controller
         if ($row) {
             $data = array(
 		'id_dak_rincian' => $row->id_dak_rincian,
-		'id_dak_menu_sub' => $row->id_dak_menu_sub,
-		'nama' => $row->nama,
+		'id_dak_komponen_sub' => $row->id_dak_komponen_sub,
+		'kode_dak_rincian' => $row->kode_dak_rincian,
+		'nama_dak_rincian' => $row->nama_dak_rincian,
+		'id_satuan' => $row->id_satuan,
+		'id_jenis_output' => $row->id_jenis_output,
 		'created_by' => $row->created_by,
 		'created_date' => $row->created_date,
 		'updated_by' => $row->updated_by,
@@ -75,8 +78,11 @@ class M_dak_rincian extends CI_Controller
             'button' => 'Create',
             'action' => site_url('m_dak_rincian/create_action'),
 	    'id_dak_rincian' => set_value('id_dak_rincian'),
-	    'id_dak_menu_sub' => set_value('id_dak_menu_sub'),
-	    'nama' => set_value('nama'),
+	    'id_dak_komponen_sub' => set_value('id_dak_komponen_sub'),
+	    'kode_dak_rincian' => set_value('kode_dak_rincian'),
+	    'nama_dak_rincian' => set_value('nama_dak_rincian'),
+	    'id_satuan' => set_value('id_satuan'),
+	    'id_jenis_output' => set_value('id_jenis_output'),
 	    'created_by' => set_value('created_by'),
 	    'created_date' => set_value('created_date'),
 	    'updated_by' => set_value('updated_by'),
@@ -94,8 +100,11 @@ class M_dak_rincian extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_dak_menu_sub' => $this->input->post('id_dak_menu_sub',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
+		'id_dak_komponen_sub' => $this->input->post('id_dak_komponen_sub',TRUE),
+		'kode_dak_rincian' => $this->input->post('kode_dak_rincian',TRUE),
+		'nama_dak_rincian' => $this->input->post('nama_dak_rincian',TRUE),
+		'id_satuan' => $this->input->post('id_satuan',TRUE),
+		'id_jenis_output' => $this->input->post('id_jenis_output',TRUE),
 		'created_by' => $this->input->post('created_by',TRUE),
 		'created_date' => $this->input->post('created_date',TRUE),
 		'updated_by' => $this->input->post('updated_by',TRUE),
@@ -121,8 +130,11 @@ class M_dak_rincian extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('m_dak_rincian/update_action'),
 		'id_dak_rincian' => set_value('id_dak_rincian', $row->id_dak_rincian),
-		'id_dak_menu_sub' => set_value('id_dak_menu_sub', $row->id_dak_menu_sub),
-		'nama' => set_value('nama', $row->nama),
+		'id_dak_komponen_sub' => set_value('id_dak_komponen_sub', $row->id_dak_komponen_sub),
+		'kode_dak_rincian' => set_value('kode_dak_rincian', $row->kode_dak_rincian),
+		'nama_dak_rincian' => set_value('nama_dak_rincian', $row->nama_dak_rincian),
+		'id_satuan' => set_value('id_satuan', $row->id_satuan),
+		'id_jenis_output' => set_value('id_jenis_output', $row->id_jenis_output),
 		'created_by' => set_value('created_by', $row->created_by),
 		'created_date' => set_value('created_date', $row->created_date),
 		'updated_by' => set_value('updated_by', $row->updated_by),
@@ -147,8 +159,11 @@ class M_dak_rincian extends CI_Controller
             $this->update($this->input->post('id_dak_rincian', TRUE));
         } else {
             $data = array(
-		'id_dak_menu_sub' => $this->input->post('id_dak_menu_sub',TRUE),
-		'nama' => $this->input->post('nama',TRUE),
+		'id_dak_komponen_sub' => $this->input->post('id_dak_komponen_sub',TRUE),
+		'kode_dak_rincian' => $this->input->post('kode_dak_rincian',TRUE),
+		'nama_dak_rincian' => $this->input->post('nama_dak_rincian',TRUE),
+		'id_satuan' => $this->input->post('id_satuan',TRUE),
+		'id_jenis_output' => $this->input->post('id_jenis_output',TRUE),
 		'created_by' => $this->input->post('created_by',TRUE),
 		'created_date' => $this->input->post('created_date',TRUE),
 		'updated_by' => $this->input->post('updated_by',TRUE),
@@ -187,8 +202,11 @@ class M_dak_rincian extends CI_Controller
 
     public function _rules()
     {
-	$this->form_validation->set_rules('id_dak_menu_sub', 'id dak menu sub', 'trim|required');
-	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
+	$this->form_validation->set_rules('id_dak_komponen_sub', 'id dak komponen sub', 'trim|required');
+	$this->form_validation->set_rules('kode_dak_rincian', 'kode dak rincian', 'trim|required');
+	$this->form_validation->set_rules('nama_dak_rincian', 'nama dak rincian', 'trim|required');
+	$this->form_validation->set_rules('id_satuan', 'id satuan', 'trim|required');
+	$this->form_validation->set_rules('id_jenis_output', 'id jenis output', 'trim|required');
 	$this->form_validation->set_rules('created_by', 'created by', 'trim|required');
 	$this->form_validation->set_rules('created_date', 'created date', 'trim|required');
 	$this->form_validation->set_rules('updated_by', 'updated by', 'trim|required');
@@ -199,61 +217,10 @@ class M_dak_rincian extends CI_Controller
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
-    public function excel()
-    {
-        $this->load->helper('exportexcel');
-        $namaFile = "m_dak_rincian.xls";
-        $judul = "m_dak_rincian";
-        $tablehead = 0;
-        $tablebody = 1;
-        $nourut = 1;
-        //penulisan header
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-        header("Content-Type: application/force-download");
-        header("Content-Type: application/octet-stream");
-        header("Content-Type: application/download");
-        header("Content-Disposition: attachment;filename=" . $namaFile . "");
-        header("Content-Transfer-Encoding: binary ");
-
-        xlsBOF();
-
-        $kolomhead = 0;
-        xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Dak Menu Sub");
-	xlsWriteLabel($tablehead, $kolomhead++, "Nama");
-	xlsWriteLabel($tablehead, $kolomhead++, "Created By");
-	xlsWriteLabel($tablehead, $kolomhead++, "Created Date");
-	xlsWriteLabel($tablehead, $kolomhead++, "Updated By");
-	xlsWriteLabel($tablehead, $kolomhead++, "Updated Date");
-	xlsWriteLabel($tablehead, $kolomhead++, "Isdeleted");
-
-	foreach ($this->M_dak_rincian_model->get_all() as $data) {
-            $kolombody = 0;
-
-            //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
-            xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->id_dak_menu_sub);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->nama);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->created_by);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->created_date);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_by);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_date);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->isdeleted);
-
-	    $tablebody++;
-            $nourut++;
-        }
-
-        xlsEOF();
-        exit();
-    }
-
 }
 
 /* End of file M_dak_rincian.php */
 /* Location: ./application/controllers/M_dak_rincian.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2020-07-17 17:36:57 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2020-09-02 10:54:57 */
 /* http://harviacode.com */

@@ -3,7 +3,7 @@
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
-                <h2>Master Menu Rincian Read</h2>
+                <h2>M_dak_rincian Read</h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                     <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -13,8 +13,11 @@
             <div class="panel-container show">
                 <div class="panel-content">
         <table class="table table-striped">
-	    <tr><td>Id Dak Menu Sub</td><td><?php echo $id_dak_menu_sub; ?></td></tr>
-	    <tr><td>Nama</td><td><?php echo $nama; ?></td></tr>
+	    <tr><td>Id Dak Komponen Sub</td><td><?php echo $id_dak_komponen_sub; ?></td></tr>
+	    <tr><td>Kode Dak Rincian</td><td><?php echo $kode_dak_rincian; ?></td></tr>
+	    <tr><td>Nama Dak Rincian</td><td><?php echo $nama_dak_rincian; ?></td></tr>
+	    <tr><td>Id Satuan</td><td><?php echo $id_satuan; ?></td></tr>
+	    <tr><td>Id Jenis Output</td><td><?php echo $id_jenis_output; ?></td></tr>
 	    <tr><td>Created By</td><td><?php echo $created_by; ?></td></tr>
 	    <tr><td>Created Date</td><td><?php echo $created_date; ?></td></tr>
 	    <tr><td>Updated By</td><td><?php echo $updated_by; ?></td></tr>

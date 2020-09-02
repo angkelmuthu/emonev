@@ -34,6 +34,27 @@ class T_dak_rincian extends CI_Controller
 		}
 	}
 
+	// function fetch_komponen($id_alokasi)
+	// {
+	// 	$data = array(
+	// 		'komponen' => $this->T_dak_rincian_model->fetch_komponen($id_alokasi),
+	// 	);
+	// }
+
+	function fetch_subkomponen()
+	{
+		if ($this->input->post('id_dak_komponen')) {
+			echo $this->T_dak_rincian_model->fetch_subkomponen($this->input->post('id_dak_komponen'));
+		}
+	}
+
+	function fetch_rincian()
+	{
+		if ($this->input->post('id_dak_sub_komponen')) {
+			echo $this->T_dak_rincian_model->fetch_rincian($this->input->post('id_dak_sub_komponen'));
+		}
+	}
+
 	public function read($id)
 	{
 		$row = $this->T_dak_rincian_model->get_by_id($id);
@@ -74,8 +95,9 @@ class T_dak_rincian extends CI_Controller
 		}
 	}
 
-	public function create()
+	public function create($id_alokasi)
 	{
+		$row = $this->T_dak_rincian_model->get_valokasi($id_alokasi);
 		$data = array(
 			'button' => 'Create',
 			'action' => site_url('t_dak_rincian/create_action'),
@@ -103,6 +125,15 @@ class T_dak_rincian extends CI_Controller
 			'updated_by' => set_value('updated_by'),
 			'updated_date' => set_value('updated_date'),
 			'isdeleted' => set_value('isdeleted'),
+			'id_dak_alokasi' => $row->id_dak_alokasi,
+			'id_satker' => $row->id_satker,
+			'satker' => $row->satker,
+			'tahun' => $row->tahun,
+			'nilai_alokasi' => $row->nilai_alokasi,
+			'sisa_alokasi' => $row->sisa_alokasi,
+			'id_dak_sub_bidang' => $row->id_dak_sub_bidang,
+			'nama_dak_sub_bidang' => $row->nama_dak_sub_bidang,
+			'komponen' => $this->T_dak_rincian_model->fetch_komponen($id_alokasi),
 		);
 		$this->template->load('template', 't_dak_rincian/t_dak_rincian_form', $data);
 	}

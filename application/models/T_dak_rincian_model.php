@@ -27,6 +27,51 @@ class T_dak_rincian_model extends CI_Model
         $this->db->where('id_dak_alokasi', $id_alokasi);
         return $this->db->get('v_dak_alokasi')->row();
     }
+    function get_valokasi($id_alokasi)
+    {
+        $this->db->select('a.*,a.nilai_alokasi-ifnull(sum(b.total),0) AS sisa_alokasi');
+        $this->db->from('v_dak_alokasi a');
+        $this->db->join('t_dak_rincian b', 'a.id_dak_alokasi=b.id_dak_alokasi', 'left');
+        $this->db->where('a.id_dak_alokasi', $id_alokasi);
+        return $this->db->get()->row();
+    }
+
+    function fetch_komponen($id_alokasi)
+    {
+        $this->db->select("a.id_dak_komponen,a.nama_dak_komponen");
+        $this->db->from("m_dak_komponen a");
+        $this->db->join("m_dak_bidang_sub b", "a.id_dak_sub_bidang=b.id_dak_sub_bidang", "left");
+        $this->db->join("m_dak_alokasi c", "b.id_dak_sub_bidang=c.id_dak_sub_bidang", "left");
+        $this->db->where("c.id_dak_alokasi", $id_alokasi);
+        $this->db->order_by("a.nama_dak_komponen", "ASC");
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function fetch_subkomponen($id_dak_komponen)
+    {
+        $this->db->where('id_dak_komponen', $id_dak_komponen);
+        $this->db->order_by('nama_dak_komponen_sub', 'ASC');
+        $query = $this->db->get('m_dak_komponen_sub');
+        $output = '<option value="">Select Sub Komponen</option>';
+        foreach ($query->result() as $row) {
+            $output .= '<option value="' . $row->id_dak_komponen_sub . '">' . $row->nama_dak_komponen_sub . '</option>';
+        }
+        return $output;
+    }
+
+    function fetch_rincian($id_dak_sub_komponen)
+    {
+        $this->db->where('id_dak_komponen_sub', $id_dak_sub_komponen);
+        $this->db->order_by('nama_dak_rincian', 'ASC');
+        $query = $this->db->get('m_dak_rincian');
+        $output = '<option value="">Select Rincian Kegiatan</option>';
+        foreach ($query->result() as $row) {
+            $output .= '<option value="' . $row->id_dak_rincian . '">' . $row->nama_dak_rincian . '</option>';
+        }
+        return $output;
+    }
+
     // get all
     function get_all()
     {
