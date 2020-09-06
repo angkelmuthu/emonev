@@ -78,7 +78,7 @@
                                             <td><?php echo $m_dak_alokasi->updated_date ?></td> -->
                                             <td style="text-align:center" width="200px">
                                                 <?php
-                                                echo anchor(site_url('t_dak_rincian/rincian/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-sm waves-effect waves-themed"');
+                                                echo anchor(site_url('t_dak_rincian/rincian/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i> Rincian Alokasi', 'class="btn btn-info btn-sm waves-effect waves-themed"');
                                                 ?>
                                             </td>
                                         </tr>

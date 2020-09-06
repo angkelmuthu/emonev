@@ -18,9 +18,13 @@ class T_dak_rincian_model extends CI_Model
     // datatables
     function get_rincian($id_alokasi)
     {
-        $this->db->where('id_dak_alokasi', $id_alokasi);
-        $this->db->order_by('created_date', $this->order);
-        return $this->db->get('t_dak_rincian')->result();
+        $this->db->select('a.id_rincian,a.menu_kegiatan,a.kegiatan,a.harga_satuan,a.volume,a.total,a.sarana,a.created_by,a.created_date,a.nip_pengisi,a.nama_pengisi,a.jabatan_pengisi,b.nama_dak_rincian,b.nama_dak_komponen_sub,b.nama_dak_komponen,b.satuan,nama_jenis_output,c.nama_alkes');
+        $this->db->from('t_dak_rincian a');
+        $this->db->join('v_dak_rincian b', 'a.id_dak_rincian=b.id_dak_rincian', 'left');
+        $this->db->join('m_alkes c', 'a.id_alkes=c.id_alkes', 'left');
+        $this->db->where('a.id_dak_alokasi', $id_alokasi);
+        $this->db->order_by('a.created_date', $this->order);
+        return $this->db->get()->result();
     }
     function get_alokasi($id_alokasi)
     {
@@ -59,6 +63,91 @@ class T_dak_rincian_model extends CI_Model
         }
         return $output;
     }
+    function fetch_fasyankes($fasyankes)
+    {
+        $filter = strlen($this->session->userdata('id_satker'));
+
+        if ($fasyankes == 'puskesmas') {
+            $nama_satker = $this->session->userdata('nama_satker');
+            if ($filter == 2) {
+                $this->db->like('provinsi', $nama_satker);
+            } else {
+                $this->db->like('kabupaten', $nama_satker);
+            }
+            $this->db->order_by('nama', 'ASC');
+            $query = $this->db->get('m_puskesmas');
+            $output = '<option value="">Select Lokasi Puskesmas</option>';
+            foreach ($query->result() as $row) {
+                $output .= '<option value="' . $row->kode . '">' . $row->nama . '</option>';
+            }
+        } else {
+            if ($filter <= 2) {
+                $id_provinsi = $this->session->userdata('id_provinsi');
+                $this->db->where('id_provinsi', $id_provinsi);
+            } else {
+                $id_kabupaten = $this->session->userdata('id_kota_kabupaten');
+                $this->db->where('id_kota_kabupaten', $id_kabupaten);
+            }
+            $this->db->order_by('nama_rs', 'ASC');
+            $query = $this->db->get('m_rumah_sakit');
+            $output = '<option value="">Select Lokasi RS</option>';
+            foreach ($query->result() as $row) {
+                $output .= '<option value="' . $row->kode_rs . '">' . $row->nama_rs . '</option>';
+            }
+        }
+        return $output;
+    }
+    function fetch_instalasi($fasyankes)
+    {
+        if ($fasyankes == 'puskesmas') {
+            $this->db->where('jns', 'PKM');
+        } else {
+            $this->db->where('jns', 'RS');
+        }
+        $this->db->order_by('nama_instalasi', 'ASC');
+        $query = $this->db->get('v_sarana_instalasi');
+        $output = '<option value="">Select Installasi</option>';
+        foreach ($query->result() as $row) {
+            $output .= '<option value="' . $row->kode_instalasi . '">' . $row->nama_instalasi . '</option>';
+        }
+        return $output;
+    }
+    function fetch_ruangan($instalasi)
+    {
+        $this->db->where('kode_instalasi', $instalasi);
+        $this->db->order_by('nama_ruangan', 'ASC');
+        $query = $this->db->get('v_sarana_ruangan');
+        $output = '<option value="">Select Ruangan</option>';
+        foreach ($query->result() as $row) {
+            $output .= '<option value="' . $row->kode_ruangan . '">' . $row->nama_ruangan . '</option>';
+        }
+
+        return $output;
+    }
+    function fetch_sarana($ruangan)
+    {
+        $this->db->where('kode_ruangan', $ruangan);
+        $this->db->order_by('nama_sarana', 'ASC');
+        $query = $this->db->get('v_sarana');
+        $output = '<option value="">Select Sarana</option>';
+        foreach ($query->result() as $row) {
+            $output .= '<option value="' . $row->kode_sarana . '">' . $row->nama_sarana . '</option>';
+        }
+
+        return $output;
+    }
+    function fetch_alkes($sarana)
+    {
+        $this->db->where('kode_sarana', $sarana);
+        $this->db->order_by('nama_alkes', 'ASC');
+        $query = $this->db->get('m_alkes');
+        $output = '<option value="">Select Alat Kesehatan</option>';
+        foreach ($query->result() as $row) {
+            $output .= '<option value="' . $row->id_alkes . '">' . $row->nama_alkes . '</option>';
+        }
+
+        return $output;
+    }
 
     function fetch_rincian($id_dak_sub_komponen)
     {
@@ -72,6 +161,25 @@ class T_dak_rincian_model extends CI_Model
         return $output;
     }
 
+    function fetch_vrincian($id_dak_rincian)
+    {
+        $this->db->where('id_dak_rincian', $id_dak_rincian);
+        $query = $this->db->get('v_dak_rincian');
+        foreach ($query->result() as $row) {
+            $hasil = array(
+                'id_satuan' => $row->id_satuan,
+                'satuan' => $row->satuan,
+                'id_jenis_output' => $row->id_jenis_output,
+                'nama_jenis_output' => $row->nama_jenis_output,
+            );
+        }
+        return $hasil;
+    }
+    function get_alkes()
+    {
+        $this->db->order_by('nama_alkes', $this->order);
+        return $this->db->get('m_alkes')->result();
+    }
     // get all
     function get_all()
     {

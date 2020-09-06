@@ -1,4 +1,5 @@
 <main id="js-page-content" role="main" class="page-content">
+	<?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
 	<div class="row">
 		<div class="col-xl-12">
 			<div id="panel-1" class="panel">
@@ -12,6 +13,21 @@
 				</div>
 				<div class="panel-container show">
 					<div class="panel-content">
+						<?php
+						$this->db->where('id_rincian', $this->uri->segment(3));
+						$result = $this->db->get('v_rincian')->result();
+						foreach ($result as $dt) {
+							$id_rincian = $dt->id_rincian;
+							$nama_menu_kegiatan = $dt->nama_menu_kegiatan;
+							$id_dak_alokasi = $dt->id_dak_alokasi;
+							$nama_dak_rincian = $dt->nama_dak_rincian;
+							$id_dak_rincian = $dt->id_dak_rincian;
+							$volume = $dt->volume;
+							$harga_satuan = $dt->harga_satuan;
+							$satuan = $dt->satuan;
+							$total = $dt->total;
+						}
+						?>
 						<form action="<?php echo $action; ?>" method="post">
 
 							<table class='table table-striped'>
@@ -39,18 +55,18 @@
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Satuan <?php echo form_error('realisasi_satuan') ?></td>
+									<td width='200'>Satuan <br><span class="help-block">*wajib diisi</span></td>
 									<td>Alokasi : <input type="text" class="form-control" value="<?php echo $satuan; ?>" readonly /></td>
-									<td>Realisasi : <input type="text" class="form-control" name="realisasi_satuan" id="realisasi_satuan" placeholder="Realisasi Satuan" value="<?php echo $realisasi_satuan; ?>" /></td>
+									<td>Realisasi : <?php echo select2_dinamis('realisasi_satuan', 'm_satuan', 'satuan', 'id_satuan') ?></td>
 								</tr>
 								<tr>
-									<td width='200'>Volume <?php echo form_error('realisasi_fisik') ?></td>
+									<td width='200'>Volume <br><span class="help-block">*wajib diisi</span></td>
 									<td>Alokasi : <input type="text" class="form-control" value="<?php echo $volume; ?>" readonly /></td>
-									<td>Realisasi : <input type="text" class="form-control" name="realisasi_fisik" id="realisasi_fisik" placeholder="Realisasi Fisik" value="<?php echo $realisasi_fisik; ?>" /></td>
+									<td>Realisasi : <input type="number" min="0" class="form-control" name="realisasi_fisik" id="realisasi_fisik" placeholder="Realisasi Fisik" value="<?php echo $realisasi_fisik; ?>" /></td>
 								</tr>
 
 								<tr>
-									<td width='200'>Harga Satuan <?php echo form_error('realisasi_harga_satuan') ?></td>
+									<td width='200'>Harga Satuan <br><span class="help-block">*wajib diisi</span></td>
 									<td>Alokasi : <input type="text" class="form-control" value="<?php echo $harga_satuan; ?>" readonly /></td>
 									<td>Realisasi : <input type="text" class="form-control" name="realisasi_harga_satuan" id="realisasi_harga_satuan" placeholder="Realisasi Harga Satuan" value="<?php echo $realisasi_harga_satuan; ?>" /></td>
 								</tr>
@@ -64,18 +80,18 @@
 									<td colspan="2"><input type="text" class="form-control" name="realisasi_persen" id="realisasi_persen" placeholder="Realisasi Persen" value="" readonly /></td>
 								</tr>
 								<tr>
-									<td width='200'>Progress <?php echo form_error('id_progress') ?></td>
+									<td width='200'>Progress <br><span class="help-block">*wajib diisi</span></td>
 									<td colspan="2">
 										<!-- <input type="text" class="form-control" name="id_progress" id="id_progress" placeholder="Id Progress" value="<?php echo $id_progress; ?>" /> -->
 										<?php echo select2_dinamis('id_progress', 'm_progress_jenis', 'nama_progres', 'id_progres_jenis') ?>
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Hambatan <?php echo form_error('id_rincian_hambatan') ?></td>
+									<td width='200'>Hambatan <br><span class="help-block">*wajib diisi</span></td>
 									<td colspan="2"><?php echo select2_dinamis('id_rincian_hambatan', 'm_hambatan_rincian', 'nama_rincian_hambatan', 'id_rincian_hambatan') ?></td>
 								</tr>
 								<tr>
-									<td width='200'>Rencana Tindak Lanjut <?php echo form_error('rencana_tindak_lanjut') ?></td>
+									<td width='200'>Rencana Tindak Lanjut <br><span class="help-block">*wajib diisi</span></td>
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="rencana_tindak_lanjut" id="rencana_tindak_lanjut" placeholder="Rencana Tindak Lanjut"><?php echo $rencana_tindak_lanjut; ?></textarea></td>
 								</tr>
 								<tr>
@@ -85,6 +101,22 @@
 								<tr>
 									<td width='200'>Keterangan <?php echo form_error('keterangan') ?></td>
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
+								</tr>
+								<tr>
+									<td width='200'>NIP <br><span class="help-block">*wajib diisi</span></td>
+									<td colspan="2"><input type="text" class="form-control" name="nip_pengisi" id="nip_pengisi" placeholder="NIP" value="<?php echo $nip_pengisi; ?>" />
+										<span class="help-block">*diisi dengan NIP Petugas Penginput</span>
+									</td>
+								</tr>
+								<tr>
+									<td width='200'>Nama Lengkap <br><span class="help-block">*wajib diisi</span></td>
+									<td colspan="2"><input type="text" class="form-control" name="nama_pengisi" id="nama_pengisi" placeholder="Nama Lengkap" value="<?php echo $nama_pengisi; ?>" />
+										<span class="help-block">*diisi dengan Nama Lengkap Petugas Penginput</span></td>
+								</tr>
+								<tr>
+									<td width='200'>Jabatan <br><span class="help-block">*wajib diisi</span></td>
+									<td colspan="2"><input type="text" class="form-control" name="jabatan_pengisi" id="jabatan_pengisi" placeholder="Jabatan" value="<?php echo $jabatan_pengisi; ?>" />
+										<span class="help-block">*diisi dengan Jabatan Petugas Penginput</span></td>
 								</tr>
 								<input type="hidden" name="id_rincian" value="<?php echo $this->uri->segment(3); ?>" />
 								<input type="hidden" name="id_user" value="<?php echo $this->session->userdata('id_users') ?>" />

@@ -3970,11 +3970,11 @@
                 }
             },
             currency: {
-                prefix: "",
-                groupSeparator: ".",
+                //prefix: "",
+                groupSeparator: ",",
                 alias: "numeric",
-                placeholder: "0",
-                autoGroup: true,
+                //placeholder: "",
+                //autoGroup: true,
                 digits: 0,
                 digitsOptional: false,
                 clearMaskOnLostFocus: false

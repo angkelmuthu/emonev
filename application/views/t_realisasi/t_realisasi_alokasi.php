@@ -54,50 +54,54 @@
                         </form>
                         <?php
                         if (isset($_POST['submit'])) {
-                            $this->db->select('*');
-                            $this->db->where('id_dak_alokasi', $_POST['idalokasi']);
-                            $query = $this->db->get('v_rincian');
+                            $this->db->from('t_dak_rincian a');
+                            $this->db->join('v_dak_rincian b', 'a.id_dak_rincian=b.id_dak_rincian', 'left');
+                            $this->db->join('m_alkes c', 'a.id_alkes=c.id_alkes', 'left');
+                            $this->db->where('a.id_dak_alokasi', $_POST['idalokasi']);
+                            $query = $this->db->get();
                             $num = $query->num_rows();
                             if ($num > 0) {
                         ?>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped" id="example">
-                                        <thead class="thead-themed">
-                                            <tr>
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th>Komponen</th>
+                                                <th>Komponen Sub</th>
                                                 <th>Kegiatan</th>
+                                                <th>Sub Kegiatan</th>
                                                 <th>Rincian</th>
-                                                <th>Lokasi</th>
-                                                <th>
-                                                    Nilai Alokasi
-                                                    <small class="d-block fs-sm text-muted">
-                                                        (Rupiah)
-                                                    </small>
-                                                </th>
-                                                <th>Action</th>
+                                                <th>Alkes</th>
+                                                <th>Jenis Output</th>
+                                                <th>Harga Satuan (Rp)</th>
+                                                <th>Volume</th>
+                                                <th>Satuan</th>
+                                                <th>Total (Rp)</th>
+                                                <th>Sarana</th>
+                                                <th width="200px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody><?php
                                                 foreach ($query->result() as $dt) {
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $dt->nama_menu_kegiatan ?></td>
-                                                    <td><?php if (!empty($dt->id_dak_rincian)) {
-                                                            echo $dt->nama_dak_rincian;
-                                                        } else {
-                                                            echo $dt->nama_alkes;
-                                                        } ?></td>
-                                                    <td><?php echo $dt->nama_rs_instalasi  ?></td>
-                                                    <?php if (!empty($dt->total)) : ?>
-                                                        <td><?php echo angka($dt->total) ?></td>
-                                                        <td style="text-align:center" width="200px">
-                                                            <?php
-                                                            echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian), '<i class="fal fa-eye" aria-hidden="true"></i> Input Realisasi', 'class="btn btn-success btn-sm waves-effect waves-themed"');
-                                                            ?>
-                                                        </td>
-                                                    <?php else : ?>
-                                                        <td></td>
-                                                        <td>Rincian Kegitan Belum diisi.</td>
-                                                    <?php endif; ?>
+                                                    <td><?php echo $dt->nama_dak_komponen ?></td>
+                                                    <td><?php echo $dt->nama_dak_komponen_sub ?></td>
+                                                    <td><?php echo $dt->menu_kegiatan ?></td>
+                                                    <td><?php echo $dt->kegiatan ?></td>
+                                                    <td><?php echo $dt->nama_dak_rincian ?></td>
+                                                    <td><?php echo $dt->nama_alkes ?></td>
+                                                    <td><?php echo $dt->nama_jenis_output ?></td>
+                                                    <td><?php echo angka($dt->harga_satuan) ?></td>
+                                                    <td><?php echo $dt->volume ?></td>
+                                                    <td><?php echo $dt->satuan ?></td>
+                                                    <td><?php echo angka($dt->total) ?></td>
+                                                    <td><?php echo $dt->sarana ?></td>
+                                                    <td style="text-align:center" width="200px">
+                                                        <?php
+                                                        //echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian), '<i class="fal fa-eye" aria-hidden="true"></i> Input Realisasi', 'class="btn btn-success btn-sm waves-effect waves-themed"');
+                                                        ?>
+                                                    </td>
                                                 </tr>
                                             <?php
                                                 }
@@ -155,17 +159,6 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example').DataTable({
-            "columnDefs": [{
-                "visible": false,
-                "targets": 0
-            }],
-            order: [
-                [0, 'asc']
-            ],
-            rowGroup: {
-                dataSrc: 0
-            }
-        });
+        $('#example').DataTable();
     });
 </script>

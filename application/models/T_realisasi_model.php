@@ -40,10 +40,11 @@ class T_realisasi_model extends CI_Model
     // get all
     function get_realisasi($idrincian)
     {
-        $this->db->select('a.*,b.satuan,c.nama_rincian_hambatan');
+        $this->db->select('a.*,b.satuan,c.nama_rincian_hambatan,d.nama_progres');
         $this->db->from('t_realisasi a');
-        $this->db->join('m_satuan b', 'a.realisasi_satuan=b.kdsatuan', 'left');
+        $this->db->join('m_satuan b', 'a.realisasi_satuan=b.id_satuan', 'left');
         $this->db->join('m_hambatan_rincian c', 'a.id_rincian_hambatan=c.id_rincian_hambatan', 'left');
+        $this->db->join('m_progress_jenis d', 'a.id_progress=d.id_progres_jenis', 'left');
         $this->db->where('a.id_rincian', $idrincian);
         $this->db->order_by('a.id_realisasi', 'ASC');
         return $this->db->get()->result();
@@ -51,8 +52,11 @@ class T_realisasi_model extends CI_Model
 
     function get_rincian($idrincian)
     {
-        $this->db->where('id_rincian', $idrincian);
-        return $this->db->get('v_rincian')->row();
+        $this->db->from('v_rincian a');
+        $this->db->join('v_dak_rincian b', 'a.id_dak_rincian=b.id_dak_rincian', 'left');
+        $this->db->join('v_dak_alokasi c', 'a.id_dak_alokasi=c.id_dak_alokasi', 'left');
+        $this->db->where('a.id_rincian', $idrincian);
+        return $this->db->get()->row();
     }
 
     // get data by id

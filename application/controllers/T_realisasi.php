@@ -27,12 +27,32 @@ class T_realisasi extends CI_Controller
 			'nama_menu_kegiatan' => $row->nama_menu_kegiatan,
 			'id_dak_alokasi' => $row->id_dak_alokasi,
 			'nama_dak_rincian' => $row->nama_dak_rincian,
+			'id_jenis_output' => $row->id_jenis_output,
+			'nama_jenis_output' => $row->nama_jenis_output,
 			'nama_alkes' => $row->nama_alkes,
 			'id_dak_rincian' => $row->id_dak_rincian,
 			'volume' => $row->volume,
 			'harga_satuan' => $row->harga_satuan,
 			'satuan' => $row->satuan,
 			'total' => $row->total,
+			'nama_sarana' => $row->nama_sarana,
+			'nama_ruangan' => $row->nama_ruangan,
+			'nama_instalasi' => $row->nama_instalasi,
+			'nip_pengisi' => $row->nip_pengisi,
+			'nama_pengisi' => $row->nama_pengisi,
+			'jabatan_pengisi' => $row->jabatan_pengisi,
+			'created_by' => $row->created_by,
+			'created_date' => $row->created_date,
+			// alokasi
+			'id_alokasi' => $row->id_dak_alokasi,
+			'id_dak_sub_bidang' => $row->id_dak_sub_bidang,
+			'id_dak_kelompok' => $row->id_dak_kelompok,
+			'id_satker' => $row->id_satker,
+			'tahun' => $row->tahun,
+			'nilai_alokasi' => $row->nilai_alokasi,
+			'nama_dak_sub_bidang' => $row->nama_dak_sub_bidang,
+			'dak_kelompok' => $row->dak_kelompok,
+			'satker' => $row->satker,
 			'realisasi' => $this->T_realisasi_model->get_realisasi($idrincian),
 		);
 		$this->template->load('template', 't_realisasi/t_realisasi_list', $data);
@@ -87,18 +107,10 @@ class T_realisasi extends CI_Controller
 
 	public function create()
 	{
-		$idrincian = $this->uri->segment(3);
-		$row = $this->T_realisasi_model->get_rincian($idrincian);
+		//$idrincian = $this->uri->segment(3);
+		//$row = $this->T_realisasi_model->get_rincian($idrincian);
 		$data = array(
-			'id_rincian' => $row->id_rincian,
-			'nama_menu_kegiatan' => $row->nama_menu_kegiatan,
-			'id_dak_alokasi' => $row->id_dak_alokasi,
-			'nama_dak_rincian' => $row->nama_dak_rincian,
-			'id_dak_rincian' => $row->id_dak_rincian,
-			'volume' => $row->volume,
-			'harga_satuan' => $row->harga_satuan,
-			'satuan' => $row->satuan,
-			'total' => $row->total,
+
 			'button' => 'Create',
 			'action' => site_url('t_realisasi/create_action'),
 			'id_realisasi' => set_value('id_realisasi'),
@@ -115,11 +127,23 @@ class T_realisasi extends CI_Controller
 			'rencana_tindak_lanjut' => set_value('rencana_tindak_lanjut'),
 			'pemanfaatan' => set_value('pemanfaatan'),
 			'keterangan' => set_value('keterangan'),
+			'nip_pengisi' => set_value('nip_pengisi'),
+			'nama_pengisi' => set_value('nama_pengisi'),
+			'jabatan_pengisi' => set_value('jabatan_pengisi'),
 			'created_by' => set_value('created_by'),
 			'created_date' => set_value('created_date'),
 			'updated_by' => set_value('updated_by'),
 			'updated_date' => set_value('updated_date'),
 			'isdeleted' => set_value('isdeleted'),
+			// 'id_rincian' => $row->id_rincian,
+			// 'nama_menu_kegiatan' => $row->nama_menu_kegiatan,
+			// 'id_dak_alokasi' => $row->id_dak_alokasi,
+			// 'nama_dak_rincian' => $row->nama_dak_rincian,
+			// 'id_dak_rincian' => $row->id_dak_rincian,
+			// 'volume' => $row->volume,
+			// 'harga_satuan' => $row->harga_satuan,
+			// 'satuan' => $row->satuan,
+			// 'total' => $row->total,
 		);
 		$this->template->load('template', 't_realisasi/t_realisasi_form', $data);
 	}
@@ -129,7 +153,11 @@ class T_realisasi extends CI_Controller
 		$this->_rules();
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->create();
+			$this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> Maaf, Data yang anda masukkan tidak lengkap.</strong></div>');
+			redirect(site_url('t_realisasi/create/' . $this->input->post('id_rincian')));
 		} else {
 			$data = array(
 				'id_rincian' => $this->input->post('id_rincian', TRUE),
@@ -145,6 +173,9 @@ class T_realisasi extends CI_Controller
 				'rencana_tindak_lanjut' => $this->input->post('rencana_tindak_lanjut', TRUE),
 				'pemanfaatan' => $this->input->post('pemanfaatan', TRUE),
 				'keterangan' => $this->input->post('keterangan', TRUE),
+				'nip_pengisi' => $this->input->post('nip_pengisi', TRUE),
+				'nama_pengisi' => $this->input->post('nama_pengisi', TRUE),
+				'jabatan_pengisi' => $this->input->post('jabatan_pengisi', TRUE),
 				'created_by' => $this->input->post('created_by', TRUE),
 				'created_date' => $this->input->post('created_date', TRUE),
 				'updated_by' => $this->input->post('updated_by', TRUE),
@@ -183,6 +214,9 @@ class T_realisasi extends CI_Controller
 				'rencana_tindak_lanjut' => set_value('rencana_tindak_lanjut', $row->rencana_tindak_lanjut),
 				'pemanfaatan' => set_value('pemanfaatan', $row->pemanfaatan),
 				'keterangan' => set_value('keterangan', $row->keterangan),
+				'nip_pengisi' => set_value('nip_pengisi'),
+				'nama_pengisi' => set_value('nama_pengisi'),
+				'jabatan_pengisi' => set_value('jabatan_pengisi'),
 				'created_by' => set_value('created_by', $row->created_by),
 				'created_date' => set_value('created_date', $row->created_date),
 				'updated_by' => set_value('updated_by', $row->updated_by),
@@ -220,6 +254,9 @@ class T_realisasi extends CI_Controller
 				'rencana_tindak_lanjut' => $this->input->post('rencana_tindak_lanjut', TRUE),
 				'pemanfaatan' => $this->input->post('pemanfaatan', TRUE),
 				'keterangan' => $this->input->post('keterangan', TRUE),
+				'nip_pengisi' => $this->input->post('nip_pengisi', TRUE),
+				'nama_pengisi' => $this->input->post('nama_pengisi', TRUE),
+				'jabatan_pengisi' => $this->input->post('jabatan_pengisi', TRUE),
 				'created_by' => $this->input->post('created_by', TRUE),
 				'created_date' => $this->input->post('created_date', TRUE),
 				'updated_by' => $this->input->post('updated_by', TRUE),
@@ -269,8 +306,11 @@ class T_realisasi extends CI_Controller
 		$this->form_validation->set_rules('id_progress', 'id progress', 'trim|required');
 		$this->form_validation->set_rules('id_rincian_hambatan', 'id rincian hambatan', 'trim|required');
 		$this->form_validation->set_rules('rencana_tindak_lanjut', 'rencana tindak lanjut', 'trim|required');
-		$this->form_validation->set_rules('pemanfaatan', 'pemanfaatan', 'trim|required');
-		$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+		//$this->form_validation->set_rules('pemanfaatan', 'pemanfaatan', 'trim|required');
+		//$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+		$this->form_validation->set_rules('nip_pengisi', 'nip pengisi', 'trim|required');
+		$this->form_validation->set_rules('nama_pengisi', 'nama pengisi', 'trim|required');
+		$this->form_validation->set_rules('jabatan_pengisi', 'jabatan pengisi', 'trim|required');
 		$this->form_validation->set_rules('created_by', 'created by', 'trim|required');
 		$this->form_validation->set_rules('created_date', 'created date', 'trim|required');
 		$this->form_validation->set_rules('updated_by', 'updated by', 'trim|required');
