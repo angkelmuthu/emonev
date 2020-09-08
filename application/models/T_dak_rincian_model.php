@@ -106,7 +106,7 @@ class T_dak_rincian_model extends CI_Model
         }
         $this->db->order_by('nama_instalasi', 'ASC');
         $query = $this->db->get('v_sarana_instalasi');
-        $output = '<option value="">Select Installasi</option>';
+        $output = '<option value="">Select Pelayanan</option>';
         foreach ($query->result() as $row) {
             $output .= '<option value="' . $row->kode_instalasi . '">' . $row->nama_instalasi . '</option>';
         }
@@ -117,7 +117,7 @@ class T_dak_rincian_model extends CI_Model
         $this->db->where('kode_instalasi', $instalasi);
         $this->db->order_by('nama_ruangan', 'ASC');
         $query = $this->db->get('v_sarana_ruangan');
-        $output = '<option value="">Select Ruangan</option>';
+        $output = '<option value="">Select Sub Pelayanan</option>';
         foreach ($query->result() as $row) {
             $output .= '<option value="' . $row->kode_ruangan . '">' . $row->nama_ruangan . '</option>';
         }
@@ -129,7 +129,7 @@ class T_dak_rincian_model extends CI_Model
         $this->db->where('kode_ruangan', $ruangan);
         $this->db->order_by('nama_sarana', 'ASC');
         $query = $this->db->get('v_sarana');
-        $output = '<option value="">Select Sarana</option>';
+        $output = '<option value="">Select Ruangan</option>';
         foreach ($query->result() as $row) {
             $output .= '<option value="' . $row->kode_sarana . '">' . $row->nama_sarana . '</option>';
         }

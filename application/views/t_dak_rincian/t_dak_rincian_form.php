@@ -126,13 +126,24 @@
 
 								<?php } ?>
 								<tr>
-									<td width='200'>Installasi <br><span class="help-block">*wajib diisi</span></td>
+									<td width='200'>Pelayanan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-installasi" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
 										<select name="instalasi" class="select2 form-control w-100" id="instalasi">
-											<option value="">Select Installasi</option>
+											<option value="">Select Pelayanan</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td width='200'>Sub Pelayanan <br><span class="help-block">*wajib diisi</span></td>
+									<td>
+										<div class="ajax-loader">
+											<img id="loading-ruangan" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
+										</div>
+										<select name="ruangan" class="select2 form-control w-100" id="ruangan">
+											<option value="">Select Sub Pelayanan</option>
 										</select>
 									</td>
 								</tr>
@@ -140,21 +151,10 @@
 									<td width='200'>Ruangan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
-											<img id="loading-ruangan" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
-										</div>
-										<select name="ruangan" class="select2 form-control w-100" id="ruangan">
-											<option value="">Select Ruangan</option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td width='200'>Sarana <br><span class="help-block">*wajib diisi</span></td>
-									<td>
-										<div class="ajax-loader">
 											<img id="loading-sarana" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
 										<select name="sarana" class="select2 form-control w-100" id="sarana">
-											<option value="">Select Sarana</option>
+											<option value="">Select Ruangan</option>
 										</select>
 									</td>
 								</tr>
@@ -407,9 +407,9 @@
 						}
 					});
 				} else {
-					$('#instalasi').html('<option value="">Select Installasi</option>');
-					$('#ruangan').html('<option value="">Select Ruangan</option>');
-					$('#sarana').html('<option value="">Select Sarana</option>');
+					$('#instalasi').html('<option value="">Select Pelayanan</option>');
+					$('#ruangan').html('<option value="">Select Sub Pelayanan</option>');
+					$('#sarana').html('<option value="">Select Ruangan</option>');
 				}
 			}
 		});
@@ -450,9 +450,9 @@
 					}
 				});
 			} else {
-				$('#instalasi').html('<option value="">Select Installasi</option>');
-				$('#ruangan').html('<option value="">Select Ruangan</option>');
-				$('#sarana').html('<option value="">Select Sarana</option>');
+				$('#instalasi').html('<option value="">Select Pelayanan</option>');
+				$('#ruangan').html('<option value="">Select Sub Pelayanan</option>');
+				$('#sarana').html('<option value="">Select Ruangan</option>');
 			}
 		});
 		$('#instalasi').change(function() {
@@ -475,8 +475,8 @@
 					}
 				});
 			} else {
-				$('#ruangan').html('<option value="">Select Ruangan</option>');
-				$('#sarana').html('<option value="">Select Sarana</option>');
+				$('#ruangan').html('<option value="">Select Sub Pelayanan</option>');
+				$('#sarana').html('<option value="">Select Ruangan</option>');
 			}
 		});
 		$('#ruangan').change(function() {
@@ -499,7 +499,7 @@
 					}
 				});
 			} else {
-				$('#sarana').html('<option value="">Select Sarana</option>');
+				$('#sarana').html('<option value="">Select Ruangan</option>');
 				$('#id_alkes').html('<option value="">Select Alat Kesehatan</option>');
 			}
 		});
