@@ -208,22 +208,26 @@
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td width='200'>NIP <br><span class="help-block">*wajib diisi</span></td>
-									<td><input type="text" class="form-control" name="nip_pengisi" id="nip_pengisi" placeholder="NIP" value="<?php echo $nip_pengisi; ?>" />
-										<span class="help-block">*diisi dengan NIP Petugas Penginput</span>
-									</td>
-								</tr>
-								<tr>
-									<td width='200'>Nama Lengkap <br><span class="help-block">*wajib diisi</span></td>
-									<td><input type="text" class="form-control" name="nama_pengisi" id="nama_pengisi" placeholder="Nama Lengkap" value="<?php echo $nama_pengisi; ?>" />
-										<span class="help-block">*diisi dengan Nama Lengkap Petugas Penginput</span></td>
-								</tr>
-								<tr>
-									<td width='200'>Jabatan <br><span class="help-block">*wajib diisi</span></td>
-									<td><input type="text" class="form-control" name="jabatan_pengisi" id="jabatan_pengisi" placeholder="Jabatan" value="<?php echo $jabatan_pengisi; ?>" />
-										<span class="help-block">*diisi dengan Jabatan Petugas Penginput</span></td>
-								</tr>
+								<?php
+								// /$this->db->from();
+								$this->db->where('id_satker', $this->session->userdata('id_satker'));
+								$query = $this->db->get('m_petugas')->result();
+								// /$num = $query->num_rows();
+								foreach ($query as $dtpetugas) { ?>
+									<tr>
+										<td width='200'>NIP </td>
+										<td><input type="text" class="form-control" name="nip_pengisi" id="nip_pengisi" placeholder="NIP" value="<?php echo $dtpetugas->nip ?>" readonly />
+										</td>
+									</tr>
+									<tr>
+										<td width='200'>Nama Lengkap </td>
+										<td><input type="text" class="form-control" name="nama_pengisi" id="nama_pengisi" placeholder="Nama Lengkap" value="<?php echo $dtpetugas->nama ?>" readonly />
+									</tr>
+									<tr>
+										<td width='200'>Jabatan </td>
+										<td><input type="text" class="form-control" name="jabatan_pengisi" id="jabatan_pengisi" placeholder="Jabatan" value="<?php echo $dtpetugas->jabatan ?>" readonly />
+									</tr>
+								<?php } ?>
 								<tr>
 									<td></td>
 									<td>

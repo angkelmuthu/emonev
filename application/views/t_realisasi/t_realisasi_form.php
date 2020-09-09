@@ -102,22 +102,26 @@
 									<td width='200'>Keterangan <?php echo form_error('keterangan') ?></td>
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
 								</tr>
-								<tr>
-									<td width='200'>NIP <br><span class="help-block">*wajib diisi</span></td>
-									<td colspan="2"><input type="text" class="form-control" name="nip_pengisi" id="nip_pengisi" placeholder="NIP" value="<?php echo $nip_pengisi; ?>" />
-										<span class="help-block">*diisi dengan NIP Petugas Penginput</span>
-									</td>
-								</tr>
-								<tr>
-									<td width='200'>Nama Lengkap <br><span class="help-block">*wajib diisi</span></td>
-									<td colspan="2"><input type="text" class="form-control" name="nama_pengisi" id="nama_pengisi" placeholder="Nama Lengkap" value="<?php echo $nama_pengisi; ?>" />
-										<span class="help-block">*diisi dengan Nama Lengkap Petugas Penginput</span></td>
-								</tr>
-								<tr>
-									<td width='200'>Jabatan <br><span class="help-block">*wajib diisi</span></td>
-									<td colspan="2"><input type="text" class="form-control" name="jabatan_pengisi" id="jabatan_pengisi" placeholder="Jabatan" value="<?php echo $jabatan_pengisi; ?>" />
-										<span class="help-block">*diisi dengan Jabatan Petugas Penginput</span></td>
-								</tr>
+								<?php
+								// /$this->db->from();
+								$this->db->where('id_satker', $this->session->userdata('id_satker'));
+								$query = $this->db->get('m_petugas')->result();
+								// /$num = $query->num_rows();
+								foreach ($query as $dtpetugas) { ?>
+									<tr>
+										<td width='200'>NIP </td>
+										<td colspan="2"><input type="text" class="form-control" name="nip_pengisi" id="nip_pengisi" placeholder="NIP" value="<?php echo $dtpetugas->nip ?>" readonly />
+										</td>
+									</tr>
+									<tr>
+										<td width='200'>Nama Lengkap </td>
+										<td colspan="2"><input type="text" class="form-control" name="nama_pengisi" id="nama_pengisi" placeholder="Nama Lengkap" value="<?php echo $dtpetugas->nama ?>" readonly />
+									</tr>
+									<tr>
+										<td width='200'>Jabatan </td>
+										<td colspan="2"><input type="text" class="form-control" name="jabatan_pengisi" id="jabatan_pengisi" placeholder="Jabatan" value="<?php echo $dtpetugas->jabatan ?>" readonly />
+									</tr>
+								<?php } ?>
 								<input type="hidden" name="id_rincian" value="<?php echo $this->uri->segment(3); ?>" />
 								<input type="hidden" name="id_user" value="<?php echo $this->session->userdata('id_users') ?>" />
 								<input type="hidden" name="created_by" value="<?php echo $this->session->userdata('nama') ?>" />

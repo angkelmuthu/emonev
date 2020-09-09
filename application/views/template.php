@@ -337,9 +337,21 @@
                                     </div>
                                 </div>
                                 <div class="dropdown-divider m-0"></div>
-                                <a href="<?php echo base_url() ?>user/update/<?php echo $this->session->userdata('id_users'); ?>" class="dropdown-item">
-                                    <span data-i18n="drpdwn.reset_layout">Edit Profil</span>
-                                </a>
+                                <?php
+                                // /$this->db->from();
+                                $this->db->where('id_satker', $this->session->userdata('id_satker'));
+                                $query = $this->db->get('m_petugas');
+                                // /$num = $query->num_rows();
+                                if ($query->num_rows() > 0) {
+                                    ?>
+                                    <a href="<?php echo base_url() ?>m_petugas/update/<?php echo $this->session->userdata('id_satker'); ?>" class="dropdown-item">
+                                        <span data-i18n="drpdwn.reset_layout">Edit Profil</span>
+                                    </a>
+                                <?php } else { ?>
+                                    <a href="<?php echo base_url() ?>m_petugas" class="dropdown-item">
+                                        <span data-i18n="drpdwn.reset_layout">Edit Profil</span>
+                                    </a>
+                                <?php } ?>
                                 <!-- <a href="#" class="dropdown-item" data-action="app-reset">
                                     <span data-i18n="drpdwn.reset_layout">Reset Layout</span>
                                 </a> -->

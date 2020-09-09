@@ -34,7 +34,38 @@
                 <div class="panel-container show">
                     <div class="panel-content">
                         <div class="text-center">
-                            <?php echo anchor(site_url('t_dak_rincian/create/' . $id_alokasi), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Alokasi', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
+                            <?php
+                            $this->db->where('id_satker', $this->session->userdata('id_satker'));
+                            $query = $this->db->get('m_petugas');
+                            if ($query->num_rows() > 0) { ?>
+                                <?php echo anchor(site_url('t_dak_rincian/create/' . $id_alokasi), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Alokasi', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
+                            <?php } else { ?>
+                                <button type="button" class="btn btn-primary btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#modal-petugas"><i class="fal fa-plus-square"></i> Tambah Alokasi</button>
+                                <div class="modal fade" id="modal-petugas" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">
+                                                    Informasi
+                                                </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3>Anda belum mengisi Profil Petugas</h3>
+                                                <p>Silahkan Tekan tombol Profi untuk mengisi profil petugas</p>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <a href="<?php echo base_url() ?>m_petugas" class="btn btn-primary">Profil</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+
                         </div>
                         <table class="table table-bordered table-hover table-striped w-100" id="example">
                             <thead class="thead-themed">
@@ -175,8 +206,8 @@
                                             </div>
                                             <!-------------------------------------------------------------->
                                             <?php
-                                            echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
-                                            ?>
+                                                echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
+                                                ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
