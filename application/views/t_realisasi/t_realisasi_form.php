@@ -18,6 +18,7 @@
 						$result = $this->db->get('v_rincian')->result();
 						foreach ($result as $dt) {
 							$id_rincian = $dt->id_rincian;
+							$tahun = $dt->tahun;
 							$nama_menu_kegiatan = $dt->nama_menu_kegiatan;
 							$id_dak_alokasi = $dt->id_dak_alokasi;
 							$nama_dak_rincian = $dt->nama_dak_rincian;
@@ -30,54 +31,72 @@
 						?>
 						<form action="<?php echo $action; ?>" method="post">
 
-							<table class='table table-striped'>
+							<table class='table m-0'>
+								<tr class="bg-info-500">
+									<td colspan="3">Laporan Nilai Realiasi</td>
+								</tr>
 								<tr>
 									<td width='200'>Periode <?php echo form_error('periode') ?></td>
 									<td colspan="2">
 										<div class="frame-wrap">
-											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" name="periode" id="TriwulanI" class="custom-control-input" value="Triwulan I">
-												<label class="custom-control-label" for="TriwulanI">Triwulan I</label>
-											</div>
-											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" name="periode" id="TriwulanII" class="custom-control-input" value="Triwulan II">
-												<label class="custom-control-label" for="TriwulanII">Triwulan II</label>
-											</div>
-											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" name="periode" id="TriwulanIII" class="custom-control-input" value="Triwulan III">
-												<label class="custom-control-label" for="TriwulanIII">Triwulan III</label>
-											</div>
-											<div class="custom-control custom-radio custom-control-inline">
-												<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV">
-												<label class="custom-control-label" for="TriwulanIV">Triwulan IV</label>
-											</div>
+											<?php if ($tahun == 2019) { ?>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV" checked>
+													<label class="custom-control-label" for="TriwulanIV">Triwulan IV</label>
+												</div>
+											<?php } elseif ($tahun == 2020) { ?>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="periode" id="TriwulanIII" class="custom-control-input" value="Triwulan III">
+													<label class="custom-control-label" for="TriwulanIII">Triwulan III</label>
+												</div>
+											<?php } else { ?>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="periode" id="TriwulanI" class="custom-control-input" value="Triwulan I">
+													<label class="custom-control-label" for="TriwulanI">Triwulan I</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="periode" id="TriwulanII" class="custom-control-input" value="Triwulan II">
+													<label class="custom-control-label" for="TriwulanII">Triwulan II</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="periode" id="TriwulanIII" class="custom-control-input" value="Triwulan III">
+													<label class="custom-control-label" for="TriwulanIII">Triwulan III</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV">
+													<label class="custom-control-label" for="TriwulanIV">Triwulan IV</label>
+												</div>
+											<?php } ?>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<td width='200'>Satuan <br><span class="help-block">*wajib diisi</span></td>
-									<td>Alokasi : <input type="text" class="form-control" value="<?php echo $satuan; ?>" readonly /></td>
+									<!-- <td>Alokasi : <input type="text" class="form-control" value="<?php echo $satuan; ?>" readonly /></td> -->
 									<td>Realisasi : <?php echo select2_dinamis('realisasi_satuan', 'm_satuan', 'satuan', 'id_satuan') ?></td>
 								</tr>
 								<tr>
 									<td width='200'>Volume <br><span class="help-block">*wajib diisi</span></td>
-									<td>Alokasi : <input type="text" class="form-control" value="<?php echo $volume; ?>" readonly /></td>
+									<!-- <td>Alokasi : <input type="text" class="form-control" value="<?php echo $volume; ?>" readonly /></td> -->
 									<td>Realisasi : <input type="number" min="0" class="form-control" name="realisasi_fisik" id="realisasi_fisik" placeholder="Realisasi Fisik" value="<?php echo $realisasi_fisik; ?>" /></td>
 								</tr>
 
 								<tr>
 									<td width='200'>Harga Satuan <br><span class="help-block">*wajib diisi</span></td>
-									<td>Alokasi : <input type="text" class="form-control" value="<?php echo $harga_satuan; ?>" readonly /></td>
+									<!-- <td>Alokasi : <input type="text" class="form-control" value="<?php echo $harga_satuan; ?>" readonly /></td> -->
 									<td>Realisasi : <input type="text" class="form-control" name="realisasi_harga_satuan" id="realisasi_harga_satuan" placeholder="Realisasi Harga Satuan" value="<?php echo $realisasi_harga_satuan; ?>" /></td>
 								</tr>
 								<tr>
 									<td width='200'>Dana <?php echo form_error('realisasi_nilai') ?></td>
-									<td>Alokasi : <input type="text" class="form-control" name="alokasi_nilai" id="alokasi_nilai" value="<?php echo $total; ?>" readonly /></td>
+									<!-- <td>Alokasi : <input type="text" class="form-control" name="alokasi_nilai" id="alokasi_nilai" value="<?php echo $total; ?>" readonly /></td> -->
 									<td>Realisasi : <input type="text" class="form-control" name="realisasi_nilai" id="realisasi_nilai" placeholder="Realisasi Nilai" value="<?php echo $realisasi_nilai; ?>" readonly /></td>
 								</tr>
 								<tr>
 									<td width='200'>Persentase Realisasi (%) <?php echo form_error('realisasi_persen') ?></td>
 									<td colspan="2"><input type="text" class="form-control" name="realisasi_persen" id="realisasi_persen" placeholder="Realisasi Persen" value="" readonly /></td>
+								</tr>
+								<tr class="bg-info-500">
+									<td colspan="3">Progress/Hambatan & Keterangan Kegiatan </td>
 								</tr>
 								<tr>
 									<td width='200'>Progress <br><span class="help-block">*wajib diisi</span></td>
@@ -87,20 +106,23 @@
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Hambatan <br><span class="help-block">*wajib diisi</span></td>
-									<td colspan="2"><?php echo select2_dinamis('id_rincian_hambatan', 'm_hambatan_rincian', 'nama_rincian_hambatan', 'id_rincian_hambatan') ?></td>
+									<td width='200'>Hambatan</td>
+									<td colspan="2"><?php echo select2_hambatan('id_rincian_hambatan', 'm_hambatan_rincian', 'nama_rincian_hambatan', 'id_rincian_hambatan') ?></td>
 								</tr>
 								<tr>
 									<td width='200'>Rencana Tindak Lanjut <br><span class="help-block">*wajib diisi</span></td>
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="rencana_tindak_lanjut" id="rencana_tindak_lanjut" placeholder="Rencana Tindak Lanjut"><?php echo $rencana_tindak_lanjut; ?></textarea></td>
 								</tr>
 								<tr>
-									<td width='200'>Pemanfaatan <?php echo form_error('pemanfaatan') ?></td>
+									<td width='200'>Pemanfaatan <br><span class="help-block">*wajib diisi</span></td>
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="pemanfaatan" id="pemanfaatan" placeholder="Pemanfaatan"><?php echo $pemanfaatan; ?></textarea></td>
 								</tr>
 								<tr>
 									<td width='200'>Keterangan <?php echo form_error('keterangan') ?></td>
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
+								</tr>
+								<tr class="bg-info-500">
+									<td colspan="3">Data Petugas Penanggung Jawab</td>
 								</tr>
 								<?php
 								// /$this->db->from();
@@ -151,15 +173,42 @@
 <script src="<?php echo base_url() ?>assets/smartadmin/js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url() ?>assets/smartadmin/js/kostum.js"></script>
 <script type="text/javascript">
+	var rupiah = document.getElementById("realisasi_harga_satuan");
+	rupiah.addEventListener("keyup", function(e) {
+		// tambahkan 'Rp.' pada saat form di ketik
+		// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+		rupiah.value = formatRupiah(this.value);
+	});
+
+	/* Fungsi formatRupiah */
+	function formatRupiah(angka, prefix) {
+		var number_string = angka.replace(/[^,\d]/g, "").toString(),
+			split = number_string.split(","),
+			sisa = split[0].length % 3,
+			rupiah = split[0].substr(0, sisa),
+			ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+		// tambahkan titik jika yang di input sudah menjadi angka ribuan
+		if (ribuan) {
+			separator = sisa ? "." : "";
+			rupiah += separator + ribuan.join(".");
+		}
+
+		rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+		return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+	}
 	$(document).ready(function() {
 		$("#realisasi_fisik, #realisasi_harga_satuan").keyup(function() {
-			var harga = $("#realisasi_harga_satuan").val();
+			var hargax = $("#realisasi_harga_satuan").val();
+			var harga = parseInt(hargax.replace(/,.*|[^0-9]/g, ''), 10);
 			var jumlah = $("#realisasi_fisik").val();
-			var alokasi_nilai = $("#alokasi_nilai").val();
-
-			var total = parseInt(harga) * parseInt(jumlah);
-			var persen = (total / alokasi_nilai) * 100;
-			$("#realisasi_nilai").val(total);
+			//var alokasi_nilai = $("#alokasi_nilai").val();
+			var alokasi_nilai = <?php echo $total; ?>;
+			var total = harga * parseInt(jumlah);
+			fixed = total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+			var persenx = (total / alokasi_nilai) * 100;
+			persen = persenx.toFixed(0) + '%';
+			$("#realisasi_nilai").val(fixed);
 			$("#realisasi_persen").val(persen);
 		});
 	});

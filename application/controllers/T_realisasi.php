@@ -111,7 +111,7 @@ class T_realisasi extends CI_Controller
 		//$row = $this->T_realisasi_model->get_rincian($idrincian);
 		$data = array(
 
-			'button' => 'Create',
+			'button' => 'Simpan',
 			'action' => site_url('t_realisasi/create_action'),
 			'id_realisasi' => set_value('id_realisasi'),
 			'id_rincian' => set_value('id_rincian'),
@@ -304,9 +304,9 @@ class T_realisasi extends CI_Controller
 		$this->form_validation->set_rules('realisasi_persen', 'realisasi persen', 'trim|required');
 		$this->form_validation->set_rules('realisasi_nilai', 'realisasi nilai', 'trim|required');
 		$this->form_validation->set_rules('id_progress', 'id progress', 'trim|required');
-		$this->form_validation->set_rules('id_rincian_hambatan', 'id rincian hambatan', 'trim|required');
+		//$this->form_validation->set_rules('id_rincian_hambatan', 'id rincian hambatan', 'trim|required');
 		$this->form_validation->set_rules('rencana_tindak_lanjut', 'rencana tindak lanjut', 'trim|required');
-		//$this->form_validation->set_rules('pemanfaatan', 'pemanfaatan', 'trim|required');
+		$this->form_validation->set_rules('pemanfaatan', 'pemanfaatan', 'trim|required');
 		//$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
 		$this->form_validation->set_rules('nip_pengisi', 'nip pengisi', 'trim|required');
 		$this->form_validation->set_rules('nama_pengisi', 'nama pengisi', 'trim|required');

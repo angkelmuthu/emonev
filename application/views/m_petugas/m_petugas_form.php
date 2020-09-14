@@ -33,7 +33,7 @@
                                     <td><input type="hidden" name="created_date" id="created_date" value="<?php echo date('Y-m-d H:s:i'); ?>" />
                                         <input type="hidden" name="id_satker" id="id_satker" value="<?php echo $this->session->userdata('id_satker') ?>" readonly />
                                         <button type="submit" class="btn btn-warning waves-effect waves-themed"><i class="fal fa-save"></i> <?php echo $button ?></button>
-                                        <a href="<?php echo site_url('m_petugas') ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a></td>
+                                        <a href="<?php echo site_url('m_dak_alokasi_satker') ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a></td>
                                 </tr>
                             </table>
                         </form>

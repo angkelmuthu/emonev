@@ -139,7 +139,7 @@ class T_dak_rincian extends CI_Controller
 		$id_alokasi = $this->uri->segment(3);
 		$row = $this->T_dak_rincian_model->get_valokasi($id_alokasi);
 		$data = array(
-			'button' => 'Create',
+			'button' => 'Simpan',
 			'action' => site_url('t_dak_rincian/create_action'),
 			'id_rincian' => set_value('id_rincian'),
 			'id_satker' => set_value('id_satker'),
@@ -206,7 +206,7 @@ class T_dak_rincian extends CI_Controller
 				'volume' => $this->input->post('volume', TRUE),
 				'volume_perubahan' => $this->input->post('volume_perubahan', TRUE),
 				'id_satuan' => $this->input->post('id_satuan', TRUE),
-				'total' => $this->input->post('total', TRUE),
+				'total' => str_replace('.', '', $this->input->post('total', TRUE)),
 				'kode_satker_lokasi' => $this->input->post('kode_satker_lokasi', TRUE),
 				'kode_nonsatker_lokasi' => $this->input->post('kode_nonsatker_lokasi', TRUE),
 				'sarana' => $this->input->post('sarana', TRUE),

@@ -38,7 +38,7 @@
                             $this->db->where('id_satker', $this->session->userdata('id_satker'));
                             $query = $this->db->get('m_petugas');
                             if ($query->num_rows() > 0) { ?>
-                                <?php echo anchor(site_url('t_dak_rincian/create/' . $id_alokasi), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Alokasi', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
+                                <?php echo anchor(site_url('t_dak_rincian/create/' . $id_alokasi), '<i class="fal fa-plus-square" aria-hidden="true"></i> Isi Laporan Kegiatan', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
                             <?php } else { ?>
                                 <button type="button" class="btn btn-primary btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#modal-petugas"><i class="fal fa-plus-square"></i> Tambah Alokasi</button>
                                 <div class="modal fade" id="modal-petugas" tabindex="-1" role="dialog" aria-hidden="true">
@@ -206,8 +206,8 @@
                                             </div>
                                             <!-------------------------------------------------------------->
                                             <?php
-                                                echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
-                                                ?>
+                                            echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
+                                            ?>
                                         </td>
                                     </tr>
                                 <?php } ?>

@@ -3,7 +3,7 @@
 		<div class="col-xl-12">
 			<div id="panel-1" class="panel">
 				<div class="panel-hdr">
-					<h2>INPUT DATA T_DAK_RINCIAN</h2>
+					<h2>FORM INPUT RINCIAN KEGIATAN</h2>
 					<div class="panel-toolbar">
 						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
 						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -14,9 +14,12 @@
 					<div class="panel-content">
 						<form action="<?php echo $action; ?>" method="post">
 
-							<table class='table table-striped'>
+							<table class="table m-0">
+								<tr class="bg-info-500">
+									<td colspan="3">Informasi DAK Alokasi</td>
+								</tr>
 								<tr>
-									<td width='200'>Satker </td>
+									<td width="200">Satker </td>
 									<td>
 										<input type="text" class="form-control" name="satker" id="satker" placeholder="Id Satker" value="<?php echo $satker ?>" readonly />
 										<input type="hidden" class="form-control" name="id_satker" id="id_satker" placeholder="Id Satker" value="<?php echo $id_satker ?>" readonly />
@@ -24,36 +27,39 @@
 								</tr>
 
 								<tr>
-									<td width='200'>Tahun Anggaran <?php echo form_error('tahun_anggaran') ?></td>
+									<td width="200">Tahun Anggaran <?php echo form_error('tahun_anggaran') ?></td>
 									<td><input type="text" class="form-control" name="tahun_anggaran" id="tahun_anggaran" placeholder="Tahun Anggaran" value="<?php echo $tahun; ?>" readonly /></td>
 								</tr>
 								<!-- <tr>
-									<td width='200'>Id Dak Bidang <?php echo form_error('id_dak_bidang') ?></td>
+									<td width="200">Id Dak Bidang <?php echo form_error('id_dak_bidang') ?></td>
 									<td><input type="text" class="form-control" name="id_dak_bidang" id="id_dak_bidang" placeholder="Id Dak Bidang" value="<?php echo $id_dak_bidang; ?>" /></td>
 								</tr> -->
 								<tr>
-									<td width='200'>Sub Bidang <?php echo form_error('id_dak_sub_bidang') ?></td>
+									<td width="200">Sub Bidang <?php echo form_error('id_dak_sub_bidang') ?></td>
 									<td>
 										<input type="text" class="form-control" name="nama_dak_sub_bidang" id="nama_dak_sub_bidang" placeholder="Id Dak Sub Bidang" value="<?php echo $nama_dak_sub_bidang; ?>" readonly />
 										<input type="hidden" class="form-control" name="id_dak_sub_bidang" id="id_dak_sub_bidang" placeholder="Id Dak Sub Bidang" value="<?php echo $id_dak_sub_bidang; ?>" />
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Nilai Alokasi</td>
-									<td><input type="text" class="form-control" name="tahun_anggaran" id="tahun_anggaran" placeholder="Tahun Anggaran" value="Rp. <?php echo angka($nilai_alokasi); ?>" readonly /></td>
+									<td width="200">Nilai Alokasi</td>
+									<td><input type="text" class="form-control" name="nilai_alokasi" id="nilai_alokasi" placeholder="Nilai Alokasi" value="Rp. <?php echo angka($nilai_alokasi); ?>" readonly /></td>
 								</tr>
 								<tr>
-									<td width='200'>Sisa Alokasi</td>
-									<td><input type="text" class="form-control" name="tahun_anggaran" id="tahun_anggaran" placeholder="Tahun Anggaran" value="Rp. <?php echo angka($sisa_alokasi); ?>" readonly /></td>
+									<td width="200">Sisa Alokasi</td>
+									<td><input type="text" class="form-control" name="sisa_alokasi" id="sisa_alokasi" placeholder="Sisa Alokasi" value="Rp. <?php echo angka($sisa_alokasi); ?>" readonly /></td>
+								</tr>
+								<tr class="bg-info-500">
+									<td colspan="3">Rincian Kegiatan</td>
 								</tr>
 								<tr>
-									<td width='200'>Menu <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Menu <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-menu" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
 										<div class="form-group">
-											<select name="id_dak_komponen" class="select2 form-control w-100" id="komponen">
+											<select name="id_dak_komponen" class="select2 form-control w-100" id="komponen" required>
 												<?php
 												foreach ($komponen as $row) {
 													echo '<option value="' . $row->id_dak_komponen . '">' . $row->nama_dak_komponen . '</option>';
@@ -64,41 +70,47 @@
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Rincian <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Rincian <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-rincian" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="40px" class="img-responsive" />
 										</div>
-										<select name="id_dak_komponen_sub" class="select2 form-control w-100" id="subkomponen">
-											<option value="">Select Rincian</option>
-										</select>
+										<div class="form-group">
+											<select name="id_dak_komponen_sub" class="select2 form-control w-100" id="subkomponen" required>
+												<option value="">Select Rincian</option>
+											</select>
+										</div>
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Kegiatan </td>
+									<td width="200">Kegiatan </td>
 									<td><input type="text" class="form-control" name="menu_kegiatan" id="menu_kegiatan" placeholder="Menu Kegiatan" value="<?php echo $menu_kegiatan; ?>" /></td>
 								</tr>
 								<tr>
-									<td width='200'>Sub Kegiatan </td>
+									<td width="200">Sub Kegiatan </td>
 									<td><input type="text" class="form-control" name="kegiatan" id="kegiatan" placeholder="Kegiatan" value="<?php echo $kegiatan; ?>" require /></td>
 								</tr>
 								<tr>
-									<td width='200'>Detail Rincian <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Detail Rincian <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-detail" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="40px" class="img-responsive" />
 										</div>
-										<select name="id_dak_rincian" class="select2 form-control w-100" id="rincian">
+										<select name="id_dak_rincian" class="select2 form-control w-100" id="rincian" required>
 											<option value="">Select Detail Rincian</option>
 										</select>
 									</td>
 								</tr>
+
 								<?php if ($this->session->userdata('id_jenis_satker') == 3) { ?>
 									<input type="hidden" name="kode_satker_lokasi" value="<?php echo $this->session->userdata('kode_satker'); ?>" />
 									<input type="hidden" name="fasyankes" id="fasyankes" value="rs" />
 								<?php } else { ?>
+									<tr class="bg-info-500">
+										<td colspan="3">Lokasi Kegiatan</td>
+									</tr>
 									<tr>
-										<td width='200'>Jenis Fasyankes </td>
+										<td width="200">Jenis Fasyankes </td>
 										<td>
 											<div class="frame-wrap">
 												<div class="custom-control custom-radio custom-control-inline">
@@ -113,12 +125,12 @@
 										</td>
 									</tr>
 									<tr>
-										<td width='200'>Lokasi <br><span class="help-block">*wajib diisi</span></td>
+										<td width="200">Lokasi <br><span class="help-block">*wajib diisi</span></td>
 										<td>
 											<div class="ajax-loader">
 												<img id="loading-image" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 											</div>
-											<select name="kode_nonsatker_lokasi" class="select2 form-control w-100" id="nonsatker">
+											<select name="kode_nonsatker_lokasi" class="select2 form-control w-100" id="nonsatker" required>
 												<option value="">Select Puskesmas/RS</option>
 											</select>
 										</td>
@@ -126,40 +138,40 @@
 
 								<?php } ?>
 								<tr>
-									<td width='200'>Pelayanan <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Pelayanan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-installasi" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
-										<select name="instalasi" class="select2 form-control w-100" id="instalasi">
+										<select name="instalasi" class="select2 form-control w-100" id="instalasi" required>
 											<option value="">Select Pelayanan</option>
 										</select>
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Sub Pelayanan <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Sub Pelayanan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-ruangan" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
-										<select name="ruangan" class="select2 form-control w-100" id="ruangan">
+										<select name="ruangan" class="select2 form-control w-100" id="ruangan" required>
 											<option value="">Select Sub Pelayanan</option>
 										</select>
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Ruangan <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Ruangan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-sarana" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
-										<select name="sarana" class="select2 form-control w-100" id="sarana">
+										<select name="sarana" class="select2 form-control w-100" id="sarana" required>
 											<option value="">Select Ruangan</option>
 										</select>
 									</td>
 								</tr>
 								<tr class="alkes">
-									<td width='200'>Alkes <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Alkes <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-alkes" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="40px" class="img-responsive" />
@@ -169,44 +181,51 @@
 										</select>
 									</td>
 								</tr>
+								<tr class="bg-info-500">
+									<td colspan="3">Nilai Alokasi</td>
+								</tr>
 								<tr>
-									<td width='200'>Jenis Output <?php echo form_error('id_jenis_output') ?></td>
+									<td width="200">Jenis Output <?php echo form_error('id_jenis_output') ?></td>
 									<td>
 										<input type="hidden" class="form-control" name="id_jenis_output" id="id_jenis_output" value="<?php echo $id_jenis_output; ?>" />
 										<input type="text" class="form-control" name="nama_jenis_output" id="nama_jenis_output" placeholder="Id Jenis Output" value="" readonly />
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Harga Satuan <br><span class="help-block">*wajib diisi</span></td>
+									<td width="200">Harga Satuan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="form-group">
-											<input type="text" class="form-control" name="harga_satuan" id="harga_satuan" placeholder="Harga Satuan" value="<?php echo $harga_satuan; ?>">
+											<input type="text" class="form-control" name="harga_satuan" id="harga_satuan" placeholder="Harga Satuan" value="<?php echo $harga_satuan; ?>" required>
 											<!-- <span class="help-block">Rp. 000.0000.000</span> -->
 										</div>
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Volume <br><span class="help-block">*wajib diisi</span></td>
-									<td><input type="number" class="form-control" min="1" name="volume" id="volume" placeholder="Volume" value="<?php echo $volume; ?>" /></td>
+									<td width="200">Volume <br><span class="help-block">*wajib diisi</span></td>
+									<td><input type="number" class="form-control" min="1" name="volume" id="volume" placeholder="Volume" value="<?php echo $volume; ?>" required /></td>
 								</tr>
 								<!-- <tr>
-									<td width='200'>Volume Perubahan <?php echo form_error('volume_perubahan') ?></td>
+									<td width="200">Volume Perubahan <?php echo form_error('volume_perubahan') ?></td>
 									<td><input type="number" class="form-control" name="volume_perubahan" id="volume_perubahan" placeholder="Volume Perubahan" value="<?php echo $volume_perubahan; ?>" /></td>
 								</tr> -->
 								<tr>
-									<td width='200'>Satuan <?php echo form_error('satuan') ?></td>
+									<td width="200">Satuan <?php echo form_error('satuan') ?></td>
 									<td>
-										<input type="hidden" class="form-control" name="id_satuan" id="id_satuan" value="" />
-										<input type="text" class="form-control" name="satuan" id="satuan" placeholder="Id satuan" value="" readonly />
+										<!-- <input type="hidden" class="form-control" name="id_satuan" id="id_satuan" value="" />
+										<input type="text" class="form-control" name="satuan" id="satuan" placeholder="Id satuan" value="" readonly /> -->
+										<?php echo select2_dinamis('id_satuan', 'm_satuan', 'satuan', 'id_satuan') ?>
 									</td>
 								</tr>
 								<tr>
-									<td width='200'>Total <?php echo form_error('total') ?></td>
+									<td width="200">Total <?php echo form_error('total') ?></td>
 									<td>
 										<div class="form-group">
 											<input type="text" class="form-control" name="total" id="total" placeholder="Total" value="<?php echo $total; ?>" readonly />
 										</div>
 									</td>
+								</tr>
+								<tr class="bg-info-500">
+									<td colspan="3">Data Petugas Penanggung Jawab</td>
 								</tr>
 								<?php
 								// /$this->db->from();
@@ -215,16 +234,16 @@
 								// /$num = $query->num_rows();
 								foreach ($query as $dtpetugas) { ?>
 									<tr>
-										<td width='200'>NIP </td>
+										<td width="200">NIP </td>
 										<td><input type="text" class="form-control" name="nip_pengisi" id="nip_pengisi" placeholder="NIP" value="<?php echo $dtpetugas->nip ?>" readonly />
 										</td>
 									</tr>
 									<tr>
-										<td width='200'>Nama Lengkap </td>
+										<td width="200">Nama Lengkap </td>
 										<td><input type="text" class="form-control" name="nama_pengisi" id="nama_pengisi" placeholder="Nama Lengkap" value="<?php echo $dtpetugas->nama ?>" readonly />
 									</tr>
 									<tr>
-										<td width='200'>Jabatan </td>
+										<td width="200">Jabatan </td>
 										<td><input type="text" class="form-control" name="jabatan_pengisi" id="jabatan_pengisi" placeholder="Jabatan" value="<?php echo $dtpetugas->jabatan ?>" readonly />
 									</tr>
 								<?php } ?>
@@ -290,8 +309,9 @@
 			//var nilai_alokasi = $("#total").val();
 
 			var total = parseInt(harga_satuan) * parseInt(volume);
+			fixed = total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
 			//var persen = (total / alokasi_nilai) * 100;
-			$("#total").val(total);
+			$("#total").val(fixed);
 			//$("#realisasi_persen").val(persen);
 		});
 	});
