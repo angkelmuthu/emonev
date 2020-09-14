@@ -137,35 +137,35 @@
 									</tr>
 
 								<?php } ?>
-								<tr>
+								<tr class="instalasi">
 									<td width="200">Pelayanan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-installasi" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
-										<select name="instalasi" class="select2 form-control w-100" id="instalasi" required>
+										<select name="instalasi" class="select2 form-control w-100" id="instalasi">
 											<option value="">Select Pelayanan</option>
 										</select>
 									</td>
 								</tr>
-								<tr>
+								<tr class="ruangan">
 									<td width="200">Sub Pelayanan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-ruangan" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
-										<select name="ruangan" class="select2 form-control w-100" id="ruangan" required>
+										<select name="ruangan" class="select2 form-control w-100" id="ruangan">
 											<option value="">Select Sub Pelayanan</option>
 										</select>
 									</td>
 								</tr>
-								<tr>
+								<tr class="sarana">
 									<td width="200">Ruangan <br><span class="help-block">*wajib diisi</span></td>
 									<td>
 										<div class="ajax-loader">
 											<img id="loading-sarana" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
-										<select name="sarana" class="select2 form-control w-100" id="sarana" required>
+										<select name="sarana" class="select2 form-control w-100" id="sarana">
 											<option value="">Select Ruangan</option>
 										</select>
 									</td>
@@ -381,9 +381,20 @@
 							obj = JSON.parse(json);
 						if (obj.id_jenis_output == 2) {
 							$(".alkes").css("display", "");
+							$(".instalasi").css("display", "");
+							$(".ruangan").css("display", "");
+							$(".sarana").css("display", "");
+							$("#id_alkes").prop("required", true);
+							$("#instalasi").prop("required", true);
+							$("#ruangan").prop("required", true);
+							$("#sarana").prop("required", true);
 
 						} else {
 							$(".alkes").css("display", "none");
+							$(".instalasi").css("display", "none");
+							$(".ruangan").css("display", "none");
+							$(".sarana").css("display", "none");
+
 						}
 						$('#id_jenis_output').val(obj.id_jenis_output);
 						$('#nama_jenis_output').val(obj.nama_jenis_output);

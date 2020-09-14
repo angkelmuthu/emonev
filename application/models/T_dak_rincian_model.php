@@ -18,7 +18,7 @@ class T_dak_rincian_model extends CI_Model
     // datatables
     function get_rincian($id_alokasi)
     {
-        $this->db->select('a.id_rincian,a.menu_kegiatan,a.kegiatan,a.harga_satuan,a.volume,a.total,a.sarana,a.created_by,a.created_date,a.nip_pengisi,a.nama_pengisi,a.jabatan_pengisi,b.nama_dak_rincian,b.nama_dak_komponen_sub,b.nama_dak_komponen,b.satuan,nama_jenis_output,c.nama_alkes');
+        $this->db->select('a.id_rincian,a.menu_kegiatan,a.kegiatan,a.harga_satuan,a.volume,a.total,a.sarana,a.created_by,a.created_date,a.nip_pengisi,a.nama_pengisi,a.jabatan_pengisi,b.nama_dak_rincian,b.nama_dak_komponen_sub,b.nama_dak_komponen,b.satuan,nama_jenis_output,c.nama_alkes,IFNULL((SELECT realisasi_persen FROM t_realisasi WHERE id_rincian=a.id_rincian ORDER BY periode DESC LIMIT 1),0) AS persen');
         $this->db->from('t_dak_rincian a');
         $this->db->join('v_dak_rincian b', 'a.id_dak_rincian=b.id_dak_rincian', 'left');
         $this->db->join('m_alkes c', 'a.id_alkes=c.id_alkes', 'left');
@@ -190,8 +190,12 @@ class T_dak_rincian_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
-        $this->db->where($this->id, $id);
-        return $this->db->get($this->table)->row();
+        $this->db->select('a.id_rincian,a.menu_kegiatan,a.kegiatan,a.harga_satuan,a.volume,a.total,a.sarana,a.created_by,a.created_date,a.nip_pengisi,a.nama_pengisi,a.jabatan_pengisi,b.nama_dak_rincian,b.nama_dak_komponen_sub,b.nama_dak_komponen,b.satuan,nama_jenis_output,c.nama_alkes');
+        $this->db->from('t_dak_rincian a');
+        $this->db->join('v_dak_rincian b', 'a.id_dak_rincian=b.id_dak_rincian', 'left');
+        $this->db->join('m_alkes c', 'a.id_alkes=c.id_alkes', 'left');
+        $this->db->where('a.id_rincian', $id);
+        return $this->db->get()->result();
     }
 
     // get total rows

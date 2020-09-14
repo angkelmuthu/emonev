@@ -166,7 +166,7 @@ class T_realisasi extends CI_Controller
 				'realisasi_fisik' => $this->input->post('realisasi_fisik', TRUE),
 				'realisasi_harga_satuan' => str_replace('.', '', $this->input->post('realisasi_harga_satuan', TRUE)),
 				'realisasi_satuan' => $this->input->post('realisasi_satuan', TRUE),
-				'realisasi_persen' => $this->input->post('realisasi_persen', TRUE),
+				'realisasi_persen' => str_replace('%', '', $this->input->post('realisasi_persen', TRUE)),
 				'realisasi_nilai' => str_replace('.', '', $this->input->post('realisasi_nilai', TRUE)),
 				'id_progress' => $this->input->post('id_progress', TRUE),
 				'id_rincian_hambatan' => $this->input->post('id_rincian_hambatan', TRUE),

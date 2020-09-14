@@ -99,30 +99,31 @@ class T_dak_rincian extends CI_Controller
 		$row = $this->T_dak_rincian_model->get_by_id($id);
 		if ($row) {
 			$data = array(
-				'id_rincian' => $row->id_rincian,
-				'id_satker' => $row->id_satker,
-				'id_dak_alokasi' => $row->id_dak_alokasi,
-				'tahun_anggaran' => $row->tahun_anggaran,
-				'id_dak_bidang' => $row->id_dak_bidang,
-				'id_dak_sub_bidang' => $row->id_dak_sub_bidang,
-				'id_dak_komponen' => $row->id_dak_komponen,
-				'id_dak_komponen_sub' => $row->id_dak_komponen_sub,
-				'menu_kegiatan' => $row->menu_kegiatan,
-				'kegiatan' => $row->kegiatan,
-				'id_dak_rincian' => $row->id_dak_rincian,
-				'id_alkes' => $row->id_alkes,
-				'id_jenis_output' => $row->id_jenis_output,
-				'harga_satuan' => $row->harga_satuan,
-				'volume' => $row->volume,
-				'volume_perubahan' => $row->volume_perubahan,
-				'id_satuan' => $row->id_satuan,
-				'total' => $row->total,
-				'sarana' => $row->sarana,
-				'created_by' => $row->created_by,
-				'created_date' => $row->created_date,
-				'updated_by' => $row->updated_by,
-				'updated_date' => $row->updated_date,
-				'isdeleted' => $row->isdeleted,
+				'dt_rincian' => $this->T_dak_rincian_model->get_by_id($id),
+				// 'id_rincian' => $row->id_rincian,
+				// 'id_satker' => $row->id_satker,
+				// 'id_dak_alokasi' => $row->id_dak_alokasi,
+				// 'tahun_anggaran' => $row->tahun_anggaran,
+				// 'id_dak_bidang' => $row->id_dak_bidang,
+				// 'id_dak_sub_bidang' => $row->id_dak_sub_bidang,
+				// 'id_dak_komponen' => $row->id_dak_komponen,
+				// 'id_dak_komponen_sub' => $row->id_dak_komponen_sub,
+				// 'menu_kegiatan' => $row->menu_kegiatan,
+				// 'kegiatan' => $row->kegiatan,
+				// 'id_dak_rincian' => $row->id_dak_rincian,
+				// 'id_alkes' => $row->id_alkes,
+				// 'id_jenis_output' => $row->id_jenis_output,
+				// 'harga_satuan' => $row->harga_satuan,
+				// 'volume' => $row->volume,
+				// 'volume_perubahan' => $row->volume_perubahan,
+				// 'id_satuan' => $row->id_satuan,
+				// 'total' => $row->total,
+				// 'sarana' => $row->sarana,
+				// 'created_by' => $row->created_by,
+				// 'created_date' => $row->created_date,
+				// 'updated_by' => $row->updated_by,
+				// 'updated_date' => $row->updated_date,
+				// 'isdeleted' => $row->isdeleted,
 			);
 			$this->template->load('template', 't_dak_rincian/t_dak_rincian_read', $data);
 		} else {
@@ -359,7 +360,7 @@ class T_dak_rincian extends CI_Controller
 		//$this->form_validation->set_rules('volume_perubahan', 'volume perubahan', 'trim|required');
 		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'trim|required');
 		$this->form_validation->set_rules('total', 'total', 'trim|required');
-		$this->form_validation->set_rules('sarana', 'sarana', 'trim|required');
+		// $this->form_validation->set_rules('sarana', 'sarana', 'trim|required');
 		$this->form_validation->set_rules('nip_pengisi', 'nip pengisi', 'trim|required');
 		$this->form_validation->set_rules('nama_pengisi', 'nama pengisi', 'trim|required');
 		$this->form_validation->set_rules('jabatan_pengisi', 'jabatan pengisi', 'trim|required');

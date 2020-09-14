@@ -125,7 +125,9 @@
                 <div class="panel-container show">
                     <div class="panel-content">
                         <div class="text-center">
-                            <?php echo anchor(site_url('t_realisasi/create/' . $this->uri->segment(3)), '<i class="fal fa-plus-square" aria-hidden="true"></i> Input Realisasi', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?></div><br>
+                            <?php echo anchor(site_url('t_realisasi/create/' . $this->uri->segment(3)), '<i class="fal fa-plus-square" aria-hidden="true"></i> Input Realisasi', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
+                            <?php echo anchor(site_url('t_dak_rincian/rincian/' . $this->uri->segment(4)), 'Kembali', 'class="btn btn-warning btn-sm waves-effect waves-themed"'); ?>
+                        </div><br>
                         <table class="table table-bordered table-hover table-striped w-100" id="example">
                             <thead class="thead-themed">
                                 <tr>
