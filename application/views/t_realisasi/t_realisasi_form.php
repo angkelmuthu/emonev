@@ -110,7 +110,7 @@
 									<td colspan="2"><?php echo select2_hambatan('id_rincian_hambatan', 'm_hambatan_rincian', 'nama_rincian_hambatan', 'id_rincian_hambatan') ?></td>
 								</tr>
 								<tr>
-									<td width='200'>Rencana Tindak Lanjut <br><span class="help-block">*wajib diisi</span></td>
+									<td width='200'>Rencana Tindak Lanjut </td>
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="rencana_tindak_lanjut" id="rencana_tindak_lanjut" placeholder="Rencana Tindak Lanjut"><?php echo $rencana_tindak_lanjut; ?></textarea></td>
 								</tr>
 								<tr>
@@ -144,6 +144,7 @@
 										<td colspan="2"><input type="text" class="form-control" name="jabatan_pengisi" id="jabatan_pengisi" placeholder="Jabatan" value="<?php echo $dtpetugas->jabatan ?>" readonly />
 									</tr>
 								<?php } ?>
+								<input type="hidden" name="alokasi" value="<?php echo $this->uri->segment(4); ?>" />
 								<input type="hidden" name="id_rincian" value="<?php echo $this->uri->segment(3); ?>" />
 								<input type="hidden" name="id_user" value="<?php echo $this->session->userdata('id_users') ?>" />
 								<input type="hidden" name="created_by" value="<?php echo $this->session->userdata('nama') ?>" />

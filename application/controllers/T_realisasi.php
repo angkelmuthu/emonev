@@ -183,12 +183,13 @@ class T_realisasi extends CI_Controller
 				'isdeleted' => $this->input->post('isdeleted', TRUE),
 			);
 			$id_rincian = $this->input->post('id_rincian');
+			$alokasi = $this->input->post('alokasi');
 			$this->T_realisasi_model->insert($data);
 			$this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Create Record Success 2</strong></div>');
-			redirect(site_url('t_realisasi/realisasi/' . $id_rincian));
+			redirect(site_url('t_realisasi/realisasi/' . $id_rincian . '/' . $alokasi));
 		}
 	}
 
@@ -305,7 +306,7 @@ class T_realisasi extends CI_Controller
 		$this->form_validation->set_rules('realisasi_nilai', 'realisasi nilai', 'trim|required');
 		$this->form_validation->set_rules('id_progress', 'id progress', 'trim|required');
 		//$this->form_validation->set_rules('id_rincian_hambatan', 'id rincian hambatan', 'trim|required');
-		$this->form_validation->set_rules('rencana_tindak_lanjut', 'rencana tindak lanjut', 'trim|required');
+		//$this->form_validation->set_rules('rencana_tindak_lanjut', 'rencana tindak lanjut', 'trim|required');
 		$this->form_validation->set_rules('pemanfaatan', 'pemanfaatan', 'trim|required');
 		//$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
 		$this->form_validation->set_rules('nip_pengisi', 'nip pengisi', 'trim|required');
