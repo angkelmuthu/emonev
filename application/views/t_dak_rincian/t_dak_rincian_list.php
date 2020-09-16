@@ -27,6 +27,12 @@
                                     <td>Nilai Alokasi</td>
                                     <td>Rp. <?php echo angka($nilai_alokasi) ?></td>
                                 </tr>
+                                <tr>
+                                    <td>Persentase Kegiatan</td>
+                                    <td><?php echo ceil($ttl_rincian / $nilai_alokasi * 100) ?> %</td>
+                                    <td>Nilai Kegiatan</td>
+                                    <td>Rp. <?php echo angka($ttl_rincian) ?></td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -96,7 +102,7 @@
                                         <td class="text-center"><?php echo $dt->satuan ?></td>
                                         <td class="text-right"><?php echo angka($dt->total) ?></td>
                                         <td class="text-center"><?php echo $dt->persen ?>%</td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="<?php echo base_url() ?>t_dak_rincian/read/<?php echo $dt->id_rincian ?>/<?php echo $this->uri->segment(3) ?>" class="btn btn-xs btn-primary waves-effect waves-themed"><i class="fal fa-eye"></i></a>
                                             <!-- <button type="button" class="btn btn-xs btn-primary waves-effect waves-themed" data-toggle="modal" data-target="#modal-<?php echo $dt->id_rincian ?>"><i class="fal fa-eye"></i></button>
                                             <div class="modal fade" id="modal-<?php echo $dt->id_rincian ?>" tabindex="-1" role="dialog" aria-hidden="true">
@@ -210,6 +216,7 @@
                                                 </div>
                                             </div>
                                             <!-------------------------------------------------------------->
+                                            <a href="<?php echo base_url() ?>t_dak_rincian/update/<?php echo $this->uri->segment(3) ?>/<?php echo $dt->id_rincian ?>" class="btn btn-xs btn-warning waves-effect waves-themed"><i class="fal fa-pencil"></i> Edit</a>
                                             <?php
                                             echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian . '/' . $this->uri->segment(3)), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
                                             ?>

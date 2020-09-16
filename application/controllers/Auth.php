@@ -22,7 +22,7 @@ class Auth extends CI_Controller
             if (password_verify($password, $user['password'])) {
                 // retrive user data to session
                 $this->session->set_userdata($user);
-                redirect('welcome');
+                redirect('dashboard');
             } else {
                 redirect('auth');
             }

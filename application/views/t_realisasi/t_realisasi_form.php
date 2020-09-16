@@ -157,7 +157,7 @@
 									<td>
 										<input type="hidden" name="id_realisasi" value="<?php echo $id_realisasi; ?>" />
 										<button type="submit" class="btn btn-warning waves-effect waves-themed"><i class="fal fa-save"></i> <?php echo $button ?></button>
-										<a href="<?php echo site_url('t_realisasi/realisasi/' . $this->uri->segment(3)) ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a></td>
+										<a href="<?php echo site_url('t_realisasi/realisasi/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a></td>
 								</tr>
 							</table>
 						</form>

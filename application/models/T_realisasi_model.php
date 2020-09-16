@@ -49,6 +49,16 @@ class T_realisasi_model extends CI_Model
         $this->db->order_by('a.id_realisasi', 'ASC');
         return $this->db->get()->result();
     }
+    function get_by_realisasi($idrealisasi)
+    {
+        $this->db->select('a.*,b.satuan,c.nama_rincian_hambatan,d.nama_progres');
+        $this->db->from('t_realisasi a');
+        $this->db->join('m_satuan b', 'a.realisasi_satuan=b.id_satuan', 'left');
+        $this->db->join('m_hambatan_rincian c', 'a.id_rincian_hambatan=c.id_rincian_hambatan', 'left');
+        $this->db->join('m_progress_jenis d', 'a.id_progress=d.id_progres_jenis', 'left');
+        $this->db->where('a.id_realisasi', $idrealisasi);
+        return $this->db->get()->result();
+    }
 
     function get_rincian($idrincian)
     {

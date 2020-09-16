@@ -12,84 +12,71 @@
 				</div>
 				<div class="panel-container show">
 					<div class="panel-content">
-						<table class="table table-striped">
-							<tr>
-								<td>Id Rincian</td>
-								<td><?php echo $id_rincian; ?></td>
-							</tr>
-							<tr>
-								<td>Id User</td>
-								<td><?php echo $id_user; ?></td>
-							</tr>
-							<tr>
-								<td>Periode</td>
-								<td><?php echo $periode; ?></td>
-							</tr>
-							<tr>
-								<td>Realisasi Fisik</td>
-								<td><?php echo $realisasi_fisik; ?></td>
-							</tr>
-							<tr>
-								<td>Realisasi Harga Satuan</td>
-								<td><?php echo $realisasi_harga_satuan; ?></td>
-							</tr>
-							<tr>
-								<td>Realisasi Satuan</td>
-								<td><?php echo $realisasi_satuan; ?></td>
-							</tr>
-							<tr>
-								<td>Realisasi Persen</td>
-								<td><?php echo $realisasi_persen; ?></td>
-							</tr>
-							<tr>
-								<td>Realisasi Nilai</td>
-								<td><?php echo $realisasi_nilai; ?></td>
-							</tr>
-							<tr>
-								<td>Id Progress</td>
-								<td><?php echo $id_progress; ?></td>
-							</tr>
-							<tr>
-								<td>Id Rincian Hambatan</td>
-								<td><?php echo $id_rincian_hambatan; ?></td>
-							</tr>
-							<tr>
-								<td>Rencana Tindak Lanjut</td>
-								<td><?php echo $rencana_tindak_lanjut; ?></td>
-							</tr>
-							<tr>
-								<td>Pemanfaatan</td>
-								<td><?php echo $pemanfaatan; ?></td>
-							</tr>
-							<tr>
-								<td>Keterangan</td>
-								<td><?php echo $keterangan; ?></td>
-							</tr>
-							<tr>
-								<td>Created By</td>
-								<td><?php echo $created_by; ?></td>
-							</tr>
-							<tr>
-								<td>Created Date</td>
-								<td><?php echo $created_date; ?></td>
-							</tr>
-							<tr>
-								<td>Updated By</td>
-								<td><?php echo $updated_by; ?></td>
-							</tr>
-							<tr>
-								<td>Updated Date</td>
-								<td><?php echo $updated_date; ?></td>
-							</tr>
-							<tr>
-								<td>Isdeleted</td>
-								<td><?php echo $isdeleted; ?></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><a href="<?php echo site_url('t_realisasi') ?>" class="btn btn-primary waves-effect waves-themed">Kembali</a></td>
-							</tr>
+						<table class="table table-bordered table-hover table-striped w-100" id="example">
+							<?php foreach ($realisasi as $dt) { ?>
+								<tr>
+									<th>Periode</th>
+									<td><?php echo $dt->periode ?></td>
+								</tr>
+								<tr>
+									<th>Realisasi Satuan</th>
+									<td><?php echo $dt->satuan ?></td>
+								</tr>
+								<tr>
+									<th>Realisasi Volume</th>
+									<td><?php echo $dt->realisasi_fisik ?></td>
+								</tr>
+								<tr>
+									<th>Realisasi Harga Satuan</th>
+									<td>Rp. <?php echo angka($dt->realisasi_harga_satuan) ?></td>
+								</tr>
+								<tr>
+									<th>Realisasi Nilai</th>
+									<td>Rp. <?php echo angka($dt->realisasi_nilai) ?></td>
+								</tr>
+								<tr>
+									<th>Persentase</th>
+									<td><?php echo $dt->realisasi_persen ?>%</td>
+								</tr>
+								<tr>
+									<th>Progress</th>
+									<td><?php echo $dt->nama_progres ?></td>
+								</tr>
+								<tr>
+									<th>Hambatan</th>
+									<td><?php echo $dt->nama_rincian_hambatan ?></td>
+								</tr>
+								<tr>
+									<th>Rencana Tindak Lanjut</th>
+									<td><?php echo $dt->rencana_tindak_lanjut ?></td>
+								</tr>
+								<tr>
+									<th>Pemanfaatan</th>
+									<td><?php echo $dt->pemanfaatan ?></td>
+								</tr>
+								<tr>
+									<th>Keterangan</th>
+									<td><?php echo $dt->keterangan ?></td>
+								</tr>
+								<tr>
+									<th>Nama Penginput</th>
+									<td><?php echo $dt->nama_pengisi ?></td>
+								</tr>
+								<tr>
+									<th>Jabatan Penginput</th>
+									<td><?php echo $dt->jabatan_pengisi ?></td>
+								</tr>
+								<tr>
+									<th>Created By</th>
+									<td><?php echo $dt->created_by ?></td>
+								</tr>
+								<tr>
+									<th>Created Date</th>
+									<td><?php echo $dt->created_date ?></td>
+								</tr>
+							<?php } ?>
 						</table>
+						<a href="<?php echo site_url('t_realisasi/realisasi/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a></td>
 					</div>
 				</div>
 

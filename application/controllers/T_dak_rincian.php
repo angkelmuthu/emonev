@@ -28,6 +28,7 @@ class T_dak_rincian extends CI_Controller
 				'nama_dak_sub_bidang' => $row->nama_dak_sub_bidang,
 				'dak_kelompok' => $row->dak_kelompok,
 				'satker' => $row->satker,
+				'ttl_rincian' => $row->ttl_rincian,
 				'dt_rincian' => $this->T_dak_rincian_model->get_rincian($id_alokasi),
 			);
 			$this->template->load('template', 't_dak_rincian/t_dak_rincian_list', $data);
@@ -160,6 +161,8 @@ class T_dak_rincian extends CI_Controller
 			'volume_perubahan' => set_value('volume_perubahan'),
 			'id_satuan' => set_value('id_satuan'),
 			'total' => set_value('total'),
+			'instalasi' => set_value('instalasi'),
+			'ruangan' => set_value('ruangan'),
 			'sarana' => set_value('sarana'),
 			'nip_pengisi' => set_value('nip_pengisi'),
 			'nama_pengisi' => set_value('nama_pengisi'),
@@ -190,6 +193,11 @@ class T_dak_rincian extends CI_Controller
 			$this->create();
 			redirect(site_url('t_dak_rincian/create/' . $this->input->post('id_dak_alokasi')));
 		} else {
+			$pecah = explode('||', $this->input->post('instalasi'));
+			$fasyankes = $pecah[0];
+			$instalasi = $pecah[1];
+			$pecah2 = explode('||', $this->input->post('ruangan'));
+			$ruangan = $pecah2[1];
 			$data = array(
 				'id_satker' => $this->input->post('id_satker', TRUE),
 				'id_dak_alokasi' => $this->input->post('id_dak_alokasi', TRUE),
@@ -210,6 +218,9 @@ class T_dak_rincian extends CI_Controller
 				'total' => str_replace('.', '', $this->input->post('total', TRUE)),
 				'kode_satker_lokasi' => $this->input->post('kode_satker_lokasi', TRUE),
 				'kode_nonsatker_lokasi' => $this->input->post('kode_nonsatker_lokasi', TRUE),
+				'jenis_fasyankes' => $fasyankes,
+				'instalasi' => $instalasi,
+				'ruangan' => $ruangan,
 				'sarana' => $this->input->post('sarana', TRUE),
 				'nip_pengisi' => $this->input->post('nip_pengisi', TRUE),
 				'nama_pengisi' => $this->input->post('nama_pengisi', TRUE),
@@ -230,9 +241,10 @@ class T_dak_rincian extends CI_Controller
 		}
 	}
 
-	public function update($id)
+	public function update($id_alokasi, $id)
 	{
-		$row = $this->T_dak_rincian_model->get_by_id($id);
+		$row = $this->T_dak_rincian_model->get_by_edit($id);
+		$row2 = $this->T_dak_rincian_model->get_valokasi($id_alokasi);
 
 		if ($row) {
 			$data = array(
@@ -254,8 +266,10 @@ class T_dak_rincian extends CI_Controller
 				'harga_satuan' => set_value('harga_satuan', $row->harga_satuan),
 				'volume' => set_value('volume', $row->volume),
 				'volume_perubahan' => set_value('volume_perubahan', $row->volume_perubahan),
-				'id_satuan' => set_value('id_satuan', $row->satuan),
+				'id_satuan' => set_value('id_satuan', $row->id_satuan),
 				'total' => set_value('total', $row->total),
+				'instalasi' => set_value('instalasi'),
+				'ruangan' => set_value('ruangan'),
 				'sarana' => set_value('sarana', $row->sarana),
 				'nip_pengisi' => set_value('nip_pengisi', $row->nip_pengisi),
 				'nama_pengisi' => set_value('nama_pengisi', $row->nama_pengisi),
@@ -265,6 +279,15 @@ class T_dak_rincian extends CI_Controller
 				'updated_by' => set_value('updated_by', $row->updated_by),
 				'updated_date' => set_value('updated_date', $row->updated_date),
 				'isdeleted' => set_value('isdeleted', $row->isdeleted),
+				'id_dak_alokasi' => $row2->id_dak_alokasi,
+				'id_satker' => $row2->id_satker,
+				'satker' => $row2->satker,
+				'tahun' => $row2->tahun,
+				'nilai_alokasi' => $row2->nilai_alokasi,
+				'sisa_alokasi' => $row2->sisa_alokasi,
+				'id_dak_sub_bidang' => $row2->id_dak_sub_bidang,
+				'nama_dak_sub_bidang' => $row2->nama_dak_sub_bidang,
+				'komponen' => $this->T_dak_rincian_model->fetch_komponen($id_alokasi),
 			);
 			$this->template->load('template', 't_dak_rincian/t_dak_rincian_form', $data);
 		} else {
@@ -281,8 +304,14 @@ class T_dak_rincian extends CI_Controller
 		$this->_rules();
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->update($this->input->post('id_rincian', TRUE));
+			$this->create();
+			redirect(site_url('t_dak_rincian/create/' . $this->input->post('id_dak_alokasi')));
 		} else {
+			$pecah = explode('||', $this->input->post('instalasi'));
+			$fasyankes = $pecah[0];
+			$instalasi = $pecah[1];
+			$pecah2 = explode('||', $this->input->post('ruangan'));
+			$ruangan = $pecah2[1];
 			$data = array(
 				'id_satker' => $this->input->post('id_satker', TRUE),
 				'id_dak_alokasi' => $this->input->post('id_dak_alokasi', TRUE),
@@ -296,12 +325,17 @@ class T_dak_rincian extends CI_Controller
 				'id_dak_rincian' => $this->input->post('id_dak_rincian', TRUE),
 				'id_alkes' => $this->input->post('id_alkes', TRUE),
 				'id_jenis_output' => $this->input->post('id_jenis_output', TRUE),
-				'harga_satuan' => $this->input->post('harga_satuan', TRUE),
+				'harga_satuan' => str_replace('.', '', $this->input->post('harga_satuan', TRUE)),
 				'volume' => $this->input->post('volume', TRUE),
 				'volume_perubahan' => $this->input->post('volume_perubahan', TRUE),
 				'id_satuan' => $this->input->post('id_satuan', TRUE),
-				'total' => $this->input->post('total', TRUE),
+				'total' => str_replace('.', '', $this->input->post('total', TRUE)),
+				'jenis_fasyankes' => $fasyankes,
+				'instalasi' => $instalasi,
+				'ruangan' => $ruangan,
 				'sarana' => $this->input->post('sarana', TRUE),
+				'instalasi' => $this->input->post('instalasi', TRUE),
+				'ruangan' => $this->input->post('ruangan', TRUE),
 				'nip_pengisi' => $this->input->post('nip_pengisi', TRUE),
 				'nama_pengisi' => $this->input->post('nama_pengisi', TRUE),
 				'jabatan_pengisi' => $this->input->post('jabatan_pengisi', TRUE),
@@ -317,7 +351,7 @@ class T_dak_rincian extends CI_Controller
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Update Record Success</strong></div>');
-			redirect(site_url('t_dak_rincian'));
+			redirect(site_url('t_dak_rincian/rincian/' . $this->input->post('id_dak_alokasi')));
 		}
 	}
 

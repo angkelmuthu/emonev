@@ -58,6 +58,18 @@
                                                 (Rupiah)
                                             </small>
                                         </th>
+                                        <th>
+                                            Nilai Kegiatan
+                                            <small class="d-block fs-sm text-muted">
+                                                (Rupiah)
+                                            </small>
+                                        </th>
+                                        <th>
+                                            Persentase Kegiatan
+                                            <small class="d-block fs-sm text-muted">
+                                                (%)
+                                            </small>
+                                        </th>
                                         <!-- <th>Updated By</th>
                                         <th>Updated Date</th> -->
                                         <th>Action</th>
@@ -74,6 +86,8 @@
                                             <td><?php echo $m_dak_alokasi->satker ?></td>
                                             <td><?php echo $m_dak_alokasi->tahun ?></td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->nilai_alokasi) ?></td>
+                                            <td>Rp. <?php echo angka($m_dak_alokasi->ttl_rincian) ?></td>
+                                            <td><?php echo ceil($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100) ?> %</td>
                                             <!-- <td><?php echo $m_dak_alokasi->updated_by ?></td>
                                             <td><?php echo $m_dak_alokasi->updated_date ?></td> -->
                                             <td style="text-align:center" width="200px">

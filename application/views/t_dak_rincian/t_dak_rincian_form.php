@@ -389,17 +389,24 @@
 							$("#ruangan").prop("required", true);
 							$("#sarana").prop("required", true);
 
+						} else if (obj.id_jenis_output == 10) {
+							$(".alkes").css("display", "none");
+							$(".instalasi").css("display", "");
+							$(".ruangan").css("display", "");
+							$(".sarana").css("display", "none");
+							$("#instalasi").prop("required", true);
+							$("#ruangan").prop("required", true);
+
 						} else {
 							$(".alkes").css("display", "none");
 							$(".instalasi").css("display", "none");
 							$(".ruangan").css("display", "none");
 							$(".sarana").css("display", "none");
-
 						}
 						$('#id_jenis_output').val(obj.id_jenis_output);
 						$('#nama_jenis_output').val(obj.nama_jenis_output);
-						$('#id_satuan').val(obj.id_satuan);
-						$('#satuan').val(obj.satuan);
+						//$('#id_satuan').val(obj.id_satuan);
+						//$('#satuan').val(obj.satuan);
 					},
 				});
 			} else {

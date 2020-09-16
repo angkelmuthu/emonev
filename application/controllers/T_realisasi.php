@@ -70,30 +70,12 @@ class T_realisasi extends CI_Controller
 		echo json_encode($data);
 	}
 
-	public function read($id)
+	public function read($id_alokasi, $idrincian, $idrealisasi)
 	{
-		$row = $this->T_realisasi_model->get_by_id($id);
+		$row = $this->T_realisasi_model->get_by_realisasi($idrealisasi);
 		if ($row) {
 			$data = array(
-				'id_realisasi' => $row->id_realisasi,
-				'id_rincian' => $row->id_rincian,
-				'id_user' => $row->id_user,
-				'periode' => $row->periode,
-				'realisasi_fisik' => $row->realisasi_fisik,
-				'realisasi_harga_satuan' => $row->realisasi_harga_satuan,
-				'realisasi_satuan' => $row->realisasi_satuan,
-				'realisasi_persen' => $row->realisasi_persen,
-				'realisasi_nilai' => $row->realisasi_nilai,
-				'id_progress' => $row->id_progress,
-				'id_rincian_hambatan' => $row->id_rincian_hambatan,
-				'rencana_tindak_lanjut' => $row->rencana_tindak_lanjut,
-				'pemanfaatan' => $row->pemanfaatan,
-				'keterangan' => $row->keterangan,
-				'created_by' => $row->created_by,
-				'created_date' => $row->created_date,
-				'updated_by' => $row->updated_by,
-				'updated_date' => $row->updated_date,
-				'isdeleted' => $row->isdeleted,
+				'realisasi' => $this->T_realisasi_model->get_by_realisasi($idrealisasi),
 			);
 			$this->template->load('template', 't_realisasi/t_realisasi_read', $data);
 		} else {
@@ -101,7 +83,7 @@ class T_realisasi extends CI_Controller
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Record Not Found</strong></div>');
-			redirect(site_url('t_realisasi'));
+			redirect(site_url('t_realisasi/realisasi/' . $idrincian . '/' . $id_alokasi));
 		}
 	}
 

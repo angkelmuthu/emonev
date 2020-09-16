@@ -62,6 +62,7 @@ class M_dak_alokasi_satker extends CI_Controller
                 'updated_by' => $row->updated_by,
                 'updated_date' => $row->updated_date,
                 'isdeleted' => $row->isdeleted,
+                'ttl_rincian' => $row->ttl_rincian,
                 'komponen' => $this->M_dak_alokasi_satker_model->get_komponen($id_sub_bidang),
             );
             $this->template->load('template', 'm_dak_alokasi_satker/m_dak_alokasi_satker_read', $data);
