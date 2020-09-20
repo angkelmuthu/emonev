@@ -68,6 +68,14 @@ class T_realisasi_model extends CI_Model
         $this->db->where('a.id_rincian', $idrincian);
         return $this->db->get()->row();
     }
+    function get_rincian_id($idrincian)
+    {
+        $this->db->from('v_rincian a');
+        $this->db->join('v_dak_rincian b', 'a.id_dak_rincian=b.id_dak_rincian', 'left');
+        $this->db->join('v_dak_alokasi c', 'a.id_dak_alokasi=c.id_dak_alokasi', 'left');
+        $this->db->where('a.id_rincian', $idrincian);
+        return $this->db->get()->result();
+    }
 
     // get data by id
     function get_by_id($id)

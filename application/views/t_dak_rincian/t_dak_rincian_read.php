@@ -113,29 +113,31 @@
 						<table class="table table-bordered table-hover table-striped w-100">
 							<?php foreach ($dt_rincian as $dt) { ?>
 								<tr>
-									<th>Komponen</th>
+									<th>Sub Bidang</th>
 									<td><?php echo $dt->nama_dak_komponen ?></td>
 								</tr>
 								<tr>
-									<th>Komponen Sub</th>
+									<th>Rincian</th>
 									<td><?php echo $dt->nama_dak_komponen_sub ?></td>
 								</tr>
 								<tr>
 									<th>Kegiatan</th>
-									<td><?php echo $dt->menu_kegiatan ?></td>
+									<td><?php echo $dt->nama_menu_kegiatan ?></td>
 								</tr>
 								<tr>
 									<th>Sub Kegiatan</th>
-									<td><?php echo $dt->kegiatan ?></td>
+									<td><?php echo $dt->nama_kegiatan ?></td>
 								</tr>
 								<tr>
-									<th>Rincian</th>
+									<th>Detail Rincian</th>
 									<td><?php echo $dt->nama_dak_rincian ?></td>
 								</tr>
-								<tr>
-									<th>Alkes</th>
-									<td><?php echo $dt->nama_alkes ?></td>
-								</tr>
+								<?php if (!empty($dt->kode_alkes)) { ?>
+									<tr>
+										<th>Alkes</th>
+										<td><?php echo $dt->nama_alkes ?></td>
+									</tr>
+								<?php } ?>
 								<tr>
 									<th>Jenis Output</th>
 									<td><?php echo $dt->nama_jenis_output ?></td>
@@ -157,8 +159,18 @@
 									<td><?php echo angka($dt->total) ?></td>
 								</tr>
 								<tr>
-									<th>Sarana</th>
-									<td><?php echo $dt->sarana ?></td>
+									<th>Lokasi</th>
+									<td>
+										<?php if (!empty($dt->nama_instalasi)) { ?>
+											<span class="badge border border-primary text-primary">Pelayanan : <?php echo $dt->nama_instalasi; ?></span>
+										<?php }
+										if (!empty($dt->nama_ruangan)) { ?>
+											<span class="badge border border-secondary text-secondary">Sub Pelayanan : <?php echo $dt->nama_ruangan; ?></span>
+										<?php }
+										if (!empty($dt->nama_sarana)) { ?>
+											<span class="badge border border-success text-success">Ruangan : <?php echo $dt->nama_sarana; ?></span>
+										<?php } ?>
+									</td>
 								</tr>
 								<tr>
 									<th>NIP Penginput</th>

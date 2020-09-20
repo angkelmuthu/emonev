@@ -87,7 +87,7 @@ class T_realisasi extends CI_Controller
 		}
 	}
 
-	public function create()
+	public function create($idrincian, $idalokasi)
 	{
 		//$idrincian = $this->uri->segment(3);
 		//$row = $this->T_realisasi_model->get_rincian($idrincian);
@@ -107,7 +107,7 @@ class T_realisasi extends CI_Controller
 			'id_progress' => set_value('id_progress'),
 			'id_rincian_hambatan' => set_value('id_rincian_hambatan'),
 			'rencana_tindak_lanjut' => set_value('rencana_tindak_lanjut'),
-			'pemanfaatan' => set_value('pemanfaatan'),
+			//'pemanfaatan' => set_value('pemanfaatan'),
 			'keterangan' => set_value('keterangan'),
 			'nip_pengisi' => set_value('nip_pengisi'),
 			'nama_pengisi' => set_value('nama_pengisi'),
@@ -117,6 +117,7 @@ class T_realisasi extends CI_Controller
 			'updated_by' => set_value('updated_by'),
 			'updated_date' => set_value('updated_date'),
 			'isdeleted' => set_value('isdeleted'),
+			'dt_rincian' => $this->T_realisasi_model->get_rincian_id($idrincian),
 			// 'id_rincian' => $row->id_rincian,
 			// 'nama_menu_kegiatan' => $row->nama_menu_kegiatan,
 			// 'id_dak_alokasi' => $row->id_dak_alokasi,

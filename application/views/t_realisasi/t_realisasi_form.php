@@ -3,6 +3,120 @@
 	<div class="row">
 		<div class="col-xl-12">
 			<div id="panel-1" class="panel">
+				<?php foreach ($dt_rincian as $dt) { ?>
+					<div class="accordion accordion-hover" id="js_demo_accordion-5">
+						<div class="card">
+							<div class="card-header">
+								<a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-5a" aria-expanded="false">
+									<i class="fal fa-cube width-2 fs-xl"></i>
+									DAK ALOKASI
+									<span class="ml-auto">
+										<span class="collapsed-reveal">
+											<i class="fal fa-chevron-up fs-xl"></i>
+										</span>
+										<span class="collapsed-hidden">
+											<i class="fal fa-chevron-down fs-xl"></i>
+										</span>
+									</span>
+								</a>
+							</div>
+							<div id="js_demo_accordion-5a" class="collapse" data-parent="#js_demo_accordion-5">
+								<div class="card-body">
+									<table class="table table-bordered table-striped">
+										<tr>
+											<td>Satker</td>
+											<td><?php echo $dt->satker ?></td>
+											<td>Tahun Anggaran</td>
+											<td><?php echo $dt->tahun ?></td>
+
+										</tr>
+										<tr>
+											<td>Jenis DAK</td>
+											<td><?php echo $dt->nama_dak_sub_bidang ?></td>
+											<td>Nilai Alokasi</td>
+											<td>Rp. <?php echo angka($dt->nilai_alokasi) ?></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-header">
+								<a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-5b" aria-expanded="false">
+									<i class="fal fa-cubes width-2 fs-xl"></i>
+									RINCIAN KEGIATAN
+									<span class="ml-auto">
+										<span class="collapsed-reveal">
+											<i class="fal fa-chevron-up fs-xl"></i>
+										</span>
+										<span class="collapsed-hidden">
+											<i class="fal fa-chevron-down fs-xl"></i>
+										</span>
+									</span>
+								</a>
+							</div>
+							<div id="js_demo_accordion-5b" class="collapse" data-parent="#js_demo_accordion-5">
+								<div class="card-body">
+									<table class="table table-bordered table-striped">
+										<tr>
+											<th>Kegiatan</th>
+											<td><?php echo $dt->nama_menu_kegiatan; ?></td>
+											<th>Sub Kegiatan</th>
+											<td><?php echo $dt->nama_menu_kegiatan; ?></td>
+										</tr>
+										<tr>
+											<th>Rincian</th>
+											<td><?php echo $dt->nama_dak_rincian; ?></td>
+											<th>Jenis Output</th>
+											<td><?php echo $dt->nama_jenis_output; ?></td>
+										</tr>
+
+										<?php if ($dt->id_jenis_output == 2) {
+											echo '<tr><td>Alat Kesehatan</td><td colspan=3>' . $dt->nama_alkes . '</td></tr>';
+										} ?>
+										<tr>
+											<th>Volume</th>
+											<td><?php echo $dt->volume; ?></td>
+											<th>Satuan</th>
+											<td><?php echo $dt->satuan; ?></td>
+										</tr>
+										<tr>
+											<th>Harga Satuan</th>
+											<td>Rp. <?php echo angka($dt->harga_satuan); ?></td>
+											<th>Total Alokasi</th>
+											<td>Rp. <?php echo angka($dt->total); ?></td>
+										</tr>
+										<tr>
+											<th>Sarana</th>
+											<td colspan="3">
+												<span class="badge border border-primary text-primary">Installasi : <?php echo $dt->nama_instalasi ?></span>
+												<span class="badge border border-primary text-primary">Ruangan : <?php echo $dt->nama_ruangan ?></span>
+												<span class="badge border border-primary text-primary">Sarana : <?php echo $dt->nama_sarana ?></span>
+											</td>
+										</tr>
+										<tr>
+											<th>Petugas Penginput</th>
+											<td colspan="3">
+												<span class="badge border border-success text-success">NIP : <?php echo $dt->nip_pengisi ?></span>
+												<span class="badge border border-success text-success">Nama : <?php echo $dt->nama_pengisi ?></span>
+												<span class="badge border border-success text-success">Jabatan : <?php echo $dt->jabatan_pengisi ?></span>
+											</td>
+										</tr>
+										<tr>
+											<th>Created Date</th>
+											<td colspan="3"><?php echo $dt->created_date; ?></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php } ?>
+			</div>
+
+		</div>
+		<div class="col-xl-12">
+			<div id="panel-1" class="panel">
 				<div class="panel-hdr">
 					<h2>INPUT DAK REALISASI TRIWULAN</h2>
 					<div class="panel-toolbar">
@@ -27,6 +141,9 @@
 							$harga_satuan = $dt->harga_satuan;
 							$satuan = $dt->satuan;
 							$total = $dt->total;
+							$sarana = $dt->nama_sarana;
+							$ruangan = $dt->nama_ruangan;
+							$instalasi = $dt->nama_instalasi;
 						}
 						?>
 						<form action="<?php echo $action; ?>" method="post">
@@ -114,8 +231,8 @@
 									<td colspan="2"> <textarea class="form-control" non_pks="3" name="rencana_tindak_lanjut" id="rencana_tindak_lanjut" placeholder="Rencana Tindak Lanjut"><?php echo $rencana_tindak_lanjut; ?></textarea></td>
 								</tr>
 								<tr>
-									<td width='200'>Pemanfaatan <br><span class="help-block">*wajib diisi</span></td>
-									<td colspan="2"> <textarea class="form-control" non_pks="3" name="pemanfaatan" id="pemanfaatan" placeholder="Pemanfaatan"><?php echo $pemanfaatan; ?></textarea></td>
+									<td width='200'>Pemanfaatan</td>
+									<td colspan="2"> <textarea class="form-control" non_pks="3" name="pemanfaatan" id="pemanfaatan" placeholder="Pemanfaatan" readonly><?php echo $instalasi . ', ' . $ruangan . ', ' . $sarana ?></textarea></td>
 								</tr>
 								<tr>
 									<td width='200'>Keterangan <?php echo form_error('keterangan') ?></td>

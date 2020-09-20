@@ -78,9 +78,9 @@
                         <table class="table table-bordered table-hover table-striped w-100" id="example">
                             <thead class="thead-themed">
                                 <tr class="text-center">
-                                    <th>Komponen</th>
-                                    <th>Komponen Sub</th>
+                                    <th>Sub Bidang</th>
                                     <th>Rincian</th>
+                                    <th>Lokasi Kegiatan / Alkes</th>
                                     <!-- <th>Jenis Output</th> -->
                                     <th>Harga Satuan (Rp)</th>
                                     <th>Volume</th>
@@ -95,7 +95,21 @@
                                     <tr>
                                         <td><?php echo $dt->nama_dak_komponen ?></td>
                                         <td><?php echo $dt->nama_dak_komponen_sub ?></td>
-                                        <td><?php echo $dt->nama_dak_rincian ?></td>
+                                        <td>
+                                            <?php if (!empty($dt->kode_alkes)) {
+                                                echo $dt->nama_alkes;
+                                            } else { ?>
+                                                <?php if (!empty($dt->nama_instalasi)) { ?>
+                                                    <span class="badge border border-primary text-primary">Pelayanan : <?php echo $dt->nama_instalasi; ?></span>
+                                                <?php }
+                                                if (!empty($dt->nama_ruangan)) { ?>
+                                                    <span class="badge border border-secondary text-secondary">Sub Pelayanan : <?php echo $dt->nama_ruangan; ?></span>
+                                                <?php }
+                                                if (!empty($dt->nama_sarana)) { ?>
+                                                    <span class="badge border border-success text-success">Ruangan : <?php echo $dt->nama_sarana; ?></span>
+                                            <?php }
+                                            } ?>
+                                        </td>
                                         <!-- <td><?php echo $dt->nama_jenis_output ?></td> -->
                                         <td class="text-right"><?php echo angka($dt->harga_satuan) ?></td>
                                         <td class="text-center"><?php echo $dt->volume ?></td>
