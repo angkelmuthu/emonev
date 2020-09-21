@@ -85,11 +85,17 @@
                                         <td>Rp. <?php echo angka($total); ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Sarana</th>
+                                        <th>Lokasi</th>
                                         <td colspan="3">
-                                            <span class="badge border border-primary text-primary">Installasi : <?php echo $nama_instalasi ?></span>
-                                            <span class="badge border border-primary text-primary">Ruangan : <?php echo $nama_ruangan ?></span>
-                                            <span class="badge border border-primary text-primary">Sarana : <?php echo $nama_sarana ?></span>
+                                            <?php if (!empty($nama_instalasi)) { ?>
+                                                <span class="badge border border-primary text-primary">Pelayanan : <?php echo $nama_instalasi; ?></span>
+                                            <?php }
+                                            if (!empty($nama_ruangan)) { ?>
+                                                <span class="badge border border-secondary text-secondary">Sub Pelayanan : <?php echo $nama_ruangan; ?></span>
+                                            <?php }
+                                            if (!empty($nama_sarana)) { ?>
+                                                <span class="badge border border-success text-success">Ruangan : <?php echo $nama_sarana; ?></span>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                     <tr>

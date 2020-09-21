@@ -100,34 +100,36 @@ class T_dak_rincian_model extends CI_Model
     }
     function fetch_instalasi($fasyankes)
     {
-        if ($fasyankes == 'puskesmas') {
-            $this->db->where('jns', 'PKM');
+        if ($fasyankes == '1') {
+            $this->db->where('id_jenis_faskes', '1');
+        } elseif ($fasyankes == '2') {
+            $this->db->where('id_jenis_faskes', '2');
         } else {
-            $this->db->where('jns', 'RS');
+            $this->db->where('id_jenis_faskes', '3');
         }
         $this->db->order_by('nama_instalasi', 'ASC');
         $query = $this->db->get('v_sarana_instalasi');
         $output = '<option value="">Select Pelayanan</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->kode_instalasi . '">' . $row->nama_instalasi . '</option>';
+            $output .= '<option value="' . $row->kode_instalasi_gabungan . '">' . $row->nama_instalasi . '</option>';
         }
         return $output;
     }
     function fetch_ruangan($instalasi)
     {
-        $this->db->where('kode_instalasi', $instalasi);
+        $this->db->where('kode_instalasi_gabungan', $instalasi);
         $this->db->order_by('nama_ruangan', 'ASC');
         $query = $this->db->get('v_sarana_ruangan');
         $output = '<option value="">Select Sub Pelayanan</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->kode_ruangan . '">' . $row->nama_ruangan . '</option>';
+            $output .= '<option value="' . $row->kode_ruangan_gabungan . '">' . $row->nama_ruangan . '</option>';
         }
 
         return $output;
     }
     function fetch_sarana($ruangan)
     {
-        $this->db->where('kode_ruangan', $ruangan);
+        $this->db->where('kode_ruangan_gabungan', $ruangan);
         $this->db->order_by('nama_sarana', 'ASC');
         $query = $this->db->get('v_sarana');
         $output = '<option value="">Select Ruangan</option>';

@@ -104,7 +104,7 @@
 
 								<?php if ($this->session->userdata('id_jenis_satker') == 3) { ?>
 									<input type="hidden" name="kode_satker_lokasi" value="<?php echo $this->session->userdata('kode_satker'); ?>" />
-									<input type="hidden" name="fasyankes" id="fasyankes" value="rs" />
+									<input type="hidden" name="fasyankes" id="fasyankes" value="1" />
 								<?php } else { ?>
 									<tr class="bg-info-500">
 										<td colspan="3">Lokasi Kegiatan</td>
@@ -114,11 +114,11 @@
 										<td>
 											<div class="frame-wrap">
 												<div class="custom-control custom-radio custom-control-inline">
-													<input type="radio" name="fasyankes" class="custom-control-input" id="defaultInline1Radio" value="puskesmas">
+													<input type="radio" name="fasyankes" class="custom-control-input" id="defaultInline1Radio" value="2">
 													<label class="custom-control-label" for="defaultInline1Radio">Puskesmas</label>
 												</div>
 												<div class="custom-control custom-radio custom-control-inline">
-													<input type="radio" name="fasyankes" class="custom-control-input" id="defaultInline2Radio" value="rs">
+													<input type="radio" name="fasyankes" class="custom-control-input" id="defaultInline2Radio" value="1">
 													<label class="custom-control-label" for="defaultInline2Radio">Rumah Sakit</label>
 												</div>
 											</div>
