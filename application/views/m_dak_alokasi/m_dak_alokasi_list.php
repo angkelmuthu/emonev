@@ -4,7 +4,7 @@
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
                 <div class="panel-hdr">
-                    <h2>DATA DAK ALOKASI</h2>
+                    <h2>KELOLA DATA M_DAK_ALOKASI</h2>
                     <div class="panel-toolbar">
                         <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                         <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -48,13 +48,17 @@
                                 <thead class="thead-themed">
                                     <tr>
                                         <th>No</th>
-                                        <th>Dak Jenis</th>
-                                        <th>Dak Kelompok</th>
-                                        <th>Satker</th>
+                                        <th>Id Dak Jenis</th>
+                                        <th>Id Dak Kelompok</th>
+                                        <th>Id Dak Sub Bidang</th>
+                                        <th>Id Satker</th>
                                         <th>Tahun</th>
                                         <th>Nilai Alokasi</th>
-                                        <th>Updated By</th>
+                                        <th>Created By</th>
+                                        <th>Created Date</th>
+                                        <!-- <th>Updated By</th>
                                         <th>Updated Date</th>
+                                        <th>Isdeleted</th> -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -63,21 +67,25 @@
                                         ?>
                                         <tr>
                                             <td width="10px"><?php echo ++$start ?></td>
-                                            <td><?php echo $m_dak_alokasi->dak_jenis ?></td>
-                                            <td><?php echo $m_dak_alokasi->dak_kelompok ?></td>
-                                            <td><?php echo $m_dak_alokasi->satker ?></td>
+                                            <td><?php echo $m_dak_alokasi->id_dak_jenis ?></td>
+                                            <td><?php echo $m_dak_alokasi->id_dak_kelompok ?></td>
+                                            <td><?php echo $m_dak_alokasi->id_dak_sub_bidang ?></td>
+                                            <td><?php echo $m_dak_alokasi->id_satker ?></td>
                                             <td><?php echo $m_dak_alokasi->tahun ?></td>
-                                            <td>Rp. <?php echo angka($m_dak_alokasi->nilai_alokasi) ?></td>
-                                            <td><?php echo $m_dak_alokasi->updated_by ?></td>
+                                            <td><?php echo $m_dak_alokasi->nilai_alokasi ?></td>
+                                            <td><?php echo $m_dak_alokasi->created_by ?></td>
+                                            <td><?php echo $m_dak_alokasi->created_date ?></td>
+                                            <!-- <td><?php echo $m_dak_alokasi->updated_by ?></td>
                                             <td><?php echo $m_dak_alokasi->updated_date ?></td>
+                                            <td><?php echo $m_dak_alokasi->isdeleted ?></td> -->
                                             <td style="text-align:center" width="200px">
                                                 <?php
-                                                echo anchor(site_url('m_dak_alokasi/read/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-sm waves-effect waves-themed"');
+                                                echo anchor(site_url('m_dak_alokasi/read/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-xs waves-effect waves-themed"');
                                                 echo '  ';
-                                                echo anchor(site_url('m_dak_alokasi/update/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-sm waves-effect waves-themed"');
+                                                echo anchor(site_url('m_dak_alokasi/update/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-xs waves-effect waves-themed"');
                                                 echo '  ';
                                                 echo
-                                                    '<button type="button" class="btn btn-danger btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm' . $m_dak_alokasi->id_dak_alokasi . '"><i class="fal fa-trash" aria-hidden="true"></i></button>
+                                                    '<button type="button" class="btn btn-danger btn-xs waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm' . $m_dak_alokasi->id_dak_alokasi . '"><i class="fal fa-trash" aria-hidden="true"></i></button>
     <div class="modal fade" id="default-example-modal-sm' . $m_dak_alokasi->id_dak_alokasi . '" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">

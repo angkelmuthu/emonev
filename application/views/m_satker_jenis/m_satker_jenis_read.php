@@ -3,7 +3,7 @@
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
-                <h2>Master Satker Jenis Read</h2>
+                <h2>Jenis Satker Read</h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                     <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -13,7 +13,7 @@
             <div class="panel-container show">
                 <div class="panel-content">
         <table class="table table-striped">
-	    <tr><td>Nama</td><td><?php echo $nama; ?></td></tr>
+	    <tr><td>Nama Satker Jenis</td><td><?php echo $nama_satker_jenis; ?></td></tr>
 	    <tr><td>Created By</td><td><?php echo $created_by; ?></td></tr>
 	    <tr><td>Created Date</td><td><?php echo $created_date; ?></td></tr>
 	    <tr><td>Updated By</td><td><?php echo $updated_by; ?></td></tr>

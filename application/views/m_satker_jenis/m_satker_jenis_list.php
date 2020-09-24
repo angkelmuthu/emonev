@@ -3,7 +3,7 @@
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
-                <h2>KELOLA DATA MASTER SATKER JENIS</h2>
+                <h2>KELOLA DATA JENIS SATKER</h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                     <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -13,13 +13,12 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="text-center">
-        <?php echo anchor(site_url('m_satker_jenis/create'), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
-		<?php echo anchor(site_url('m_satker_jenis/excel'), '<i class="fal fa-file-excel" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-outline-success btn-sm waves-effect waves-themed"'); ?></div>
+        <?php echo anchor(site_url('m_satker_jenis/create'), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?></div>
         <table class="table table-bordered table-hover table-striped w-100" id="dt-basic-example">
             <thead>
                 <tr>
                     <th width="30px">No</th>
-		    <th>Nama</th>
+		    <th>Nama Satker Jenis</th>
 		    <th>Created By</th>
 		    <th>Created Date</th>
 		    <th>Updated By</th>
@@ -76,7 +75,7 @@
                         {
                             "data": "id_satker_jenis",
                             "orderable": false
-                        },{"data": "nama"},{"data": "created_by"},{"data": "created_date"},{"data": "updated_by"},{"data": "updated_date"},{"data": "isdeleted"},
+                        },{"data": "nama_satker_jenis"},{"data": "created_by"},{"data": "created_date"},{"data": "updated_by"},{"data": "updated_date"},{"data": "isdeleted"},
                         {
                             "data" : "action",
                             "orderable": false,

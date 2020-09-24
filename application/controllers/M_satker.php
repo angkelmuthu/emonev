@@ -10,18 +10,39 @@ class M_satker extends CI_Controller
         parent::__construct();
         is_login();
         $this->load->model('M_satker_model');
-        $this->load->library('form_validation');        
-	$this->load->library('datatables');
+        $this->load->library('form_validation');
     }
 
     public function index()
     {
-        $this->template->load('template','m_satker/m_satker_list');
-    }
+        $q = urldecode($this->input->get('q', TRUE));
+        $start = intval($this->uri->segment(3));
 
-    public function json() {
-        header('Content-Type: application/json');
-        echo $this->M_satker_model->json();
+        if ($q <> '') {
+            $config['base_url'] = base_url() . '.php/c_url/index.html?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'index.php/m_satker/index.html?q=' . urlencode($q);
+        } else {
+            $config['base_url'] = base_url() . 'index.php/m_satker/index/';
+            $config['first_url'] = base_url() . 'index.php/m_satker/index/';
+        }
+
+        $config['per_page'] = 10;
+        $config['page_query_string'] = FALSE;
+        $config['total_rows'] = $this->M_satker_model->total_rows($q);
+        $m_satker = $this->M_satker_model->get_limit_data($config['per_page'], $start, $q);
+        $config['full_tag_open'] = '<ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul>';
+        $this->load->library('pagination');
+        $this->pagination->initialize($config);
+
+        $data = array(
+            'm_satker_data' => $m_satker,
+            'q' => $q,
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+        );
+        $this->template->load('template','m_satker/m_satker_list', $data);
     }
 
     public function read($id)
@@ -30,7 +51,7 @@ class M_satker extends CI_Controller
         if ($row) {
             $data = array(
 		'id_satker' => $row->id_satker,
-		'id_jenis_satker' => $row->id_jenis_satker,
+		'id_satker_jenis' => $row->id_satker_jenis,
 		'id_provinsi' => $row->id_provinsi,
 		'id_kota_kabupaten' => $row->id_kota_kabupaten,
 		'id_rumah_sakit' => $row->id_rumah_sakit,
@@ -58,7 +79,7 @@ class M_satker extends CI_Controller
             'button' => 'Create',
             'action' => site_url('m_satker/create_action'),
 	    'id_satker' => set_value('id_satker'),
-	    'id_jenis_satker' => set_value('id_jenis_satker'),
+	    'id_satker_jenis' => set_value('id_satker_jenis'),
 	    'id_provinsi' => set_value('id_provinsi'),
 	    'id_kota_kabupaten' => set_value('id_kota_kabupaten'),
 	    'id_rumah_sakit' => set_value('id_rumah_sakit'),
@@ -81,7 +102,7 @@ class M_satker extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_jenis_satker' => $this->input->post('id_jenis_satker',TRUE),
+		'id_satker_jenis' => $this->input->post('id_satker_jenis',TRUE),
 		'id_provinsi' => $this->input->post('id_provinsi',TRUE),
 		'id_kota_kabupaten' => $this->input->post('id_kota_kabupaten',TRUE),
 		'id_rumah_sakit' => $this->input->post('id_rumah_sakit',TRUE),
@@ -112,7 +133,7 @@ class M_satker extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('m_satker/update_action'),
 		'id_satker' => set_value('id_satker', $row->id_satker),
-		'id_jenis_satker' => set_value('id_jenis_satker', $row->id_jenis_satker),
+		'id_satker_jenis' => set_value('id_satker_jenis', $row->id_satker_jenis),
 		'id_provinsi' => set_value('id_provinsi', $row->id_provinsi),
 		'id_kota_kabupaten' => set_value('id_kota_kabupaten', $row->id_kota_kabupaten),
 		'id_rumah_sakit' => set_value('id_rumah_sakit', $row->id_rumah_sakit),
@@ -142,7 +163,7 @@ class M_satker extends CI_Controller
             $this->update($this->input->post('id_satker', TRUE));
         } else {
             $data = array(
-		'id_jenis_satker' => $this->input->post('id_jenis_satker',TRUE),
+		'id_satker_jenis' => $this->input->post('id_satker_jenis',TRUE),
 		'id_provinsi' => $this->input->post('id_provinsi',TRUE),
 		'id_kota_kabupaten' => $this->input->post('id_kota_kabupaten',TRUE),
 		'id_rumah_sakit' => $this->input->post('id_rumah_sakit',TRUE),
@@ -186,7 +207,7 @@ class M_satker extends CI_Controller
 
     public function _rules()
     {
-	$this->form_validation->set_rules('id_jenis_satker', 'id jenis satker', 'trim|required');
+	$this->form_validation->set_rules('id_satker_jenis', 'id satker jenis', 'trim|required');
 	$this->form_validation->set_rules('id_provinsi', 'id provinsi', 'trim|required');
 	$this->form_validation->set_rules('id_kota_kabupaten', 'id kota kabupaten', 'trim|required');
 	$this->form_validation->set_rules('id_rumah_sakit', 'id rumah sakit', 'trim|required');
@@ -224,7 +245,7 @@ class M_satker extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Jenis Satker");
+	xlsWriteLabel($tablehead, $kolomhead++, "Id Satker Jenis");
 	xlsWriteLabel($tablehead, $kolomhead++, "Id Provinsi");
 	xlsWriteLabel($tablehead, $kolomhead++, "Id Kota Kabupaten");
 	xlsWriteLabel($tablehead, $kolomhead++, "Id Rumah Sakit");
@@ -241,7 +262,7 @@ class M_satker extends CI_Controller
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->id_jenis_satker);
+	    xlsWriteNumber($tablebody, $kolombody++, $data->id_satker_jenis);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->id_provinsi);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->id_kota_kabupaten);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->id_rumah_sakit);
@@ -266,5 +287,5 @@ class M_satker extends CI_Controller
 /* End of file M_satker.php */
 /* Location: ./application/controllers/M_satker.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2020-07-15 15:34:44 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2020-09-24 09:21:55 */
 /* http://harviacode.com */

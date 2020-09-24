@@ -52,6 +52,7 @@
                 // chek is have sub menu
                 $this->db->where('is_main_menu', $menu->id_menu);
                 $this->db->where('is_aktif', 'y');
+                $this->db->ORDER_BY('title', 'asc');
                 $submenu = $this->db->get('tbl_menu');
                 // if ($submenu->num_rows() > 0) {
                 //     // display sub menu

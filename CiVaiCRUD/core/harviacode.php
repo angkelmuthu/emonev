@@ -44,7 +44,7 @@ class Harviacode
     {
         //$dbx=$this->database;
         $tablex = $_GET['table'];
-        $query = "SELECT ORDINAL_POSITION,COLUMN_NAME,IS_NULLABLE,COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=?  ORDER BY ORDINAL_POSITION";
+        $query = "SELECT ORDINAL_POSITION,COLUMN_NAME,IS_NULLABLE,COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=? AND TABLE_NAME=?  ORDER BY COLUMN_NAME ASC";
         $stmt = $this->sql->prepare($query) or die("Error code :" . $this->sql->errno . " (not_primary_field)");
         $stmt->bind_param('ss', $this->database, $tablex);
         $stmt->bind_result($ORDINAL_POSITION, $COLUMN_NAME, $IS_NULLABLE, $COLUMN_TYPE);
@@ -59,7 +59,7 @@ class Harviacode
 
     function table_list()
     {
-        $query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=?";
+        $query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=? ORDER BY TABLE_NAME ASC";
         $stmt = $this->sql->prepare($query) or die("Error code :" . $this->sql->errno . " (not_primary_field)");
         $stmt->bind_param('s', $this->database);
         $stmt->bind_result($table_name);

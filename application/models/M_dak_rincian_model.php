@@ -18,6 +18,7 @@ class M_dak_rincian_model extends CI_Model
     // get all
     function get_all()
     {
+        $this->db->where('isdeleted', '1');
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
@@ -28,39 +29,43 @@ class M_dak_rincian_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
+        $this->db->where('isdeleted', '1');
         $this->db->like('id_dak_rincian', $q);
-	$this->db->or_like('id_dak_komponen_sub', $q);
-	$this->db->or_like('kode_dak_rincian', $q);
-	$this->db->or_like('nama_dak_rincian', $q);
-	$this->db->or_like('id_satuan', $q);
-	$this->db->or_like('id_jenis_output', $q);
-	$this->db->or_like('created_by', $q);
-	$this->db->or_like('created_date', $q);
-	$this->db->or_like('updated_by', $q);
-	$this->db->or_like('updated_date', $q);
-	$this->db->or_like('isdeleted', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('id_dak_komponen_sub', $q);
+        $this->db->or_like('kode_dak_rincian', $q);
+        $this->db->or_like('nama_dak_rincian', $q);
+        $this->db->or_like('id_satuan', $q);
+        $this->db->or_like('id_jenis_output', $q);
+        $this->db->or_like('created_by', $q);
+        $this->db->or_like('created_date', $q);
+        $this->db->or_like('updated_by', $q);
+        $this->db->or_like('updated_date', $q);
+        $this->db->or_like('isdeleted', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
+        $this->db->where('isdeleted', '1');
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_dak_rincian', $q);
-	$this->db->or_like('id_dak_komponen_sub', $q);
-	$this->db->or_like('kode_dak_rincian', $q);
-	$this->db->or_like('nama_dak_rincian', $q);
-	$this->db->or_like('id_satuan', $q);
-	$this->db->or_like('id_jenis_output', $q);
-	$this->db->or_like('created_by', $q);
-	$this->db->or_like('created_date', $q);
-	$this->db->or_like('updated_by', $q);
-	$this->db->or_like('updated_date', $q);
-	$this->db->or_like('isdeleted', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('id_dak_komponen_sub', $q);
+        $this->db->or_like('kode_dak_rincian', $q);
+        $this->db->or_like('nama_dak_rincian', $q);
+        $this->db->or_like('id_satuan', $q);
+        $this->db->or_like('id_jenis_output', $q);
+        $this->db->or_like('created_by', $q);
+        $this->db->or_like('created_date', $q);
+        $this->db->or_like('updated_by', $q);
+        $this->db->or_like('updated_date', $q);
+        $this->db->or_like('isdeleted', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -83,7 +88,6 @@ class M_dak_rincian_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-
 }
 
 /* End of file M_dak_rincian_model.php */
