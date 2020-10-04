@@ -87,7 +87,7 @@
                                             <td><?php echo $m_dak_alokasi->tahun ?></td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->nilai_alokasi) ?></td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->ttl_rincian) ?></td>
-                                            <td><?php echo ceil($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100) ?> %</td>
+                                            <td><?php echo round($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100, 2) ?> %</td>
                                             <!-- <td><?php echo $m_dak_alokasi->updated_by ?></td>
                                             <td><?php echo $m_dak_alokasi->updated_date ?></td> -->
                                             <td style="text-align:center" width="200px">

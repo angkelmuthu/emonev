@@ -331,7 +331,7 @@
 			var total = harga * parseInt(jumlah);
 			fixed = total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
 			var persenx = (total / alokasi_nilai) * 100;
-			persen = persenx.toFixed(0) + '%';
+			persen = persenx.toFixed(2) + '%';
 			$("#realisasi_nilai").val(fixed);
 			$("#realisasi_persen").val(persen);
 		});

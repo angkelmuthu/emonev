@@ -125,7 +125,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td width="200">Lokasi <br><span class="help-block">*wajib diisi</span></td>
+										<td width="200">LokUs <br><span class="help-block">*wajib diisi</span></td>
 										<td>
 											<div class="ajax-loader">
 												<img id="loading-image" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />

@@ -29,7 +29,7 @@
                                 </tr>
                                 <tr>
                                     <td>Persentase Kegiatan</td>
-                                    <td><?php echo ceil($ttl_rincian / $nilai_alokasi * 100) ?> %</td>
+                                    <td><?php echo round($ttl_rincian / $nilai_alokasi * 100, 2) ?> %</td>
                                     <td>Nilai Kegiatan</td>
                                     <td>Rp. <?php echo angka($ttl_rincian) ?></td>
                                 </tr>

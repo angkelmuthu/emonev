@@ -68,7 +68,7 @@ class T_dak_rincian_model extends CI_Model
     {
         $filter = strlen($this->session->userdata('id_satker'));
 
-        if ($fasyankes == 'puskesmas') {
+        if ($fasyankes == '2') {
             $nama_satker = $this->session->userdata('nama_satker');
             if ($filter == 2) {
                 $this->db->like('provinsi', $nama_satker);
@@ -81,7 +81,7 @@ class T_dak_rincian_model extends CI_Model
             foreach ($query->result() as $row) {
                 $output .= '<option value="' . $row->kode . '">' . $row->nama . '</option>';
             }
-        } else {
+        } elseif ($fasyankes == '1') {
             if ($filter <= 2) {
                 $id_provinsi = $this->session->userdata('id_provinsi');
                 $this->db->where('id_provinsi', $id_provinsi);
@@ -100,13 +100,8 @@ class T_dak_rincian_model extends CI_Model
     }
     function fetch_instalasi($fasyankes)
     {
-        if ($fasyankes == '1') {
-            $this->db->where('id_jenis_faskes', '1');
-        } elseif ($fasyankes == '2') {
-            $this->db->where('id_jenis_faskes', '2');
-        } else {
-            $this->db->where('id_jenis_faskes', '3');
-        }
+
+        $this->db->where('id_jenis_faskes', $fasyankes);
         $this->db->order_by('nama_instalasi', 'ASC');
         $query = $this->db->get('v_sarana_instalasi');
         $output = '<option value="">Select Pelayanan</option>';
