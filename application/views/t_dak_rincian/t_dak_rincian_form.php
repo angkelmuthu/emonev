@@ -309,10 +309,20 @@
 			//var nilai_alokasi = $("#total").val();
 
 			var total = parseInt(harga_satuan) * parseInt(volume);
-			fixed = total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
-			//var persen = (total / alokasi_nilai) * 100;
-			$("#total").val(fixed);
-			//$("#realisasi_persen").val(persen);
+			var sisa = <?php echo $sisa_alokasi; ?>;
+			if (total > sisa) {
+				//window.confirm("Nilai alokasi yang anda masukkan melebihi sisa anggaran.");
+				if (confirm("Nilai alokasi yang anda masukkan melebihi sisa anggaran.!")) {
+					$('#volume').val('');
+				} else {
+					txt = "You pressed Cancel!";
+				}
+			} else {
+				fixed = total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+				//var persen = (total / alokasi_nilai) * 100;
+				$("#total").val(fixed);
+				//$("#realisasi_persen").val(persen);
+			}
 		});
 	});
 	////////////////////////////////

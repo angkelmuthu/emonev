@@ -29,6 +29,7 @@ class T_dak_rincian extends CI_Controller
 				'dak_kelompok' => $row->dak_kelompok,
 				'satker' => $row->satker,
 				'ttl_rincian' => $row->ttl_rincian,
+				'ttl_realisasi' => $row->ttl_realisasi,
 				'dt_rincian' => $this->T_dak_rincian_model->get_rincian($id_alokasi),
 			);
 			$this->template->load('template', 't_dak_rincian/t_dak_rincian_list', $data);

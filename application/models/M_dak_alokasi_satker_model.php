@@ -55,6 +55,7 @@ class M_dak_alokasi_satker_model extends CI_Model
         $this->db->or_like('tahun', $q);
         $this->db->or_like('nilai_alokasi', $q);
         $this->db->or_like('ttl_rincian', $q);
+        $this->db->or_like('ttl_realisasi', $q);
         $this->db->group_end();
         return $this->db->count_all_results();
     }
@@ -74,6 +75,7 @@ class M_dak_alokasi_satker_model extends CI_Model
         $this->db->or_like('tahun', $q);
         $this->db->or_like('nilai_alokasi', $q);
         $this->db->or_like('ttl_rincian', $q);
+        $this->db->or_like('ttl_realisasi', $q);
         $this->db->group_end();
         $this->db->limit($limit, $start);
         return $this->db->get()->result();

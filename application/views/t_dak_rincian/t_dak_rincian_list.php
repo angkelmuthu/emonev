@@ -28,10 +28,16 @@
                                     <td>Rp. <?php echo angka($nilai_alokasi) ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Persentase Kegiatan</td>
+                                    <td>Persentase Alokasi Kegiatan</td>
                                     <td><?php echo round($ttl_rincian / $nilai_alokasi * 100, 2) ?> %</td>
-                                    <td>Nilai Kegiatan</td>
+                                    <td>Nilai Alokasi Kegiatan</td>
                                     <td>Rp. <?php echo angka($ttl_rincian) ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Persentase Realisasi Kegiatan</td>
+                                    <td><?php echo round($ttl_realisasi / $nilai_alokasi * 100, 2) ?> %</td>
+                                    <td>Nilai Realisasi Kegiatan</td>
+                                    <td>Rp. <?php echo angka($ttl_realisasi) ?></td>
                                 </tr>
                             </table>
                         </div>

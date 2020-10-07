@@ -238,7 +238,7 @@
 								</tr>
 								<tr>
 									<td width='200'>Pemanfaatan</td>
-									<td colspan="2"> <textarea class="form-control" non_pks="3" name="pemanfaatan" id="pemanfaatan" placeholder="Pemanfaatan" readonly><?php echo $instalasi . ', ' . $ruangan . ', ' . $sarana ?></textarea></td>
+									<td colspan="2"> <textarea class="form-control" non_pks="3" name="pemanfaatan" id="pemanfaatan" placeholder="Pemanfaatan"><?php echo $instalasi . ', ' . $ruangan . ', ' . $sarana ?></textarea></td>
 								</tr>
 								<tr>
 									<td width='200'>Keterangan <?php echo form_error('keterangan') ?></td>

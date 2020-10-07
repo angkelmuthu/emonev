@@ -47,32 +47,49 @@
                             <table class="table table-bordered table-hover table-striped">
                                 <thead class="thead-themed">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Sub Bidang</th>
-                                        <th>Dak Kelompok</th>
-                                        <th>Satker</th>
-                                        <th>Tahun</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">Sub Bidang</th>
+                                        <th rowspan="2">Dak Kelompok</th>
+                                        <th rowspan="2">Satker</th>
+                                        <th rowspan="2">Tahun</th>
+                                        <th rowspan="2">
+                                            Nilai Anggaran
+                                            <small class="d-block fs-sm text-muted">
+                                                (Rupiah)
+                                            </small>
+                                        </th>
+                                        <th colspan="2">Alokasi</th>
+                                        <th colspan="2">Realisasi</th>
+                                        <th rowspan="2">Action</th>
+                                    </tr>
+                                    <tr>
                                         <th>
-                                            Nilai Alokasi
+                                            Nilai
                                             <small class="d-block fs-sm text-muted">
                                                 (Rupiah)
                                             </small>
                                         </th>
                                         <th>
-                                            Nilai Kegiatan
+                                            Persentase
+                                            <small class="d-block fs-sm text-muted">
+                                                (%)
+                                            </small>
+                                        </th>
+                                        <th>
+                                            Nilai
                                             <small class="d-block fs-sm text-muted">
                                                 (Rupiah)
                                             </small>
                                         </th>
                                         <th>
-                                            Persentase Kegiatan
+                                            Persentase
                                             <small class="d-block fs-sm text-muted">
                                                 (%)
                                             </small>
                                         </th>
                                         <!-- <th>Updated By</th>
                                         <th>Updated Date</th> -->
-                                        <th>Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody><?php
@@ -88,6 +105,8 @@
                                             <td>Rp. <?php echo angka($m_dak_alokasi->nilai_alokasi) ?></td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->ttl_rincian) ?></td>
                                             <td><?php echo round($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100, 2) ?> %</td>
+                                            <td>Rp. <?php echo angka($m_dak_alokasi->ttl_realisasi) ?></td>
+                                            <td><?php echo round($m_dak_alokasi->ttl_realisasi / $m_dak_alokasi->nilai_alokasi * 100, 2) ?> %</td>
                                             <!-- <td><?php echo $m_dak_alokasi->updated_by ?></td>
                                             <td><?php echo $m_dak_alokasi->updated_date ?></td> -->
                                             <td style="text-align:center" width="200px">
