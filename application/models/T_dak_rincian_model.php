@@ -66,14 +66,18 @@ class T_dak_rincian_model extends CI_Model
     }
     function fetch_fasyankes($fasyankes)
     {
-        $filter = strlen($this->session->userdata('id_satker'));
+        //$filter = $this->session->userdata('id_kota_kabupaten');
 
         if ($fasyankes == '2') {
-            $nama_satker = $this->session->userdata('nama_satker');
-            if ($filter == 2) {
-                $this->db->like('provinsi', $nama_satker);
+
+            if (empty($this->session->userdata('id_kota_kabupaten') == 2)) {
+                $id_provinsi = $this->session->userdata('id_provinsi');
+                $this->db->where('id_provinsi', $id_provinsi);
+                //$this->db->where('nama !=', NULL);
             } else {
-                $this->db->like('kabupaten', $nama_satker);
+                $id_kabupaten = $this->session->userdata('id_kota_kabupaten');
+                $this->db->where('id_kota_kabupaten', $id_kabupaten);
+                //$this->db->where('nama !=', NULL);
             }
             $this->db->order_by('nama', 'ASC');
             $query = $this->db->get('m_puskesmas');

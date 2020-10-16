@@ -343,7 +343,7 @@
                                 $query = $this->db->get('m_petugas');
                                 // /$num = $query->num_rows();
                                 if ($query->num_rows() > 0) {
-                                ?>
+                                    ?>
                                     <a href="<?php echo base_url() ?>m_petugas/update/<?php echo $this->session->userdata('id_satker'); ?>" class="dropdown-item">
                                         <span data-i18n="drpdwn.reset_layout">Edit Profil</span>
                                     </a>
