@@ -23,7 +23,7 @@
                                         <div class="input-group">
                                             <?php
                                             if ($q <> '') {
-                                            ?>
+                                                ?>
                                                 <div class="input-group-prepend">
                                                     <a href="<?php echo site_url('m_dak_alokasi_satker'); ?>" class="btn btn-danger waves-effect waves-themed">Reset</a>
                                                 </div>
@@ -95,7 +95,7 @@
                                 <tbody><?php
                                         //print_r($this->db->last_query());
                                         foreach ($m_dak_alokasi_data as $m_dak_alokasi) {
-                                        ?>
+                                            ?>
                                         <tr>
                                             <td width="10px"><?php echo ++$start ?></td>
                                             <td><?php echo $m_dak_alokasi->nama_dak_sub_bidang ?></td>
@@ -104,19 +104,27 @@
                                             <td><?php echo $m_dak_alokasi->tahun ?></td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->nilai_alokasi) ?></td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->ttl_rincian) ?></td>
-                                            <td><?php echo round($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100, 2) ?> %</td>
+                                            <td><?php if ($m_dak_alokasi->ttl_rincian > 0) {
+                                                        echo round($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100, 2);
+                                                    } else {
+                                                        echo '0';
+                                                    } ?> %</td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->ttl_realisasi) ?></td>
-                                            <td><?php echo round($m_dak_alokasi->ttl_realisasi / $m_dak_alokasi->nilai_alokasi * 100, 2) ?> %</td>
+                                            <td><?php if ($m_dak_alokasi->ttl_rincian > 0) {
+                                                        echo round($m_dak_alokasi->ttl_realisasi / $m_dak_alokasi->nilai_alokasi * 100, 2);
+                                                    } else {
+                                                        echo '0';
+                                                    } ?> %</td>
                                             <!-- <td><?php echo $m_dak_alokasi->updated_by ?></td>
                                             <td><?php echo $m_dak_alokasi->updated_date ?></td> -->
                                             <td style="text-align:center" width="200px">
                                                 <?php
-                                                echo anchor(site_url('t_dak_rincian/rincian/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i> Rincian Alokasi', 'class="btn btn-info btn-sm waves-effect waves-themed"');
-                                                ?>
+                                                    echo anchor(site_url('t_dak_rincian/rincian/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i> Rincian Alokasi', 'class="btn btn-info btn-sm waves-effect waves-themed"');
+                                                    ?>
                                             </td>
                                         </tr>
                                     <?php
-                                        }
+                                    }
                                     ?>
                                 </tbody>
                             </table>

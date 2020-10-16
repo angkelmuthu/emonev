@@ -29,13 +29,21 @@
                                 </tr>
                                 <tr>
                                     <td>Persentase Alokasi Kegiatan</td>
-                                    <td><?php echo round($ttl_rincian / $nilai_alokasi * 100, 2) ?> %</td>
+                                    <td><?php if ($ttl_rincian > 0) {
+                                            echo round($ttl_rincian / $nilai_alokasi * 100, 2);
+                                        } else {
+                                            echo '0';
+                                        } ?> %</td>
                                     <td>Nilai Alokasi Kegiatan</td>
                                     <td>Rp. <?php echo angka($ttl_rincian) ?></td>
                                 </tr>
                                 <tr>
                                     <td>Persentase Realisasi Kegiatan</td>
-                                    <td><?php echo round($ttl_realisasi / $nilai_alokasi * 100, 2) ?> %</td>
+                                    <td><?php if ($ttl_realisasi > 0) {
+                                            echo round($ttl_realisasi / $nilai_alokasi * 100, 2);
+                                        } else {
+                                            echo '0';
+                                        } ?> %</td>
                                     <td>Nilai Realisasi Kegiatan</td>
                                     <td>Rp. <?php echo angka($ttl_realisasi) ?></td>
                                 </tr>
@@ -103,18 +111,18 @@
                                         <td><?php echo $dt->nama_dak_komponen_sub ?></td>
                                         <td>
                                             <?php if (!empty($dt->kode_alkes)) {
-                                                echo $dt->nama_alkes;
-                                            } else { ?>
+                                                    echo $dt->nama_alkes;
+                                                } else { ?>
                                                 <?php if (!empty($dt->nama_instalasi)) { ?>
                                                     <span class="badge border border-primary text-primary">Pelayanan : <?php echo $dt->nama_instalasi; ?></span>
                                                 <?php }
-                                                if (!empty($dt->nama_ruangan)) { ?>
+                                                        if (!empty($dt->nama_ruangan)) { ?>
                                                     <span class="badge border border-secondary text-secondary">Sub Pelayanan : <?php echo $dt->nama_ruangan; ?></span>
                                                 <?php }
-                                                if (!empty($dt->nama_sarana)) { ?>
+                                                        if (!empty($dt->nama_sarana)) { ?>
                                                     <span class="badge border border-success text-success">Ruangan : <?php echo $dt->nama_sarana; ?></span>
                                             <?php }
-                                            } ?>
+                                                } ?>
                                         </td>
                                         <!-- <td><?php echo $dt->nama_jenis_output ?></td> -->
                                         <td class="text-right"><?php echo angka($dt->harga_satuan) ?></td>
@@ -238,8 +246,8 @@
                                             <!-------------------------------------------------------------->
                                             <a href="<?php echo base_url() ?>t_dak_rincian/update/<?php echo $this->uri->segment(3) ?>/<?php echo $dt->id_rincian ?>" class="btn btn-xs btn-warning waves-effect waves-themed"><i class="fal fa-pencil"></i> Edit</a>
                                             <?php
-                                            echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian . '/' . $this->uri->segment(3)), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
-                                            ?>
+                                                echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian . '/' . $this->uri->segment(3)), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
+                                                ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
