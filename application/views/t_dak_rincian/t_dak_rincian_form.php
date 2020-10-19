@@ -105,6 +105,9 @@
 								<?php if ($this->session->userdata('id_jenis_satker') == 3) { ?>
 									<input type="hidden" name="kode_satker_lokasi" value="<?php echo $this->session->userdata('kode_satker'); ?>" />
 									<input type="hidden" name="fasyankes" id="fasyankes" value="1" />
+								<?php } elseif ($this->session->userdata('id_jenis_satker') == 5) { ?>
+									<input type="hidden" name="kode_satker_lokasi" value="<?php echo $this->session->userdata('kode_satker'); ?>" />
+									<input type="hidden" name="fasyankes" id="fasyankes" value="3" />
 								<?php } else { ?>
 									<tr class="bg-info-500">
 										<td colspan="3">Lokasi Kegiatan</td>
@@ -120,6 +123,10 @@
 												<div class="custom-control custom-radio custom-control-inline">
 													<input type="radio" name="fasyankes" class="custom-control-input" id="defaultInline2Radio" value="1">
 													<label class="custom-control-label" for="defaultInline2Radio">Rumah Sakit</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="fasyankes" class="custom-control-input" id="defaultInline3Radio" value="3">
+													<label class="custom-control-label" for="defaultInline3Radio">Lab Kes</label>
 												</div>
 											</div>
 										</td>
@@ -423,7 +430,7 @@
 				$('#rincian').html('<option value="">Select Rincian</option>');
 			}
 			var jenis_satker = <?php echo $this->session->userdata('id_jenis_satker') ?>;
-			if (jenis_satker == 3) {
+			if (jenis_satker == 3 || jenis_satker == 5) {
 				var fasyankes = document.getElementById('fasyankes').value; //$('#fasyankes').val();
 				if (fasyankes != '') {
 					$.ajax({
@@ -557,6 +564,12 @@
 		});
 		$('#sarana').change(function() {
 			var sarana = $('#sarana').val();
+			var jenis_satker = <?php echo $this->session->userdata('id_jenis_satker') ?>;
+			if (jenis_satker == 3 || jenis_satker == 5) {
+				var fasyankes = document.getElementById('fasyankes').value;
+			} else {
+				var fasyankes = document.querySelector('input[name="fasyankes"]:checked').value;
+			}
 			var id_jenis_output = document.getElementById('id_jenis_output').value;
 			if (id_jenis_output == 2) {
 				if (sarana != '') {
@@ -564,7 +577,8 @@
 						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_alkes",
 						method: "POST",
 						data: {
-							sarana: sarana
+							sarana: sarana,
+							fasyankes: fasyankes
 						},
 						beforeSend: function() {
 							$("#loading-alkes").show();

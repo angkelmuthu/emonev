@@ -92,7 +92,7 @@ class T_dak_rincian extends CI_Controller
 	function fetch_alkes()
 	{
 		if ($this->input->post('sarana')) {
-			echo $this->T_dak_rincian_model->fetch_alkes($this->input->post('sarana'));
+			echo $this->T_dak_rincian_model->fetch_alkes($this->input->post('sarana'), $this->input->post('fasyankes'));
 		}
 	}
 
