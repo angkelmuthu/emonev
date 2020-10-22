@@ -3,7 +3,7 @@
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
                 <div class="panel-hdr">
-                    <h2>KELOLA DATA T_DAK_RINCIAN</h2>
+                    <h2>DATA RKA</h2>
                     <div class="panel-toolbar">
                         <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                         <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -111,18 +111,18 @@
                                         <td><?php echo $dt->nama_dak_komponen_sub ?></td>
                                         <td>
                                             <?php if (!empty($dt->kode_alkes)) {
-                                                    echo $dt->nama_alkes;
-                                                } else { ?>
+                                                echo $dt->nama_alkes;
+                                            } else { ?>
                                                 <?php if (!empty($dt->nama_instalasi)) { ?>
                                                     <span class="badge border border-primary text-primary">Pelayanan : <?php echo $dt->nama_instalasi; ?></span>
                                                 <?php }
-                                                        if (!empty($dt->nama_ruangan)) { ?>
+                                                if (!empty($dt->nama_ruangan)) { ?>
                                                     <span class="badge border border-secondary text-secondary">Sub Pelayanan : <?php echo $dt->nama_ruangan; ?></span>
                                                 <?php }
-                                                        if (!empty($dt->nama_sarana)) { ?>
+                                                if (!empty($dt->nama_sarana)) { ?>
                                                     <span class="badge border border-success text-success">Ruangan : <?php echo $dt->nama_sarana; ?></span>
                                             <?php }
-                                                } ?>
+                                            } ?>
                                         </td>
                                         <!-- <td><?php echo $dt->nama_jenis_output ?></td> -->
                                         <td class="text-right"><?php echo angka($dt->harga_satuan) ?></td>
@@ -246,8 +246,8 @@
                                             <!-------------------------------------------------------------->
                                             <a href="<?php echo base_url() ?>t_dak_rincian/update/<?php echo $this->uri->segment(3) ?>/<?php echo $dt->id_rincian ?>" class="btn btn-xs btn-warning waves-effect waves-themed"><i class="fal fa-pencil"></i> Edit</a>
                                             <?php
-                                                echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian . '/' . $this->uri->segment(3)), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
-                                                ?>
+                                            echo anchor(site_url('T_realisasi/realisasi/' . $dt->id_rincian . '/' . $this->uri->segment(3)), 'Realisasi', 'class="btn btn-success btn-xs waves-effect waves-themed"');
+                                            ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
