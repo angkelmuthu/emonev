@@ -3,7 +3,7 @@
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
                 <div class="panel-hdr">
-                    <h2>DATA RKA</h2>
+                    <h2>DATA RKA (Rencana Kegiatan) SATKER</h2>
                     <div class="panel-toolbar">
                         <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                         <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -27,6 +27,9 @@
                                     <td>Nilai Alokasi</td>
                                     <td>Rp. <?php echo angka($nilai_alokasi) ?></td>
                                 </tr>
+                                <tr class="bg-info-500">
+                                    <td colspan="4">Alokasi Rencana Kegiatan</td>
+                                </tr>
                                 <tr>
                                     <td>Persentase Alokasi Kegiatan</td>
                                     <td><?php if ($ttl_rincian > 0) {
@@ -36,6 +39,9 @@
                                         } ?> %</td>
                                     <td>Nilai Alokasi Kegiatan</td>
                                     <td>Rp. <?php echo angka($ttl_rincian) ?></td>
+                                </tr>
+                                <tr class="bg-info-500">
+                                    <td colspan="4">Realiasasi Pelaksanaan Kegiatan</td>
                                 </tr>
                                 <tr>
                                     <td>Persentase Realisasi Kegiatan</td>
@@ -58,10 +64,10 @@
                             $this->db->where('id_satker', $this->session->userdata('id_satker'));
                             $query = $this->db->get('m_petugas');
                             if ($query->num_rows() > 0) { ?>
-                                <?php echo anchor(site_url('t_dak_rincian/create/' . $id_alokasi), '<i class="fal fa-plus-square" aria-hidden="true"></i> Isi Laporan Kegiatan', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
+                                <?php echo anchor(site_url('t_dak_rincian/create/' . $id_alokasi), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Data RKA (Rencana Kegiatan)', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
                                 <?php echo anchor(site_url('m_dak_alokasi_satker'), 'Kembali', 'class="btn btn-warning btn-sm waves-effect waves-themed"'); ?>
                             <?php } else { ?>
-                                <button type="button" class="btn btn-primary btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#modal-petugas"><i class="fal fa-plus-square"></i> Tambah Alokasi</button>
+                                <button type="button" class="btn btn-primary btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#modal-petugas"><i class="fal fa-plus-square"></i> Tambah Data RKA (Rencana Kegiatan)</button>
                                 <?php echo anchor(site_url('m_dak_alokasi_satker'), 'Kembali', 'class="btn btn-warning btn-sm waves-effect waves-themed"'); ?>
                                 <div class="modal fade" id="modal-petugas" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -114,13 +120,13 @@
                                                 echo $dt->nama_alkes;
                                             } else { ?>
                                                 <?php if (!empty($dt->nama_instalasi)) { ?>
-                                                    <span class="badge border border-primary text-primary">Pelayanan : <?php echo $dt->nama_instalasi; ?></span>
+                                                    <span class="text-truncate text-truncate-md badge border border-primary text-primary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Pelayanan : <?php echo $dt->nama_instalasi; ?>">Pelayanan : <?php echo $dt->nama_instalasi; ?></span><br>
                                                 <?php }
                                                 if (!empty($dt->nama_ruangan)) { ?>
-                                                    <span class="badge border border-secondary text-secondary">Sub Pelayanan : <?php echo $dt->nama_ruangan; ?></span>
+                                                    <span class="text-truncate text-truncate-md badge border border-secondary text-secondary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Sub Pelayanan : <?php echo $dt->nama_ruangan; ?>">Sub Pelayanan : <?php echo $dt->nama_ruangan; ?></span><br>
                                                 <?php }
                                                 if (!empty($dt->nama_sarana)) { ?>
-                                                    <span class="badge border border-success text-success">Ruangan : <?php echo $dt->nama_sarana; ?></span>
+                                                    <span class="text-truncate text-truncate-md badge border border-success text-success" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Ruangan : <?php echo $dt->nama_sarana; ?>">Ruangan : <?php echo $dt->nama_sarana; ?></span>
                                             <?php }
                                             } ?>
                                         </td>

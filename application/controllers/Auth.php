@@ -27,7 +27,7 @@ class Auth extends CI_Controller
                 redirect('auth');
             }
         } else {
-            $this->session->set_flashdata('status_login', 'email atau password yang anda input salah');
+            $this->session->set_flashdata('status_login', 'kode satker atau password yang anda input salah');
             redirect('auth');
         }
     }

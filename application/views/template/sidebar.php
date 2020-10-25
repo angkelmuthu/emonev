@@ -20,12 +20,12 @@
         <div class="info-card">
             <!-- <img src="<?php echo base_url() ?>assets/foto_profil/<?php echo $this->session->userdata('images'); ?>" class="profile-image rounded-circle" alt="<?php echo $this->session->userdata('nama'); ?>"> -->
             <div class="info-card-text">
-                <a href="#" class="d-flex align-items-center text-white">
-                    <span class="text-truncate-sm d-inline-block">
-                        <?php echo $this->session->userdata('nama'); ?>
+                <h5 class="d-flex align-items-center text-white">
+                    <span class="d-inline-block">
+                        <?php echo $this->session->userdata('nama_jenis_satker'); ?><br><?php echo $this->session->userdata('nama'); ?>
                     </span>
-                </a>
-                <span class="d-inline-block text-truncate text-truncate-sm"><?php echo $this->session->userdata('id_satker'); ?></span>
+                </h5>
+                <span class="d-inline-block text-truncate text-truncate-sm">Kode : <?php echo $this->session->userdata('kode_satker'); ?></span>
             </div>
             <img src="<?php echo base_url() ?>assets/smartadmin/img/card-backgrounds/cover-2-lg.png" class="cover" alt="cover">
             <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">

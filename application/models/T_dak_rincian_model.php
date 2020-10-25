@@ -201,8 +201,8 @@ class T_dak_rincian_model extends CI_Model
         $query = $this->db->get('v_dak_rincian');
         foreach ($query->result() as $row) {
             $hasil = array(
-                'id_satuan' => $row->id_satuan,
-                'satuan' => $row->satuan,
+                //'id_satuan' => $row->id_satuan,
+                //'satuan' => $row->satuan,
                 'id_jenis_output' => $row->id_jenis_output,
                 'nama_jenis_output' => $row->nama_jenis_output,
             );

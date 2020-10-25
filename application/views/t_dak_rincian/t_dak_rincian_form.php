@@ -138,7 +138,7 @@
 												<img id="loading-image" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 											</div>
 											<select name="kode_nonsatker_lokasi" class="select2 form-control w-100" id="nonsatker" required>
-												<option value="">Select Puskesmas/RS</option>
+												<option value="">Select Puskesmas/RS/Labkes</option>
 											</select>
 										</td>
 									</tr>
@@ -195,7 +195,7 @@
 									<td width="200">Jenis Output <?php echo form_error('id_jenis_output') ?></td>
 									<td>
 										<input type="hidden" class="form-control" name="id_jenis_output" id="id_jenis_output" value="<?php echo $id_jenis_output; ?>" />
-										<input type="text" class="form-control" name="nama_jenis_output" id="nama_jenis_output" placeholder="Id Jenis Output" value="" readonly />
+										<input type="text" class="form-control" name="nama_jenis_output" id="nama_jenis_output" placeholder="Jenis Output" value="" readonly />
 									</td>
 								</tr>
 								<tr>

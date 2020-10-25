@@ -162,15 +162,19 @@
 									<td width='200'>Periode <?php echo form_error('periode') ?></td>
 									<td colspan="2">
 										<div class="frame-wrap">
-											<?php if ($tahun == 2019) { ?>
+											<?php if ($tahun == '2019') { ?>
 												<div class="custom-control custom-radio custom-control-inline">
 													<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV" checked>
 													<label class="custom-control-label" for="TriwulanIV">Triwulan IV</label>
 												</div>
-											<?php } elseif ($tahun == 2020) { ?>
+											<?php } elseif ($tahun == '2020') { ?>
 												<div class="custom-control custom-radio custom-control-inline">
 													<input type="radio" name="periode" id="TriwulanIII" class="custom-control-input" value="Triwulan III">
 													<label class="custom-control-label" for="TriwulanIII">Triwulan III</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline">
+													<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV">
+													<label class="custom-control-label" for="TriwulanIV">Triwulan IV</label>
 												</div>
 											<?php } else { ?>
 												<div class="custom-control custom-radio custom-control-inline">

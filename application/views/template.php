@@ -325,14 +325,14 @@
 									<i class="ni ni-chevron-down hidden-xs-down"></i> -->
                             </a>
                             <div class="dropdown-menu dropdown-menu-animated dropdown-lg">
-                                <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
+                                <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top" style="white-space:unset;">
                                     <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
-                                        <span class="mr-2">
+                                        <!-- <span class="mr-2">
                                             <img src="<?php echo base_url() ?>assets/foto_profil/<?php echo $this->session->userdata('images'); ?>" class="rounded-circle profile-image" alt="<?php echo $this->session->userdata('nama'); ?>">
-                                        </span>
+                                        </span> -->
                                         <div class="info-card-text">
-                                            <div class="fs-lg text-truncate text-truncate-lg"><?php echo $this->session->userdata('nama'); ?></div>
-                                            <span class="text-truncate text-truncate-md opacity-80"><?php echo $this->session->userdata('kode_satker'); ?></span>
+                                            <div class="d-inline-block"> <?php echo $this->session->userdata('nama'); ?></div>
+                                            <span class="text-truncate text-truncate-md opacity-80"> kode : <?php echo $this->session->userdata('kode_satker'); ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -343,7 +343,7 @@
                                 $query = $this->db->get('m_petugas');
                                 // /$num = $query->num_rows();
                                 if ($query->num_rows() > 0) {
-                                    ?>
+                                ?>
                                     <a href="<?php echo base_url() ?>m_petugas/update/<?php echo $this->session->userdata('id_satker'); ?>" class="dropdown-item">
                                         <span data-i18n="drpdwn.reset_layout">Edit Profil</span>
                                     </a>
