@@ -92,117 +92,120 @@
 <script src="<?php echo base_url() ?>assets/smartadmin/js/statistics/chartjs/chartjs.bundle.js"></script>
 <script>
     /* bar chart */
-    var barChart = function() {
-        var barChartData = {
-            labels: [
-                <?php
-                if (count($dt_bar) > 0) {
-                    foreach ($dt_bar as $data) {
-                        echo "'" . $data->nama_provinsi . "',";
-                    }
-                }
-                ?>
-            ],
-            datasets: [{
-                    label: "RKA",
-                    backgroundColor: myapp_get_color.success_300,
-                    borderColor: myapp_get_color.success_500,
-                    borderWidth: 1,
-                    data: [
-                        <?php
-                        if (count($dt_bar) > 0) {
-                            foreach ($dt_bar as $data) {
-                                if ($data->rka > 0) {
-                                    echo round($data->rka / $data->alokasi * 100, 2) . ", ";
-                                } else {
-                                    echo "0, ";
-                                }
-                            }
-                        }
-                        ?>
-                    ]
-                },
-                {
-                    label: "Realisasi",
-                    backgroundColor: myapp_get_color.primary_300,
-                    borderColor: myapp_get_color.primary_500,
-                    borderWidth: 1,
-                    data: [
-                        <?php
-                        if (count($dt_bar) > 0) {
-                            foreach ($dt_bar as $data) {
-                                if ($data->realisasi > 0) {
-                                    echo round($data->realisasi / $data->alokasi * 100, 2) . ", ";
-                                } else {
-                                    echo "0, ";
-                                }
-                            }
-                        }
-                        ?>
-                    ]
-                }
-            ]
+    // var barChart = function() {
+    //     var barChartData = {
+    //         labels: [
+    //             <?php
+                    //             if (count($dt_bar) > 0) {
+                    //                 foreach ($dt_bar as $data) {
+                    //                     echo "'" . $data->nama_provinsi . "',";
+                    //                 }
+                    //             }
+                    //
+                    ?>
+    //         ],
+    //         datasets: [{
+    //                 label: "RKA",
+    //                 backgroundColor: myapp_get_color.success_300,
+    //                 borderColor: myapp_get_color.success_500,
+    //                 borderWidth: 1,
+    //                 data: [
+    //                     <?php
+                            //                     if (count($dt_bar) > 0) {
+                            //                         foreach ($dt_bar as $data) {
+                            //                             if ($data->rka > 0) {
+                            //                                 echo round($data->rka / $data->alokasi * 100, 2) . ", ";
+                            //                             } else {
+                            //                                 echo "0, ";
+                            //                             }
+                            //                         }
+                            //                     }
+                            //
+                            ?>
+    //                 ]
+    //             },
+    //             {
+    //                 label: "Realisasi",
+    //                 backgroundColor: myapp_get_color.primary_300,
+    //                 borderColor: myapp_get_color.primary_500,
+    //                 borderWidth: 1,
+    //                 data: [
+    //                     <?php
+                            //                     if (count($dt_bar) > 0) {
+                            //                         foreach ($dt_bar as $data) {
+                            //                             if ($data->realisasi > 0) {
+                            //                                 echo round($data->realisasi / $data->alokasi * 100, 2) . ", ";
+                            //                             } else {
+                            //                                 echo "0, ";
+                            //                             }
+                            //                         }
+                            //                     }
+                            //
+                            ?>
+    //                 ]
+    //             }
+    //         ]
 
-        };
-        var config = {
-            type: 'bar',
-            data: barChartData,
-            options: {
-                responsive: true,
-                //onClick: graphClickEvent,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: false,
-                    text: 'Bar Chart'
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: false,
-                            labelString: '6 months forecast'
-                        },
-                        gridLines: {
-                            display: true,
-                            color: "#f2f2f2"
-                        },
-                        ticks: {
-                            beginAtZero: true,
-                            fontSize: 11
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: false,
-                            labelString: 'Profit margin (approx)'
-                        },
-                        gridLines: {
-                            display: true,
-                            color: "#f2f2f2"
-                        },
-                        ticks: {
-                            beginAtZero: true,
-                            fontSize: 11
-                        }
-                    }]
-                }
-            }
-        }
-        new Chart($("#barChart > canvas").get(0).getContext("2d"), config);
-        var myChart = new Chart($("#barChart > canvas").get(0).getContext("2d"), config);
+    //     };
+    //     var config = {
+    //         type: 'bar',
+    //         data: barChartData,
+    //         options: {
+    //             responsive: true,
+    //             //onClick: graphClickEvent,
+    //             legend: {
+    //                 position: 'top',
+    //             },
+    //             title: {
+    //                 display: false,
+    //                 text: 'Bar Chart'
+    //             },
+    //             scales: {
+    //                 xAxes: [{
+    //                     display: true,
+    //                     scaleLabel: {
+    //                         display: false,
+    //                         labelString: '6 months forecast'
+    //                     },
+    //                     gridLines: {
+    //                         display: true,
+    //                         color: "#f2f2f2"
+    //                     },
+    //                     ticks: {
+    //                         beginAtZero: true,
+    //                         fontSize: 11
+    //                     }
+    //                 }],
+    //                 yAxes: [{
+    //                     display: true,
+    //                     scaleLabel: {
+    //                         display: false,
+    //                         labelString: 'Profit margin (approx)'
+    //                     },
+    //                     gridLines: {
+    //                         display: true,
+    //                         color: "#f2f2f2"
+    //                     },
+    //                     ticks: {
+    //                         beginAtZero: true,
+    //                         fontSize: 11
+    //                     }
+    //                 }]
+    //             }
+    //         }
+    //     }
+    //     new Chart($("#barChart > canvas").get(0).getContext("2d"), config);
+    //     var myChart = new Chart($("#barChart > canvas").get(0).getContext("2d"), config);
 
-        document.getElementById("barChart").onclick = function(evt) {
-            var activePoints = myChart.getElementsAtEvent(evt);
-            var firstPoint = activePoints[0];
-            var label = myChart.data.labels[firstPoint._index];
-            var value = myChart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
-            if (firstPoint !== undefined)
-                window.location.href = "dashboard/sub/" + label;
-        };
-    }
+    //     document.getElementById("barChart").onclick = function(evt) {
+    //         var activePoints = myChart.getElementsAtEvent(evt);
+    //         var firstPoint = activePoints[0];
+    //         var label = myChart.data.labels[firstPoint._index];
+    //         var value = myChart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+    //         if (firstPoint !== undefined)
+    //             window.location.href = "dashboard/sub/" + label;
+    //     };
+    // }
     /* bar chart -- end */
 
     /* initialize all charts */
@@ -210,7 +213,7 @@
         // lineChart();
         // areaChart();
         // horizontalBarChart();
-        barChart();
+        //barChart();
         // barStacked();
         // barHorizontalStacked();
         // bubbleChart();

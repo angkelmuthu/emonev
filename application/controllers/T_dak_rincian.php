@@ -36,24 +36,51 @@ class T_dak_rincian extends CI_Controller
 		}
 	}
 
-	// function fetch_komponen($id_alokasi)
-	// {
-	// 	$data = array(
-	// 		'komponen' => $this->T_dak_rincian_model->fetch_komponen($id_alokasi),
-	// 	);
-	// }
+	function fetch_komponenx()
+	{
+
+		if ($this->input->post('id_dak_sub_bidang')) {
+			if (!empty($this->input->post('id_dak_komponen'))) {
+				echo $this->T_dak_rincian_model->fetch_komponenx($this->input->post('id_dak_sub_bidang'), $this->input->post('id_dak_komponen'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_komponenx($this->input->post('id_dak_sub_bidang'), $kosong);
+			}
+		}
+	}
 
 	function fetch_subkomponen()
 	{
 		if ($this->input->post('id_dak_komponen')) {
-			echo $this->T_dak_rincian_model->fetch_subkomponen($this->input->post('id_dak_komponen'));
+			if (!empty($this->input->post('id_dak_sub_komponen'))) {
+				echo $this->T_dak_rincian_model->fetch_subkomponen($this->input->post('id_dak_komponen'), $this->input->post('id_dak_sub_komponen'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_subkomponen($this->input->post('id_dak_komponen'), $kosong);
+			}
 		}
 	}
 
 	function fetch_rincian()
 	{
 		if ($this->input->post('id_dak_sub_komponen')) {
-			echo $this->T_dak_rincian_model->fetch_rincian($this->input->post('id_dak_sub_komponen'));
+			if (!empty($this->input->post('id_dak_rincian'))) {
+				echo $this->T_dak_rincian_model->fetch_rincian($this->input->post('id_dak_sub_komponen'), $this->input->post('id_dak_rincian'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_rincian($this->input->post('id_dak_sub_komponen'), $kosong);
+			}
+		}
+	}
+	function fetch_rincianx()
+	{
+		if ($this->input->post('id_dak_komponen')) {
+			if (!empty($this->input->post('id_dak_rincian'))) {
+				echo $this->T_dak_rincian_model->fetch_rincianx($this->input->post('id_dak_komponen'), $this->input->post('id_dak_rincian'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_rincianx($this->input->post('id_dak_komponen'), $kosong);
+			}
 		}
 	}
 
@@ -67,32 +94,57 @@ class T_dak_rincian extends CI_Controller
 	function fetch_fasyankes()
 	{
 		if ($this->input->post('fasyankes')) {
-			echo $this->T_dak_rincian_model->fetch_fasyankes($this->input->post('fasyankes'));
+			if (!empty($this->input->post('kode_lokasi'))) {
+				echo $this->T_dak_rincian_model->fetch_fasyankes($this->input->post('fasyankes'), $this->input->post('kode_lokasi'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_fasyankes($this->input->post('fasyankes'), $kosong);
+			}
 		}
 	}
 
 	function fetch_instalasi()
 	{
 		if ($this->input->post('fasyankes')) {
-			echo $this->T_dak_rincian_model->fetch_instalasi($this->input->post('fasyankes'));
+			if (!empty($this->input->post('instalasi'))) {
+				echo $this->T_dak_rincian_model->fetch_instalasi($this->input->post('fasyankes'), $this->input->post('instalasi'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_instalasi($this->input->post('fasyankes'), $kosong);
+			}
 		}
 	}
 	function fetch_ruangan()
 	{
 		if ($this->input->post('instalasi')) {
-			echo $this->T_dak_rincian_model->fetch_ruangan($this->input->post('instalasi'));
+			if (!empty($this->input->post('ruangan'))) {
+				echo $this->T_dak_rincian_model->fetch_ruangan($this->input->post('instalasi'), $this->input->post('ruangan'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_ruangan($this->input->post('instalasi'), $kosong);
+			}
 		}
 	}
 	function fetch_sarana()
 	{
 		if ($this->input->post('ruangan')) {
-			echo $this->T_dak_rincian_model->fetch_sarana($this->input->post('ruangan'));
+			if (!empty($this->input->post('sarana'))) {
+				echo $this->T_dak_rincian_model->fetch_sarana($this->input->post('ruangan'), $this->input->post('sarana'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_sarana($this->input->post('ruangan'), $kosong);
+			}
 		}
 	}
 	function fetch_alkes()
 	{
 		if ($this->input->post('sarana')) {
-			echo $this->T_dak_rincian_model->fetch_alkes($this->input->post('sarana'), $this->input->post('fasyankes'));
+			if (!empty($this->input->post('id_alkes'))) {
+				echo $this->T_dak_rincian_model->fetch_alkes($this->input->post('sarana'), $this->input->post('id_alkes'));
+			} else {
+				$kosong = 'xx';
+				echo $this->T_dak_rincian_model->fetch_alkes($this->input->post('sarana'), $kosong);
+			}
 		}
 	}
 
@@ -162,6 +214,8 @@ class T_dak_rincian extends CI_Controller
 			'volume_perubahan' => set_value('volume_perubahan'),
 			'id_satuan' => set_value('id_satuan'),
 			'total' => set_value('total'),
+			'jenis_fasyankes' => set_value('jenis_fasyankes'),
+			'kode_nonsatker_lokasi' => set_value('kode_nonsatker_lokasi'),
 			'instalasi' => set_value('instalasi'),
 			'ruangan' => set_value('ruangan'),
 			'sarana' => set_value('sarana'),
@@ -269,8 +323,10 @@ class T_dak_rincian extends CI_Controller
 				'volume_perubahan' => set_value('volume_perubahan', $row->volume_perubahan),
 				'id_satuan' => set_value('id_satuan', $row->id_satuan),
 				'total' => set_value('total', $row->total),
-				'instalasi' => set_value('instalasi'),
-				'ruangan' => set_value('ruangan'),
+				'jenis_fasyankes' => set_value('jenis_fasyankes', $row->jenis_fasyankes),
+				'kode_nonsatker_lokasi' => set_value('kode_nonsatker_lokasi', $row->kode_nonsatker_lokasi),
+				'instalasi' => set_value('instalasi', $row->instalasi),
+				'ruangan' => set_value('ruangan', $row->ruangan),
 				'sarana' => set_value('sarana', $row->sarana),
 				'nip_pengisi' => set_value('nip_pengisi', $row->nip_pengisi),
 				'nama_pengisi' => set_value('nama_pengisi', $row->nama_pengisi),
@@ -335,8 +391,6 @@ class T_dak_rincian extends CI_Controller
 				'instalasi' => $instalasi,
 				'ruangan' => $ruangan,
 				'sarana' => $this->input->post('sarana', TRUE),
-				'instalasi' => $this->input->post('instalasi', TRUE),
-				'ruangan' => $this->input->post('ruangan', TRUE),
 				'nip_pengisi' => $this->input->post('nip_pengisi', TRUE),
 				'nama_pengisi' => $this->input->post('nama_pengisi', TRUE),
 				'jabatan_pengisi' => $this->input->post('jabatan_pengisi', TRUE),
@@ -384,7 +438,7 @@ class T_dak_rincian extends CI_Controller
 		//$this->form_validation->set_rules('id_dak_bidang', 'id dak bidang', 'trim|required');
 		$this->form_validation->set_rules('id_dak_sub_bidang', 'id dak sub bidang', 'trim|required');
 		$this->form_validation->set_rules('id_dak_komponen', 'id dak komponen', 'trim|required');
-		$this->form_validation->set_rules('id_dak_komponen_sub', 'id dak komponen sub', 'trim|required');
+		//$this->form_validation->set_rules('id_dak_komponen_sub', 'id dak komponen sub', 'trim|required');
 		//$this->form_validation->set_rules('menu_kegiatan', 'menu kegiatan', 'trim|required');
 		//$this->form_validation->set_rules('kegiatan', 'kegiatan', 'trim|required');
 		$this->form_validation->set_rules('id_dak_rincian', 'id dak rincian', 'trim|required');

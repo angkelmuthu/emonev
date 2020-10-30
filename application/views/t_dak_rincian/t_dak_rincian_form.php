@@ -59,37 +59,48 @@
 											<img id="loading-menu" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="50px" class="img-responsive" />
 										</div>
 										<div class="form-group">
-											<select name="id_dak_komponen" class="select2 form-control w-100" id="komponen" required>
+											<!-- <select name="id_dak_komponen" class="select2 form-control w-100" id="komponen" required>
 												<?php
-												foreach ($komponen as $row) {
-													echo '<option value="' . $row->id_dak_komponen . '">' . $row->nama_dak_komponen . '</option>';
-												}
+												// foreach ($komponen as $row) {
+												// 	if ($id_dak_komponen == $row->id_dak_komponen) {
+												// 		echo '<option value="' . $row->id_dak_komponen . '" selected>' . $row->nama_dak_komponen . '</option>';
+												// 	} else {
+												// 		echo '<option value="' . $row->id_dak_komponen . '">' . $row->nama_dak_komponen . '</option>';
+												// 	}
+												// }
 												?>
-											</select>
+											</select> -->
+											<div class="form-group">
+												<select name="id_dak_komponen" class="select2 form-control w-100" id="komponen" required>
+													<option value="">Select komponen</option>
+												</select>
+											</div>
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td width="200">Rincian <br><span class="help-block">*wajib diisi</span></td>
-									<td>
-										<div class="ajax-loader">
-											<img id="loading-rincian" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="40px" class="img-responsive" />
-										</div>
-										<div class="form-group">
-											<select name="id_dak_komponen_sub" class="select2 form-control w-100" id="subkomponen" required>
-												<option value="">Select Rincian</option>
-											</select>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td width="200">Kegiatan </td>
-									<td><input type="text" class="form-control" name="menu_kegiatan" id="menu_kegiatan" placeholder="Menu Kegiatan" value="<?php echo $menu_kegiatan; ?>" /></td>
-								</tr>
-								<tr>
-									<td width="200">Sub Kegiatan </td>
-									<td><input type="text" class="form-control" name="kegiatan" id="kegiatan" placeholder="Kegiatan" value="<?php echo $kegiatan; ?>" require /></td>
-								</tr>
+								<?php if ($tahun == '2019') { ?>
+									<tr>
+										<td width="200">Rincian <br><span class="help-block">*wajib diisi</span></td>
+										<td>
+											<div class="ajax-loader">
+												<img id="loading-rincian" style="display:none;" src="<?php echo base_url() ?>assets/smartadmin/img/loading.gif" height="40px" class="img-responsive" />
+											</div>
+											<div class="form-group">
+												<select name="id_dak_komponen_sub" class="select2 form-control w-100" id="subkomponen" required>
+													<option value="">Select Rincian</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="200">Kegiatan </td>
+										<td><input type="text" class="form-control" name="menu_kegiatan" id="menu_kegiatan" placeholder="Menu Kegiatan" value="<?php echo $menu_kegiatan; ?>" /></td>
+									</tr>
+									<tr>
+										<td width="200">Sub Kegiatan </td>
+										<td><input type="text" class="form-control" name="kegiatan" id="kegiatan" placeholder="Kegiatan" value="<?php echo $kegiatan; ?>" require /></td>
+									</tr>
+								<?php } ?>
 								<tr>
 									<td width="200">Detail Rincian <br><span class="help-block">*wajib diisi</span></td>
 									<td>
@@ -220,7 +231,9 @@
 									<td>
 										<!-- <input type="hidden" class="form-control" name="id_satuan" id="id_satuan" value="" />
 										<input type="text" class="form-control" name="satuan" id="satuan" placeholder="Id satuan" value="" readonly /> -->
-										<?php echo select2_dinamis('id_satuan', 'm_satuan', 'satuan', 'id_satuan') ?>
+										<?php
+										echo select2_dinamis_satuan('id_satuan', 'm_satuan', 'satuan', 'id_satuan', $id_satuan);
+										?>
 									</td>
 								</tr>
 								<tr>
@@ -334,15 +347,472 @@
 	});
 	////////////////////////////////
 	$(document).ready(function() {
-		//$(".alkes").css("display", "none");
-		$('#komponen').change(function() {
-			var id_dak_komponen = $('#komponen').val();
-			if (id_dak_komponen != '') {
+		var tahun = '<?php echo $tahun ?>';
+		var id_dak_sub_bidang = $('#id_dak_sub_bidang').val();
+		//var action = '<?php echo $this->uri->segment(2); ?>';
+		var dak_komponen = '<?php echo $id_dak_komponen ?>';
+		var dak_komponen_sub = '<?php echo $id_dak_komponen_sub ?>';
+		var dak_rincian = '<?php echo $id_dak_rincian ?>';
+
+		//if (action == 'update') {
+		if (dak_komponen != '') {
+			//var id_dak_komponen = '<?php echo $id_dak_komponen ?>';
+			if (tahun == '2019') {
+				$.ajax({
+					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_komponenx",
+					method: "POST",
+					data: {
+						id_dak_sub_bidang: id_dak_sub_bidang,
+						id_dak_komponen: dak_komponen
+					},
+					beforeSend: function() {
+						$("#loading-rincian").show();
+					},
+					success: function(data) {
+						$('#komponen').html(data);
+						load_sub_komponen();
+						//$('#subkomponen').html('<option value="">Select Sub Komponen</option>');
+					},
+					// complete: function() {
+					// 	$('#loading-rincian').hide();
+					// }
+				});
+			} else {
+				$.ajax({
+					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_komponenx",
+					method: "POST",
+					data: {
+						id_dak_sub_bidang: id_dak_sub_bidang,
+						id_dak_komponen: dak_komponen
+					},
+					beforeSend: function() {
+						$("#loading-rincian").show();
+					},
+					success: function(data) {
+						$('#komponen').html(data);
+						load_rincianx();
+						//$('#subkomponen').html('<option value="">Select Sub Komponen</option>');
+					},
+					// complete: function() {
+					// 	$('#loading-rincian').hide();
+					// }
+				});
+			}
+			/////////////////////////////////////////////////////////////////////////////////////////////////////
+			function load_sub_komponen() {
+				///load data sub komponen
 				$.ajax({
 					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_subkomponen",
 					method: "POST",
 					data: {
-						id_dak_komponen: id_dak_komponen
+						id_dak_komponen: dak_komponen,
+						id_dak_sub_komponen: dak_komponen_sub
+					},
+					beforeSend: function() {
+						$("#loading-rincian").show();
+					},
+					success: function(data) {
+						$('#subkomponen').html(data);
+						load_rincian();
+						//$('#rincian').html('<option value="">Select Detail Rincian</option>');
+					},
+					complete: function() {
+						$('#loading-rincian').hide();
+					}
+				});
+			}
+			//load data rincian
+			function load_rincian() {
+				$.ajax({
+					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_rincian",
+					method: "POST",
+					data: {
+						id_dak_sub_komponen: dak_komponen_sub,
+						id_dak_rincian: dak_rincian
+					},
+					beforeSend: function() {
+						$("#loading-detail").show();
+					},
+					success: function(data) {
+						$('#rincian').html(data);
+						load_detail_rincian();
+					},
+					complete: function() {
+						$('#loading-detail').hide();
+					}
+				});
+			}
+
+			function load_rincianx() {
+				$.ajax({
+					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_rincianx",
+					method: "POST",
+					data: {
+						id_dak_komponen: dak_komponen,
+						id_dak_rincian: dak_rincian
+					},
+					beforeSend: function() {
+						$("#loading-detail").show();
+					},
+					success: function(data) {
+						$('#rincian').html(data);
+						load_detail_rincian();
+					},
+					complete: function() {
+						$('#loading-detail').hide();
+					}
+				});
+			}
+			/////////////////////////////////////////////
+			function load_detail_rincian() {
+				$.ajax({
+					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_vrincian",
+					method: "POST",
+					data: {
+						id_dak_rincian: dak_rincian
+					},
+					success: function(data) {
+						var json = data,
+							obj = JSON.parse(json);
+						if (obj.id_jenis_output == 2) {
+							$(".alkes").css("display", "");
+							$(".instalasi").css("display", "");
+							$(".ruangan").css("display", "");
+							$(".sarana").css("display", "");
+							$("#id_alkes").prop("required", true);
+							$("#instalasi").prop("required", true);
+							$("#ruangan").prop("required", true);
+							$("#sarana").prop("required", true);
+
+						} else if (obj.id_jenis_output == 10) {
+							$(".alkes").css("display", "none");
+							$(".instalasi").css("display", "");
+							$(".ruangan").css("display", "");
+							$(".sarana").css("display", "none");
+							$("#instalasi").prop("required", true);
+							$("#ruangan").prop("required", true);
+
+						} else {
+							$(".alkes").css("display", "none");
+							$(".instalasi").css("display", "none");
+							$(".ruangan").css("display", "none");
+							$(".sarana").css("display", "none");
+						}
+						load_fasyankes();
+						$('#id_jenis_output').val(obj.id_jenis_output);
+						$('#nama_jenis_output').val(obj.nama_jenis_output);
+						//$('#id_satuan').val(obj.id_satuan);
+						//$('#satuan').val(obj.satuan);
+					},
+				});
+			}
+
+			var jenis_satker = <?php echo $this->session->userdata('id_jenis_satker') ?>;
+			var jenis_fasyankes = '<?php echo $jenis_fasyankes ?>';
+			if (jenis_satker == 3 || jenis_satker == 5) {
+				var fasyankes = document.getElementById('fasyankes').value; //$('#fasyankes').val();
+				function load_fasyankes() {
+
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_fasyankes",
+						method: "POST",
+						data: {
+							fasyankes: fasyankes
+						},
+						beforeSend: function() {
+							$("#loading-image").show();
+						},
+						success: function(data) {
+							$('#nonsatker').html(data);
+							load_instalasi();
+						},
+						complete: function() {
+							$('#loading-image').hide();
+						}
+					});
+				}
+
+				function load_instalasi() {
+					var kode_instalasi = jenis_fasyankes + '||<?php echo $instalasi ?>';
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_instalasi",
+						method: "POST",
+						data: {
+							fasyankes: fasyankes,
+							instalasi: kode_instalasi
+						},
+						beforeSend: function() {
+							$("#loading-instalasi").show();
+						},
+						success: function(data) {
+							$('#instalasi').html(data);
+							load_ruangan();
+						},
+						complete: function() {
+							$('#loading-instalasi').hide();
+						}
+					});
+				}
+
+				function load_ruangan() {
+					var kode_instalasi = jenis_fasyankes + '||<?php echo $instalasi ?>';
+					var kode_ruangan = jenis_fasyankes + '||<?php echo $ruangan ?>';
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_ruangan",
+						method: "POST",
+						data: {
+							instalasi: kode_instalasi,
+							ruangan: kode_ruangan
+						},
+						beforeSend: function() {
+							$("#loading-ruangan").show();
+						},
+						success: function(data) {
+							$('#ruangan').html(data);
+							load_sarana();
+						},
+						complete: function() {
+							$('#loading-ruangan').hide();
+						}
+					});
+				}
+
+				function load_sarana() {
+					var kode_ruangan = jenis_fasyankes + '||<?php echo $ruangan ?>';
+					var kode_sarana = '<?php echo $sarana ?>';
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_sarana",
+						method: "POST",
+						data: {
+							ruangan: kode_ruangan,
+							sarana: kode_sarana
+						},
+						beforeSend: function() {
+							$("#loading-sarana").show();
+						},
+						success: function(data) {
+							$('#sarana').html(data);
+							load_dll();
+						},
+						complete: function() {
+							$('#loading-sarana').hide();
+						}
+					});
+				}
+
+				function load_dll() {
+					var sarana = '<?php echo $sarana ?>';
+					var alkes = '<?php echo $id_alkes ?>';
+					// var jenis_satker = <?php echo $this->session->userdata('id_jenis_satker') ?>;
+					// if (jenis_satker == 3 || jenis_satker == 5) {
+					// 	var fasyankes = document.getElementById('fasyankes').value;
+					// } else {
+					// 	var fasyankes = document.querySelector('input[name="fasyankes"]:checked').value;
+					// }
+					var id_jenis_output = document.getElementById('id_jenis_output').value;
+					if (id_jenis_output == 2) {
+						if (sarana != '') {
+							$.ajax({
+								url: "<?php echo base_url(); ?>t_dak_rincian/fetch_alkes",
+								method: "POST",
+								data: {
+									sarana: sarana,
+									//fasyankes: fasyankes,
+									id_alkes: alkes
+								},
+								beforeSend: function() {
+									$("#loading-alkes").show();
+								},
+								success: function(data) {
+									$('#id_alkes').html(data);
+								},
+								complete: function() {
+									$('#loading-alkes').hide();
+								}
+							});
+						} else {
+							$('#id_alkes').html('<option value="">Select Alat Kesehatan</option>');
+						}
+					} else {
+						$(".alkes").css("display", "none");
+					}
+
+				}
+			} else {
+				var jenis_fasyankes = '<?php echo $jenis_fasyankes ?>';
+				var kode_lokasi = '<?php echo $kode_nonsatker_lokasi ?>';
+				if (jenis_fasyankes == 'LAB') {
+					$('#defaultInline3Radio').prop('checked', true);
+				} else if (jenis_fasyankes == 'PKM') {
+					$('#defaultInline1Radio').prop('checked', true);
+				} else {
+					$('#defaultInline2Radio').prop('checked', true);
+				}
+
+
+				var fasyankes = document.querySelector('input[name="fasyankes"]:checked').value; //$('#fasyankes').val();
+				function load_fasyankes() {
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_fasyankes",
+						method: "POST",
+						data: {
+							fasyankes: fasyankes,
+							kode_lokasi: kode_lokasi
+						},
+						beforeSend: function() {
+							$("#loading-image").show();
+						},
+						success: function(data) {
+							$('#nonsatker').html(data);
+							load_instalasi();
+						},
+						complete: function() {
+							$('#loading-image').hide();
+						}
+					});
+				}
+
+				function load_instalasi() {
+					var kode_instalasi = jenis_fasyankes + '||<?php echo $instalasi ?>';
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_instalasi",
+						method: "POST",
+						data: {
+							fasyankes: fasyankes,
+							instalasi: kode_instalasi
+						},
+						beforeSend: function() {
+							$("#loading-instalasi").show();
+						},
+						success: function(data) {
+							$('#instalasi').html(data);
+							load_ruangan();
+						},
+						complete: function() {
+							$('#loading-instalasi').hide();
+						}
+					});
+				}
+
+				function load_ruangan() {
+					var kode_instalasi = jenis_fasyankes + '||<?php echo $instalasi ?>';
+					var kode_ruangan = jenis_fasyankes + '||<?php echo $ruangan ?>';
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_ruangan",
+						method: "POST",
+						data: {
+							instalasi: kode_instalasi,
+							ruangan: kode_ruangan
+						},
+						beforeSend: function() {
+							$("#loading-ruangan").show();
+						},
+						success: function(data) {
+							$('#ruangan').html(data);
+							load_sarana();
+						},
+						complete: function() {
+							$('#loading-ruangan').hide();
+						}
+					});
+				}
+
+				function load_sarana() {
+					var kode_ruangan = jenis_fasyankes + '||<?php echo $ruangan ?>';
+					var kode_sarana = '<?php echo $sarana ?>';
+					$.ajax({
+						url: "<?php echo base_url(); ?>t_dak_rincian/fetch_sarana",
+						method: "POST",
+						data: {
+							ruangan: kode_ruangan,
+							sarana: kode_sarana
+						},
+						beforeSend: function() {
+							$("#loading-sarana").show();
+						},
+						success: function(data) {
+							$('#sarana').html(data);
+							load_dll();
+						},
+						complete: function() {
+							$('#loading-sarana').hide();
+						}
+					});
+				}
+
+				function load_dll() {
+					var sarana = '<?php echo $sarana ?>';
+					var alkes = '<?php echo $id_alkes ?>';
+					// var jenis_satker = <?php echo $this->session->userdata('id_jenis_satker') ?>;
+					// if (jenis_satker == 3 || jenis_satker == 5) {
+					// 	var fasyankes = document.getElementById('fasyankes').value;
+					// } else {
+					// 	var fasyankes = document.querySelector('input[name="fasyankes"]:checked').value;
+					// }
+					var id_jenis_output = document.getElementById('id_jenis_output').value;
+					if (id_jenis_output == 2) {
+						if (sarana != '') {
+							$.ajax({
+								url: "<?php echo base_url(); ?>t_dak_rincian/fetch_alkes",
+								method: "POST",
+								data: {
+									sarana: sarana,
+									//fasyankes: fasyankes,
+									id_alkes: alkes
+								},
+								beforeSend: function() {
+									$("#loading-alkes").show();
+								},
+								success: function(data) {
+									$('#id_alkes').html(data);
+								},
+								complete: function() {
+									$('#loading-alkes').hide();
+								}
+							});
+						} else {
+							$('#id_alkes').html('<option value="">Select Alat Kesehatan</option>');
+						}
+					} else {
+						$(".alkes").css("display", "none");
+					}
+
+				}
+
+			}
+
+		} else {
+			$.ajax({
+				url: "<?php echo base_url(); ?>t_dak_rincian/fetch_komponenx",
+				method: "POST",
+				data: {
+					id_dak_sub_bidang: id_dak_sub_bidang
+				},
+				beforeSend: function() {
+					$("#loading-rincian").show();
+				},
+				success: function(data) {
+					$('#komponen').html(data);
+
+					//$('#subkomponen').html('<option value="">Select Sub Komponen</option>');
+				},
+				complete: function() {
+					$('#loading-rincian').hide();
+				}
+			});
+
+
+		}
+		if (tahun == '2019') {
+			$('#komponen').change(function() {
+				var id_dak_komponen = $(this).val();
+				// if (id_dak_komponen != '') {
+				$.ajax({
+					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_subkomponen",
+					method: "POST",
+					data: {
+						id_dak_komponen: id_dak_komponen,
+						id_dak_sub_komponen: "<?php echo $id_dak_komponen_sub ?>"
 					},
 					beforeSend: function() {
 						$("#loading-rincian").show();
@@ -355,11 +825,34 @@
 						$('#loading-rincian').hide();
 					}
 				});
-			} else {
-				$('#subkomponen').html('<option value="">Select Sub Komponen</option>');
-				$('#rincian').html('<option value="">Select Rincian</option>');
-			}
-		});
+				// } else {
+				// 	$('#subkomponen').html('<option value="">Select Sub Komponen</option>');
+				// 	$('#rincian').html('<option value="">Select Rincian</option>');
+				// }
+			});
+		} else {
+			$('#komponen').change(function() {
+				var id_dak_komponen = $(this).val();
+				$.ajax({
+					url: "<?php echo base_url(); ?>t_dak_rincian/fetch_rincianx",
+					method: "POST",
+					data: {
+						id_dak_komponen: id_dak_komponen,
+						id_dak_rincian: "<?php echo $id_dak_rincian ?>"
+					},
+					beforeSend: function() {
+						$("#loading-detail").show();
+					},
+					success: function(data) {
+						$('#rincian').html(data);
+						//$('#rincian').html('<option value="">Select Detail Rincian</option>');
+					},
+					complete: function() {
+						$('#loading-detail').hide();
+					}
+				});
+			});
+		}
 
 		$('#subkomponen').change(function() {
 			var id_dak_sub_komponen = $('#subkomponen').val();
@@ -419,6 +912,10 @@
 							$(".instalasi").css("display", "none");
 							$(".ruangan").css("display", "none");
 							$(".sarana").css("display", "none");
+							$("#id_alkes").prop("required", false);
+							$("#instalasi").prop("required", false);
+							$("#ruangan").prop("required", false);
+							$("#sarana").prop("required", false);
 						}
 						$('#id_jenis_output').val(obj.id_jenis_output);
 						$('#nama_jenis_output').val(obj.nama_jenis_output);

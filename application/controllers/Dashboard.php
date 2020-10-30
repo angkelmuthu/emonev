@@ -15,26 +15,17 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
-        $data = $this->Dashboard_model->get_all_dash();
-        $dash = array(
-            'k_dash' => $data,
+        $data = array(
+            'dt_bar' => $this->Dashboard_model->barchart_prop(),
+            'dt_progres' => $this->Dashboard_model->progres(),
         );
-        $this->template->load('template', 'dashboard', $dash);
+        $this->template->load('template', 'dashboard', $data);
     }
-    public function master_rs($id)
+    public function sub($prop)
     {
-        $row2 = $this->Dashboard_model->get_master_rs($id);
-        $masterrs = array(
-            'masterrs' => $row2,
+        $data = array(
+            'dt_sub' => $this->Dashboard_model->getby_prop($prop),
         );
-        $this->template->load('template', 'dash_detail', $masterrs);
-    }
-    public function detail($id)
-    {
-        $row = $this->Dashboard_model->get_kunjungan_day_by($id);
-        $kjngn_day = array(
-            'kjngn_day' => $row,
-        );
-        $this->template->load('template', 'dash_detail', $kjngn_day);
+        $this->template->load('template', 'dashboard_sub', $data);
     }
 }

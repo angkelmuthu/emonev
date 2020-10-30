@@ -61,6 +61,22 @@ function select2_dinamis($name, $table, $field, $pk)
     $select2 .= '</select>';
     return $select2;
 }
+function select2_dinamis_satuan($name, $table, $field, $pk, $selected)
+{
+    $ci = get_instance();
+    //$select2 = '<select name="' . $name . '" class="select2 form-control w-100" id="single-default" >';
+    $select2 = '<select name="' . $name . '" class="select2 form-control w-100">';
+    $data = $ci->db->get($table)->result();
+    foreach ($data as $row) {
+        if ($row->$pk == $selected) {
+            $select2 .= ' <option value="' . $row->$pk . '" selected>' . $row->$field . '</option>';
+        } else {
+            $select2 .= ' <option value="' . $row->$pk . '">' . $row->$field . '</option>';
+        }
+    }
+    $select2 .= '</select>';
+    return $select2;
+}
 function select2_hambatan($name, $table, $field, $pk)
 {
     $ci = get_instance();

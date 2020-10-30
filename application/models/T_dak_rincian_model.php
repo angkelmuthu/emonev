@@ -14,7 +14,7 @@ class T_dak_rincian_model extends CI_Model
     {
         parent::__construct();
     }
-
+    // get al
     // datatables
     function get_rincian($id_alokasi)
     {
@@ -53,18 +53,46 @@ class T_dak_rincian_model extends CI_Model
         return $query->result();
     }
 
-    function fetch_subkomponen($id_dak_komponen)
+    function fetch_komponenx($id_dak_sub_bidang, $id_dak_komponen)
+    {
+        $this->db->where('id_dak_sub_bidang', $id_dak_sub_bidang);
+        $this->db->order_by('nama_dak_komponen', 'ASC');
+        $query = $this->db->get('m_dak_komponen');
+        $output = '<option value="">Select Komponen</option>';
+        foreach ($query->result() as $row) {
+            if ($id_dak_komponen == 'xx') {
+                $output .= '<option value="' . $row->id_dak_komponen . '">' . $row->nama_dak_komponen . '</option>';
+            } else {
+                if ($row->id_dak_komponen == $id_dak_komponen) {
+                    $output .= '<option value="' . $row->id_dak_komponen . '" selected>' . $row->nama_dak_komponen . '</option>';
+                } else {
+                    $output .= '<option value="' . $row->id_dak_komponen . '">' . $row->nama_dak_komponen . '</option>';
+                }
+            }
+        }
+        return $output;
+    }
+
+    function fetch_subkomponen($id_dak_komponen, $id_dak_sub_komponen)
     {
         $this->db->where('id_dak_komponen', $id_dak_komponen);
         $this->db->order_by('nama_dak_komponen_sub', 'ASC');
         $query = $this->db->get('m_dak_komponen_sub');
         $output = '<option value="">Select Sub Komponen</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->id_dak_komponen_sub . '">' . $row->nama_dak_komponen_sub . '</option>';
+            if ($id_dak_sub_komponen == 'xx') {
+                $output .= '<option value="' . $row->id_dak_komponen_sub . '">' . $row->nama_dak_komponen_sub . '</option>';
+            } else {
+                if ($row->id_dak_komponen_sub == $id_dak_sub_komponen) {
+                    $output .= '<option value="' . $row->id_dak_komponen_sub . '" selected>' . $row->nama_dak_komponen_sub . '</option>';
+                } else {
+                    $output .= '<option value="' . $row->id_dak_komponen_sub . '">' . $row->nama_dak_komponen_sub . '</option>';
+                }
+            }
         }
         return $output;
     }
-    function fetch_fasyankes($fasyankes)
+    function fetch_fasyankes($fasyankes, $kode_lokasi)
     {
         //$filter = $this->session->userdata('id_kota_kabupaten');
 
@@ -83,7 +111,11 @@ class T_dak_rincian_model extends CI_Model
             $query = $this->db->get('m_puskesmas');
             $output = '<option value="">Select Lokasi Puskesmas</option>';
             foreach ($query->result() as $row) {
-                $output .= '<option value="' . $row->kode . '">' . $row->nama . '</option>';
+                if ($row->kode == $kode_lokasi) {
+                    $output .= '<option value="' . $row->kode . '" selected>' . $row->nama . '</option>';
+                } else {
+                    $output .= '<option value="' . $row->kode . '">' . $row->nama . '</option>';
+                }
             }
         } elseif ($fasyankes == '1') {
             if (empty($this->session->userdata('id_kota_kabupaten') == 2)) {
@@ -99,7 +131,11 @@ class T_dak_rincian_model extends CI_Model
             $query = $this->db->get('m_rumah_sakit');
             $output = '<option value="">Select Lokasi RS</option>';
             foreach ($query->result() as $row) {
-                $output .= '<option value="' . $row->kode_rs . '">' . $row->nama_rs . '</option>';
+                if ($row->kode_rs == $kode_lokasi) {
+                    $output .= '<option value="' . $row->kode_rs . '" selected>' . $row->nama_rs . '</option>';
+                } else {
+                    $output .= '<option value="' . $row->kode_rs . '">' . $row->nama_rs . '</option>';
+                }
             }
         } elseif ($fasyankes == '3') {
             if (empty($this->session->userdata('id_kota_kabupaten') == 2)) {
@@ -115,55 +151,76 @@ class T_dak_rincian_model extends CI_Model
             $query = $this->db->get('m_rumah_sakit');
             $output = '<option value="">Select Lokasi Labkes</option>';
             foreach ($query->result() as $row) {
-                $output .= '<option value="' . $row->kode_rs . '">' . $row->nama_rs . '</option>';
+                if ($row->kode_rs == $kode_lokasi) {
+                    $output .= '<option value="' . $row->kode_rs . '" selected>' . $row->nama_rs . '</option>';
+                } else {
+                    $output .= '<option value="' . $row->kode_rs . '">' . $row->nama_rs . '</option>';
+                }
             }
         }
         return $output;
     }
-    function fetch_instalasi($fasyankes)
+    function fetch_instalasi($fasyankes, $instalasi)
     {
-
         $this->db->where('id_jenis_faskes', $fasyankes);
         $this->db->order_by('nama_instalasi', 'ASC');
         $query = $this->db->get('v_sarana_instalasi');
         $output = '<option value="">Select Pelayanan</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->kode_instalasi_gabungan . '">' . $row->nama_instalasi . '</option>';
+            if ($row->kode_instalasi_gabungan == $instalasi) {
+                $output .= '<option value="' . $row->kode_instalasi_gabungan . '" selected>' . $row->nama_instalasi . '</option>';
+            } else {
+                $output .= '<option value="' . $row->kode_instalasi_gabungan . '">' . $row->nama_instalasi . '</option>';
+            }
         }
         return $output;
     }
-    function fetch_ruangan($instalasi)
+    function fetch_ruangan($instalasi, $ruangan)
     {
+
         $this->db->where('kode_instalasi_gabungan', $instalasi);
         $this->db->order_by('nama_ruangan', 'ASC');
         $query = $this->db->get('v_sarana_ruangan');
         $output = '<option value="">Select Sub Pelayanan</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->kode_ruangan_gabungan . '">' . $row->nama_ruangan . '</option>';
+            if ($row->kode_ruangan_gabungan == $ruangan) {
+                $output .= '<option value="' . $row->kode_ruangan_gabungan . '" selected>' . $row->nama_ruangan . '</option>';
+            } else {
+                $output .= '<option value="' . $row->kode_ruangan_gabungan . '">' . $row->nama_ruangan . '</option>';
+            }
         }
 
         return $output;
     }
-    function fetch_sarana($ruangan)
+    function fetch_sarana($ruangan, $sarana)
     {
+
         $this->db->where('kode_ruangan_gabungan', $ruangan);
         $this->db->order_by('nama_sarana', 'ASC');
         $query = $this->db->get('v_sarana');
         $output = '<option value="">Select Ruangan</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->kode_sarana . '">' . $row->nama_sarana . '</option>';
+            if ($row->kode_sarana == $sarana) {
+                $output .= '<option value="' . $row->kode_sarana . '" selected>' . $row->nama_sarana . '</option>';
+            } else {
+                $output .= '<option value="' . $row->kode_sarana . '">' . $row->nama_sarana . '</option>';
+            }
         }
 
         return $output;
     }
-    function fetch_alkes($sarana)
+    function fetch_alkes($sarana, $id_alkes)
     {
         $this->db->where('kode_sarana', $sarana);
         $this->db->order_by('nama_alkes', 'ASC');
         $query = $this->db->get('v_alkes');
         $output = '<option value="">Select Alat Kesehatan</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->id_alkes . '">' . $row->nama_alkes . '</option>';
+            if ($row->id_alkes == $id_alkes) {
+                $output .= '<option value="' . $row->id_alkes . '" selected>' . $row->nama_alkes . '</option>';
+            } else {
+                $output .= '<option value="' . $row->id_alkes . '">' . $row->nama_alkes . '</option>';
+            }
         }
 
         return $output;
@@ -183,14 +240,42 @@ class T_dak_rincian_model extends CI_Model
     //     return $output;
     // }
 
-    function fetch_rincian($id_dak_sub_komponen)
+    function fetch_rincian($id_dak_sub_komponen, $id_dak_rincian)
     {
         $this->db->where('id_dak_komponen_sub', $id_dak_sub_komponen);
         $this->db->order_by('nama_dak_rincian', 'ASC');
         $query = $this->db->get('m_dak_rincian');
         $output = '<option value="">Select Rincian Kegiatan</option>';
         foreach ($query->result() as $row) {
-            $output .= '<option value="' . $row->id_dak_rincian . '">' . $row->nama_dak_rincian . '</option>';
+            if ($id_dak_rincian == 'xx') {
+                $output .= '<option value="' . $row->id_dak_rincian . '">' . $row->nama_dak_rincian . '</option>';
+            } else {
+                if ($row->id_dak_rincian == $id_dak_rincian) {
+                    $output .= '<option value="' . $row->id_dak_rincian . '" selected>' . $row->nama_dak_rincian . '</option>';
+                } else {
+                    $output .= '<option value="' . $row->id_dak_rincian . '">' . $row->nama_dak_rincian . '</option>';
+                }
+            }
+        }
+        return $output;
+    }
+
+    function fetch_rincianx($id_dak_komponen, $id_dak_rincian)
+    {
+        $this->db->where('id_dak_komponen', $id_dak_komponen);
+        $this->db->order_by('nama_dak_rincian', 'ASC');
+        $query = $this->db->get('m_dak_rincian');
+        $output = '<option value="">Select Rincian Kegiatan</option>';
+        foreach ($query->result() as $row) {
+            if ($id_dak_rincian == 'xx') {
+                $output .= '<option value="' . $row->id_dak_rincian . '">' . $row->nama_dak_rincian . '</option>';
+            } else {
+                if ($row->id_dak_rincian == $id_dak_rincian) {
+                    $output .= '<option value="' . $row->id_dak_rincian . '" selected>' . $row->nama_dak_rincian . '</option>';
+                } else {
+                    $output .= '<option value="' . $row->id_dak_rincian . '">' . $row->nama_dak_rincian . '</option>';
+                }
+            }
         }
         return $output;
     }

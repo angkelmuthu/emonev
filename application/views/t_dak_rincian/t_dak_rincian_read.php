@@ -3,7 +3,7 @@
 		<div class="col-xl-12">
 			<div id="panel-1" class="panel">
 				<div class="panel-hdr">
-					<h2>Data Rincian Kegiatan</h2>
+					<h2>Data RKA (Rincian Kegiatan) Read</h2>
 					<div class="panel-toolbar">
 						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
 						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -12,7 +12,7 @@
 				</div>
 				<div class="panel-container show">
 					<div class="panel-content">
-						<!-- <table class="table table-striped">
+						<table class="table table-striped">
 							<tr>
 								<td>Id Satker</td>
 								<td><?php echo $id_satker; ?></td>
@@ -74,16 +74,48 @@
 								<td><?php echo $volume_perubahan; ?></td>
 							</tr>
 							<tr>
-								<td>Satuan</td>
-								<td><?php echo $satuan; ?></td>
+								<td>Id Satuan</td>
+								<td><?php echo $id_satuan; ?></td>
 							</tr>
 							<tr>
 								<td>Total</td>
 								<td><?php echo $total; ?></td>
 							</tr>
 							<tr>
+								<td>Kode Satker Lokasi</td>
+								<td><?php echo $kode_satker_lokasi; ?></td>
+							</tr>
+							<tr>
+								<td>Kode Nonsatker Lokasi</td>
+								<td><?php echo $kode_nonsatker_lokasi; ?></td>
+							</tr>
+							<tr>
+								<td>Jenis Fasyankes</td>
+								<td><?php echo $jenis_fasyankes; ?></td>
+							</tr>
+							<tr>
+								<td>Instalasi</td>
+								<td><?php echo $instalasi; ?></td>
+							</tr>
+							<tr>
+								<td>Ruangan</td>
+								<td><?php echo $ruangan; ?></td>
+							</tr>
+							<tr>
 								<td>Sarana</td>
 								<td><?php echo $sarana; ?></td>
+							</tr>
+							<tr>
+								<td>Nip Pengisi</td>
+								<td><?php echo $nip_pengisi; ?></td>
+							</tr>
+							<tr>
+								<td>Nama Pengisi</td>
+								<td><?php echo $nama_pengisi; ?></td>
+							</tr>
+							<tr>
+								<td>Jabatan Pengisi</td>
+								<td><?php echo $jabatan_pengisi; ?></td>
 							</tr>
 							<tr>
 								<td>Created By</td>
@@ -109,92 +141,7 @@
 								<td></td>
 								<td><a href="<?php echo site_url('t_dak_rincian') ?>" class="btn btn-primary waves-effect waves-themed">Kembali</a></td>
 							</tr>
-						</table> -->
-						<table class="table table-bordered table-hover table-striped w-100">
-							<?php foreach ($dt_rincian as $dt) { ?>
-								<tr>
-									<th>Sub Bidang</th>
-									<td><?php echo $dt->nama_dak_komponen ?></td>
-								</tr>
-								<tr>
-									<th>Rincian</th>
-									<td><?php echo $dt->nama_dak_komponen_sub ?></td>
-								</tr>
-								<tr>
-									<th>Kegiatan</th>
-									<td><?php echo $dt->nama_menu_kegiatan ?></td>
-								</tr>
-								<tr>
-									<th>Sub Kegiatan</th>
-									<td><?php echo $dt->nama_kegiatan ?></td>
-								</tr>
-								<tr>
-									<th>Detail Rincian</th>
-									<td><?php echo $dt->nama_dak_rincian ?></td>
-								</tr>
-								<?php if (!empty($dt->kode_alkes)) { ?>
-									<tr>
-										<th>Alkes</th>
-										<td><?php echo $dt->nama_alkes ?></td>
-									</tr>
-								<?php } ?>
-								<tr>
-									<th>Jenis Output</th>
-									<td><?php echo $dt->nama_jenis_output ?></td>
-								</tr>
-								<tr>
-									<th>Harga Satuan (Rp)</th>
-									<td><?php echo angka($dt->harga_satuan) ?></td>
-								</tr>
-								<tr>
-									<th>Volume</th>
-									<td><?php echo $dt->volume ?></td>
-								</tr>
-								<tr>
-									<th>Satuan</th>
-									<td><?php echo $dt->satuan ?></td>
-								</tr>
-								<tr>
-									<th>Total (Rp)</th>
-									<td><?php echo angka($dt->total) ?></td>
-								</tr>
-								<tr>
-									<th>Lokasi</th>
-									<td>
-										<?php if (!empty($dt->nama_instalasi)) { ?>
-											<span class="badge border border-primary text-primary">Pelayanan : <?php echo $dt->nama_instalasi; ?></span>
-										<?php }
-										if (!empty($dt->nama_ruangan)) { ?>
-											<span class="badge border border-secondary text-secondary">Sub Pelayanan : <?php echo $dt->nama_ruangan; ?></span>
-										<?php }
-										if (!empty($dt->nama_sarana)) { ?>
-											<span class="badge border border-success text-success">Ruangan : <?php echo $dt->nama_sarana; ?></span>
-										<?php } ?>
-									</td>
-								</tr>
-								<tr>
-									<th>NIP Penginput</th>
-									<td><?php echo $dt->nip_pengisi ?></td>
-								</tr>
-								<tr>
-									<th>Nama Penginput</th>
-									<td><?php echo $dt->nama_pengisi ?></td>
-								</tr>
-								<tr>
-									<th>Jabatan Penginput</th>
-									<td><?php echo $dt->jabatan_pengisi ?></td>
-								</tr>
-								<tr>
-									<th>Created By</th>
-									<td><?php echo $dt->created_by ?></td>
-								</tr>
-								<tr>
-									<th>Created Date</th>
-									<td><?php echo $dt->created_date ?></td>
-								</tr>
-							<?php } ?>
 						</table>
-						<a href="<?php echo site_url('t_dak_rincian/rincian/' . $this->uri->segment(4)) ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a>
 					</div>
 				</div>
 
