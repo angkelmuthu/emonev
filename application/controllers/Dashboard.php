@@ -15,9 +15,15 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
+        if (!empty($_GET['th'])) {
+            $tahun_default = $_GET['th'];
+        } else {
+            $tahun_default = $this->Dashboard_model->get_tahun_row()->tahun;
+        }
         $data = array(
-            'dt_bar' => $this->Dashboard_model->barchart_prop(),
-            'dt_progres' => $this->Dashboard_model->progres(),
+            'dt_bar' => $this->Dashboard_model->barchart_prop($tahun_default),
+            'dt_progres' => $this->Dashboard_model->progres($tahun_default),
+            'dt_tahun' => $this->Dashboard_model->get_tahun(),
         );
         $this->template->load('template', 'dashboard', $data);
     }

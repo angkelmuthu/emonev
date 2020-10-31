@@ -6,7 +6,7 @@
             if (!empty($_GET['th'])) {
                 $tahun_default = $_GET['th'];
             } else {
-                $tahun_default = $this->Dashboard_model->get_tahun_row()->tahun;
+                $tahun_default = $this->Dash_satker_model->get_tahun_row()->tahun;
             }
             ?>
             <i class='subheader-icon fal fa-chart-area'></i> Dashboard Persentase RKA & Realisasi <?php echo $tahun_default ?>
@@ -32,7 +32,7 @@
                     <div id="panel-3" class="panel">
                         <div class="panel-hdr">
                             <h2>
-                                Persentase Rencana Kegiatan <span class="fw-300"><i>Nasional</i></span>
+                                Persentase Rencana Kegiatan <span class="fw-300"><i></i></span>
                             </h2>
                         </div>
                         <div class="panel-container show">
@@ -59,7 +59,7 @@
                     <div id="panel-3" class="panel">
                         <div class="panel-hdr">
                             <h2>
-                                Persentase Realisasi <span class="fw-300"><i>Nasional</i></span>
+                                Persentase Realisasi <span class="fw-300"><i></i></span>
                             </h2>
                         </div>
                         <div class="panel-container show">
@@ -86,7 +86,7 @@
                     <div id="panel-8" class="panel">
                         <div class="panel-hdr">
                             <h2>
-                                Persentase Rencana Anggaran (RKA) & Realisasi <span class="fw-300"><i>Berdasarkan Provinsi</i></span>
+                                Persentase Rencana Anggaran (RKA) & Realisasi <span class="fw-300"><i></i></span>
                             </h2>
                             <div class="panel-toolbar">
                                 <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -118,7 +118,7 @@
                 <?php
                 if (count($dt_bar) > 0) {
                     foreach ($dt_bar as $data) {
-                        echo "'" . $data->nama_provinsi . "',";
+                        echo "'" . $data->nama_dak_sub_bidang . "',";
                     }
                 }
                 ?>
