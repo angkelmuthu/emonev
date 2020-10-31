@@ -19,51 +19,53 @@ class M_dak_alokasi_model extends CI_Model
     function get_all()
     {
         $this->db->order_by($this->id, $this->order);
-        return $this->db->get($this->table)->result();
+        return $this->db->get('v_dak_alokasi')->result();
     }
 
     // get data by id
     function get_by_id($id)
     {
         $this->db->where($this->id, $id);
-        return $this->db->get($this->table)->row();
+        return $this->db->get('v_dak_alokasi')->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id_dak_alokasi', $q);
-	$this->db->or_like('id_dak_jenis', $q);
-	$this->db->or_like('id_dak_kelompok', $q);
-	$this->db->or_like('id_dak_sub_bidang', $q);
-	$this->db->or_like('id_satker', $q);
-	$this->db->or_like('tahun', $q);
-	$this->db->or_like('nilai_alokasi', $q);
-	$this->db->or_like('created_by', $q);
-	$this->db->or_like('created_date', $q);
-	$this->db->or_like('updated_by', $q);
-	$this->db->or_like('updated_date', $q);
-	$this->db->or_like('isdeleted', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('nama_jenis_dak', $q);
+        $this->db->or_like('dak_kelompok', $q);
+        $this->db->or_like('nama_dak_sub_bidang', $q);
+        $this->db->or_like('satker', $q);
+        $this->db->or_like('tahun', $q);
+        $this->db->or_like('nilai_alokasi', $q);
+        $this->db->or_like('created_by', $q);
+        $this->db->or_like('created_date', $q);
+        $this->db->or_like('updated_by', $q);
+        $this->db->or_like('updated_date', $q);
+        $this->db->or_like('isdeleted', $q);
+        $this->db->from('v_dak_alokasi');
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_dak_alokasi', $q);
-	$this->db->or_like('id_dak_jenis', $q);
-	$this->db->or_like('id_dak_kelompok', $q);
-	$this->db->or_like('id_dak_sub_bidang', $q);
-	$this->db->or_like('id_satker', $q);
-	$this->db->or_like('tahun', $q);
-	$this->db->or_like('nilai_alokasi', $q);
-	$this->db->or_like('created_by', $q);
-	$this->db->or_like('created_date', $q);
-	$this->db->or_like('updated_by', $q);
-	$this->db->or_like('updated_date', $q);
-	$this->db->or_like('isdeleted', $q);
-	$this->db->limit($limit, $start);
-        return $this->db->get($this->table)->result();
+        $this->db->or_like('nama_jenis_dak', $q);
+        $this->db->or_like('dak_kelompok', $q);
+        $this->db->or_like('nama_dak_sub_bidang', $q);
+        $this->db->or_like('satker', $q);
+        $this->db->or_like('tahun', $q);
+        $this->db->or_like('nilai_alokasi', $q);
+        $this->db->or_like('created_by', $q);
+        $this->db->or_like('created_date', $q);
+        $this->db->or_like('updated_by', $q);
+        $this->db->or_like('updated_date', $q);
+        $this->db->or_like('isdeleted', $q);
+        $this->db->limit($limit, $start);
+        return $this->db->get('v_dak_alokasi')->result();
     }
 
     // insert data
@@ -85,7 +87,6 @@ class M_dak_alokasi_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-
 }
 
 /* End of file M_dak_alokasi_model.php */

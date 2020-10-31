@@ -48,10 +48,10 @@
                                 <thead class="thead-themed">
                                     <tr>
                                         <th>No</th>
-                                        <th>Id Dak Jenis</th>
-                                        <th>Id Dak Kelompok</th>
-                                        <th>Id Dak Sub Bidang</th>
-                                        <th>Id Satker</th>
+                                        <th>Dak Jenis</th>
+                                        <th>Dak Kelompok</th>
+                                        <th>Dak Sub Bidang</th>
+                                        <th>Satker</th>
                                         <th>Tahun</th>
                                         <th>Nilai Alokasi</th>
                                         <th>Created By</th>
@@ -67,10 +67,10 @@
                                         ?>
                                         <tr>
                                             <td width="10px"><?php echo ++$start ?></td>
-                                            <td><?php echo $m_dak_alokasi->id_dak_jenis ?></td>
-                                            <td><?php echo $m_dak_alokasi->id_dak_kelompok ?></td>
-                                            <td><?php echo $m_dak_alokasi->id_dak_sub_bidang ?></td>
-                                            <td><?php echo $m_dak_alokasi->id_satker ?></td>
+                                            <td><?php echo $m_dak_alokasi->nama_jenis_dak ?></td>
+                                            <td><?php echo $m_dak_alokasi->dak_kelompok ?></td>
+                                            <td><?php echo $m_dak_alokasi->nama_dak_sub_bidang ?></td>
+                                            <td><?php echo $m_dak_alokasi->satker ?></td>
                                             <td><?php echo $m_dak_alokasi->tahun ?></td>
                                             <td><?php echo $m_dak_alokasi->nilai_alokasi ?></td>
                                             <td><?php echo $m_dak_alokasi->created_by ?></td>

@@ -42,7 +42,7 @@ class M_dak_alokasi extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->template->load('template','m_dak_alokasi/m_dak_alokasi_list', $data);
+        $this->template->load('template', 'm_dak_alokasi/m_dak_alokasi_list', $data);
     }
 
     public function read($id)
@@ -50,20 +50,20 @@ class M_dak_alokasi extends CI_Controller
         $row = $this->M_dak_alokasi_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_dak_alokasi' => $row->id_dak_alokasi,
-		'id_dak_jenis' => $row->id_dak_jenis,
-		'id_dak_kelompok' => $row->id_dak_kelompok,
-		'id_dak_sub_bidang' => $row->id_dak_sub_bidang,
-		'id_satker' => $row->id_satker,
-		'tahun' => $row->tahun,
-		'nilai_alokasi' => $row->nilai_alokasi,
-		'created_by' => $row->created_by,
-		'created_date' => $row->created_date,
-		'updated_by' => $row->updated_by,
-		'updated_date' => $row->updated_date,
-		'isdeleted' => $row->isdeleted,
-	    );
-            $this->template->load('template','m_dak_alokasi/m_dak_alokasi_read', $data);
+                'id_dak_alokasi' => $row->id_dak_alokasi,
+                'nama_jenis_dak' => $row->nama_jenis_dak,
+                'dak_kelompok' => $row->dak_kelompok,
+                'nama_dak_sub_bidang' => $row->nama_dak_sub_bidang,
+                'satker' => $row->satker,
+                'tahun' => $row->tahun,
+                'nilai_alokasi' => $row->nilai_alokasi,
+                'created_by' => $row->created_by,
+                'created_date' => $row->created_date,
+                'updated_by' => $row->updated_by,
+                'updated_date' => $row->updated_date,
+                'isdeleted' => $row->isdeleted,
+            );
+            $this->template->load('template', 'm_dak_alokasi/m_dak_alokasi_read', $data);
         } else {
             $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -78,20 +78,20 @@ class M_dak_alokasi extends CI_Controller
         $data = array(
             'button' => 'Create',
             'action' => site_url('m_dak_alokasi/create_action'),
-	    'id_dak_alokasi' => set_value('id_dak_alokasi'),
-	    'id_dak_jenis' => set_value('id_dak_jenis'),
-	    'id_dak_kelompok' => set_value('id_dak_kelompok'),
-	    'id_dak_sub_bidang' => set_value('id_dak_sub_bidang'),
-	    'id_satker' => set_value('id_satker'),
-	    'tahun' => set_value('tahun'),
-	    'nilai_alokasi' => set_value('nilai_alokasi'),
-	    'created_by' => set_value('created_by'),
-	    'created_date' => set_value('created_date'),
-	    'updated_by' => set_value('updated_by'),
-	    'updated_date' => set_value('updated_date'),
-	    'isdeleted' => set_value('isdeleted'),
-	);
-        $this->template->load('template','m_dak_alokasi/m_dak_alokasi_form', $data);
+            'id_dak_alokasi' => set_value('id_dak_alokasi'),
+            'id_dak_jenis' => set_value('id_dak_jenis'),
+            'id_dak_kelompok' => set_value('id_dak_kelompok'),
+            'id_dak_sub_bidang' => set_value('id_dak_sub_bidang'),
+            'id_satker' => set_value('id_satker'),
+            'tahun' => set_value('tahun'),
+            'nilai_alokasi' => set_value('nilai_alokasi'),
+            'created_by' => set_value('created_by'),
+            'created_date' => set_value('created_date'),
+            'updated_by' => set_value('updated_by'),
+            'updated_date' => set_value('updated_date'),
+            'isdeleted' => set_value('isdeleted'),
+        );
+        $this->template->load('template', 'm_dak_alokasi/m_dak_alokasi_form', $data);
     }
 
     public function create_action()
@@ -102,18 +102,18 @@ class M_dak_alokasi extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_dak_jenis' => $this->input->post('id_dak_jenis',TRUE),
-		'id_dak_kelompok' => $this->input->post('id_dak_kelompok',TRUE),
-		'id_dak_sub_bidang' => $this->input->post('id_dak_sub_bidang',TRUE),
-		'id_satker' => $this->input->post('id_satker',TRUE),
-		'tahun' => $this->input->post('tahun',TRUE),
-		'nilai_alokasi' => $this->input->post('nilai_alokasi',TRUE),
-		'created_by' => $this->input->post('created_by',TRUE),
-		'created_date' => $this->input->post('created_date',TRUE),
-		'updated_by' => $this->input->post('updated_by',TRUE),
-		'updated_date' => $this->input->post('updated_date',TRUE),
-		'isdeleted' => $this->input->post('isdeleted',TRUE),
-	    );
+                'id_dak_jenis' => $this->input->post('id_dak_jenis', TRUE),
+                'id_dak_kelompok' => $this->input->post('id_dak_kelompok', TRUE),
+                'id_dak_sub_bidang' => $this->input->post('id_dak_sub_bidang', TRUE),
+                'id_satker' => $this->input->post('id_satker', TRUE),
+                'tahun' => $this->input->post('tahun', TRUE),
+                'nilai_alokasi' => $this->input->post('nilai_alokasi', TRUE),
+                'created_by' => $this->input->post('created_by', TRUE),
+                'created_date' => $this->input->post('created_date', TRUE),
+                'updated_by' => $this->input->post('updated_by', TRUE),
+                'updated_date' => $this->input->post('updated_date', TRUE),
+                'isdeleted' => $this->input->post('isdeleted', TRUE),
+            );
 
             $this->M_dak_alokasi_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
@@ -132,20 +132,20 @@ class M_dak_alokasi extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('m_dak_alokasi/update_action'),
-		'id_dak_alokasi' => set_value('id_dak_alokasi', $row->id_dak_alokasi),
-		'id_dak_jenis' => set_value('id_dak_jenis', $row->id_dak_jenis),
-		'id_dak_kelompok' => set_value('id_dak_kelompok', $row->id_dak_kelompok),
-		'id_dak_sub_bidang' => set_value('id_dak_sub_bidang', $row->id_dak_sub_bidang),
-		'id_satker' => set_value('id_satker', $row->id_satker),
-		'tahun' => set_value('tahun', $row->tahun),
-		'nilai_alokasi' => set_value('nilai_alokasi', $row->nilai_alokasi),
-		'created_by' => set_value('created_by', $row->created_by),
-		'created_date' => set_value('created_date', $row->created_date),
-		'updated_by' => set_value('updated_by', $row->updated_by),
-		'updated_date' => set_value('updated_date', $row->updated_date),
-		'isdeleted' => set_value('isdeleted', $row->isdeleted),
-	    );
-            $this->template->load('template','m_dak_alokasi/m_dak_alokasi_form', $data);
+                'id_dak_alokasi' => set_value('id_dak_alokasi', $row->id_dak_alokasi),
+                'id_dak_jenis' => set_value('id_dak_jenis', $row->id_dak_jenis),
+                'id_dak_kelompok' => set_value('id_dak_kelompok', $row->id_dak_kelompok),
+                'id_dak_sub_bidang' => set_value('id_dak_sub_bidang', $row->id_dak_sub_bidang),
+                'id_satker' => set_value('id_satker', $row->id_satker),
+                'tahun' => set_value('tahun', $row->tahun),
+                'nilai_alokasi' => set_value('nilai_alokasi', $row->nilai_alokasi),
+                'created_by' => set_value('created_by', $row->created_by),
+                'created_date' => set_value('created_date', $row->created_date),
+                'updated_by' => set_value('updated_by', $row->updated_by),
+                'updated_date' => set_value('updated_date', $row->updated_date),
+                'isdeleted' => set_value('isdeleted', $row->isdeleted),
+            );
+            $this->template->load('template', 'm_dak_alokasi/m_dak_alokasi_form', $data);
         } else {
             $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -163,18 +163,18 @@ class M_dak_alokasi extends CI_Controller
             $this->update($this->input->post('id_dak_alokasi', TRUE));
         } else {
             $data = array(
-		'id_dak_jenis' => $this->input->post('id_dak_jenis',TRUE),
-		'id_dak_kelompok' => $this->input->post('id_dak_kelompok',TRUE),
-		'id_dak_sub_bidang' => $this->input->post('id_dak_sub_bidang',TRUE),
-		'id_satker' => $this->input->post('id_satker',TRUE),
-		'tahun' => $this->input->post('tahun',TRUE),
-		'nilai_alokasi' => $this->input->post('nilai_alokasi',TRUE),
-		'created_by' => $this->input->post('created_by',TRUE),
-		'created_date' => $this->input->post('created_date',TRUE),
-		'updated_by' => $this->input->post('updated_by',TRUE),
-		'updated_date' => $this->input->post('updated_date',TRUE),
-		'isdeleted' => $this->input->post('isdeleted',TRUE),
-	    );
+                'id_dak_jenis' => $this->input->post('id_dak_jenis', TRUE),
+                'id_dak_kelompok' => $this->input->post('id_dak_kelompok', TRUE),
+                'id_dak_sub_bidang' => $this->input->post('id_dak_sub_bidang', TRUE),
+                'id_satker' => $this->input->post('id_satker', TRUE),
+                'tahun' => $this->input->post('tahun', TRUE),
+                'nilai_alokasi' => $this->input->post('nilai_alokasi', TRUE),
+                'created_by' => $this->input->post('created_by', TRUE),
+                'created_date' => $this->input->post('created_date', TRUE),
+                'updated_by' => $this->input->post('updated_by', TRUE),
+                'updated_date' => $this->input->post('updated_date', TRUE),
+                'isdeleted' => $this->input->post('isdeleted', TRUE),
+            );
 
             $this->M_dak_alokasi_model->update($this->input->post('id_dak_alokasi', TRUE), $data);
             $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
@@ -207,20 +207,20 @@ class M_dak_alokasi extends CI_Controller
 
     public function _rules()
     {
-	$this->form_validation->set_rules('id_dak_jenis', 'id dak jenis', 'trim|required');
-	$this->form_validation->set_rules('id_dak_kelompok', 'id dak kelompok', 'trim|required');
-	$this->form_validation->set_rules('id_dak_sub_bidang', 'id dak sub bidang', 'trim|required');
-	$this->form_validation->set_rules('id_satker', 'id satker', 'trim|required');
-	$this->form_validation->set_rules('tahun', 'tahun', 'trim|required');
-	$this->form_validation->set_rules('nilai_alokasi', 'nilai alokasi', 'trim|required|numeric');
-	$this->form_validation->set_rules('created_by', 'created by', 'trim|required');
-	$this->form_validation->set_rules('created_date', 'created date', 'trim|required');
-	$this->form_validation->set_rules('updated_by', 'updated by', 'trim|required');
-	$this->form_validation->set_rules('updated_date', 'updated date', 'trim|required');
-	$this->form_validation->set_rules('isdeleted', 'isdeleted', 'trim|required');
+        $this->form_validation->set_rules('id_dak_jenis', 'id dak jenis', 'trim|required');
+        $this->form_validation->set_rules('id_dak_kelompok', 'id dak kelompok', 'trim|required');
+        $this->form_validation->set_rules('id_dak_sub_bidang', 'id dak sub bidang', 'trim|required');
+        $this->form_validation->set_rules('id_satker', 'id satker', 'trim|required');
+        $this->form_validation->set_rules('tahun', 'tahun', 'trim|required');
+        $this->form_validation->set_rules('nilai_alokasi', 'nilai alokasi', 'trim|required|numeric');
+        $this->form_validation->set_rules('created_by', 'created by', 'trim|required');
+        $this->form_validation->set_rules('created_date', 'created date', 'trim|required');
+        $this->form_validation->set_rules('updated_by', 'updated by', 'trim|required');
+        $this->form_validation->set_rules('updated_date', 'updated date', 'trim|required');
+        $this->form_validation->set_rules('isdeleted', 'isdeleted', 'trim|required');
 
-	$this->form_validation->set_rules('id_dak_alokasi', 'id_dak_alokasi', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id_dak_alokasi', 'id_dak_alokasi', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function excel()
@@ -245,43 +245,42 @@ class M_dak_alokasi extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Dak Jenis");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Dak Kelompok");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Dak Sub Bidang");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Satker");
-	xlsWriteLabel($tablehead, $kolomhead++, "Tahun");
-	xlsWriteLabel($tablehead, $kolomhead++, "Nilai Alokasi");
-	xlsWriteLabel($tablehead, $kolomhead++, "Created By");
-	xlsWriteLabel($tablehead, $kolomhead++, "Created Date");
-	xlsWriteLabel($tablehead, $kolomhead++, "Updated By");
-	xlsWriteLabel($tablehead, $kolomhead++, "Updated Date");
-	xlsWriteLabel($tablehead, $kolomhead++, "Isdeleted");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Dak Jenis");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Dak Kelompok");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Dak Sub Bidang");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Satker");
+        xlsWriteLabel($tablehead, $kolomhead++, "Tahun");
+        xlsWriteLabel($tablehead, $kolomhead++, "Nilai Alokasi");
+        xlsWriteLabel($tablehead, $kolomhead++, "Created By");
+        xlsWriteLabel($tablehead, $kolomhead++, "Created Date");
+        xlsWriteLabel($tablehead, $kolomhead++, "Updated By");
+        xlsWriteLabel($tablehead, $kolomhead++, "Updated Date");
+        xlsWriteLabel($tablehead, $kolomhead++, "Isdeleted");
 
-	foreach ($this->M_dak_alokasi_model->get_all() as $data) {
+        foreach ($this->M_dak_alokasi_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->id_dak_jenis);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->id_dak_kelompok);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->id_dak_sub_bidang);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->id_satker);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->tahun);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->nilai_alokasi);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->created_by);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->created_date);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_by);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_date);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->isdeleted);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_dak_jenis);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_dak_kelompok);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_dak_sub_bidang);
+            xlsWriteNumber($tablebody, $kolombody++, $data->id_satker);
+            xlsWriteNumber($tablebody, $kolombody++, $data->tahun);
+            xlsWriteNumber($tablebody, $kolombody++, $data->nilai_alokasi);
+            xlsWriteLabel($tablebody, $kolombody++, $data->created_by);
+            xlsWriteLabel($tablebody, $kolombody++, $data->created_date);
+            xlsWriteLabel($tablebody, $kolombody++, $data->updated_by);
+            xlsWriteLabel($tablebody, $kolombody++, $data->updated_date);
+            xlsWriteNumber($tablebody, $kolombody++, $data->isdeleted);
 
-	    $tablebody++;
+            $tablebody++;
             $nourut++;
         }
 
         xlsEOF();
         exit();
     }
-
 }
 
 /* End of file M_dak_alokasi.php */
