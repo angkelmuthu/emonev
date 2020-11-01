@@ -85,8 +85,11 @@
                                         <td>Rp. <?php echo angka($total); ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Lokasi</th>
+                                        <th>LokUs</th>
                                         <td colspan="3">
+                                            <?php if ($this->session->userdata('id_jenis_satker') == '1' || $this->session->userdata('id_jenis_satker') == '2') { ?>
+                                                <span class="badge border border-primary text-primary">Lokus : <?php echo $nama_nonsatker_lokasi; ?></span>
+                                            <?php } ?>
                                             <?php if (!empty($nama_instalasi)) { ?>
                                                 <span class="badge border border-primary text-primary">Pelayanan : <?php echo $nama_instalasi; ?></span>
                                             <?php }

@@ -24,6 +24,7 @@ class T_realisasi extends CI_Controller
 		$row = $this->T_realisasi_model->get_rincian($idrincian);
 		$data = array(
 			'id_rincian' => $row->id_rincian,
+			'nama_nonsatker_lokasi' => $row->nama_nonsatker_lokasi,
 			'nama_menu_kegiatan' => $row->nama_menu_kegiatan,
 			'nama_dak_komponen' => $row->nama_dak_komponen,
 			'id_dak_alokasi' => $row->id_dak_alokasi,

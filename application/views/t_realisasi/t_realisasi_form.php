@@ -89,6 +89,9 @@
 										<tr>
 											<th>Lokasi</th>
 											<td colspan="3">
+												<?php if ($this->session->userdata('id_jenis_satker') == '1' || $this->session->userdata('id_jenis_satker') == '2') { ?>
+													<span class="badge border border-primary text-primary">Lokus : <?php echo $dt->nama_nonsatker_lokasi; ?></span>
+												<?php } ?>
 												<?php if (!empty($dt->nama_instalasi)) { ?>
 													<span class="badge border border-primary text-primary">Pelayanan : <?php echo $dt->nama_instalasi; ?></span>
 												<?php }
