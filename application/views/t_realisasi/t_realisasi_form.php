@@ -59,10 +59,10 @@
 								<div class="card-body">
 									<table class="table table-bordered table-striped">
 										<tr>
-											<th>Kegiatan</th>
-											<td><?php echo $dt->nama_menu_kegiatan; ?></td>
-											<th>Sub Kegiatan</th>
-											<td><?php echo $dt->nama_menu_kegiatan; ?></td>
+											<th>Sub Bidang</th>
+											<td><?php echo $dt->nama_dak_sub_bidang; ?></td>
+											<th>Menu</th>
+											<td><?php echo $dt->nama_dak_komponen; ?></td>
 										</tr>
 										<tr>
 											<th>Rincian</th>
