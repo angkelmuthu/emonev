@@ -57,10 +57,10 @@
                             <div class="card-body">
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <th>Kegiatan</th>
-                                        <td><?php echo $nama_menu_kegiatan; ?></td>
-                                        <th>Sub Kegiatan</th>
-                                        <td><?php echo $nama_menu_kegiatan; ?></td>
+                                        <th>Sub Bidang</th>
+                                        <td><?php echo $nama_dak_sub_bidang; ?></td>
+                                        <th>Menu</th>
+                                        <td><?php echo $nama_dak_komponen; ?></td>
                                     </tr>
                                     <tr>
                                         <th>Rincian</th>
@@ -160,6 +160,8 @@
                                         <td><?php echo $dt->nama_progres ?></td>
                                         <td>
                                             <?php echo anchor(site_url('t_realisasi/read/' . $this->uri->segment(3) . '/' . $this->uri->segment(4) . '/' . $dt->id_realisasi), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
+                                            <?php //echo anchor(site_url('t_realisasi/update/' . $this->uri->segment(3) . '/' . $this->uri->segment(4) . '/' . $dt->id_realisasi), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-sm waves-effect waves-themed"');
+                                            ?>
 
                                         </td>
                                     </tr>

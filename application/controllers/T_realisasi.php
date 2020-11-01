@@ -25,6 +25,7 @@ class T_realisasi extends CI_Controller
 		$data = array(
 			'id_rincian' => $row->id_rincian,
 			'nama_menu_kegiatan' => $row->nama_menu_kegiatan,
+			'nama_dak_komponen' => $row->nama_dak_komponen,
 			'id_dak_alokasi' => $row->id_dak_alokasi,
 			'nama_dak_rincian' => $row->nama_dak_rincian,
 			'id_jenis_output' => $row->id_jenis_output,
@@ -176,7 +177,7 @@ class T_realisasi extends CI_Controller
 		}
 	}
 
-	public function update($id)
+	public function update($idrincian, $idalokasi, $id)
 	{
 		$row = $this->T_realisasi_model->get_by_id($id);
 
@@ -206,6 +207,7 @@ class T_realisasi extends CI_Controller
 				'updated_by' => set_value('updated_by', $row->updated_by),
 				'updated_date' => set_value('updated_date', $row->updated_date),
 				'isdeleted' => set_value('isdeleted', $row->isdeleted),
+				'dt_rincian' => $this->T_realisasi_model->get_rincian_id($idrincian),
 			);
 			$this->template->load('template', 't_realisasi/t_realisasi_form', $data);
 		} else {
@@ -222,17 +224,21 @@ class T_realisasi extends CI_Controller
 		$this->_rules();
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->update($this->input->post('id_realisasi', TRUE));
+			$this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> Maaf, Data yang anda masukkan tidak lengkap.</strong></div>');
+			redirect(site_url('t_realisasi/create/' . $this->input->post('id_rincian')));
 		} else {
 			$data = array(
 				'id_rincian' => $this->input->post('id_rincian', TRUE),
 				'id_user' => $this->input->post('id_user', TRUE),
 				'periode' => $this->input->post('periode', TRUE),
 				'realisasi_fisik' => $this->input->post('realisasi_fisik', TRUE),
-				'realisasi_harga_satuan' => $this->input->post('realisasi_harga_satuan', TRUE),
+				'realisasi_harga_satuan' => str_replace('.', '', $this->input->post('realisasi_harga_satuan', TRUE)),
 				'realisasi_satuan' => $this->input->post('realisasi_satuan', TRUE),
-				'realisasi_persen' => $this->input->post('realisasi_persen', TRUE),
-				'realisasi_nilai' => $this->input->post('realisasi_nilai', TRUE),
+				'realisasi_persen' => str_replace('%', '', $this->input->post('realisasi_persen', TRUE)),
+				'realisasi_nilai' => str_replace('.', '', $this->input->post('realisasi_nilai', TRUE)),
 				'id_progress' => $this->input->post('id_progress', TRUE),
 				'id_rincian_hambatan' => $this->input->post('id_rincian_hambatan', TRUE),
 				'rencana_tindak_lanjut' => $this->input->post('rencana_tindak_lanjut', TRUE),
@@ -247,13 +253,14 @@ class T_realisasi extends CI_Controller
 				'updated_date' => $this->input->post('updated_date', TRUE),
 				'isdeleted' => $this->input->post('isdeleted', TRUE),
 			);
-
+			$id_rincian = $this->input->post('id_rincian');
+			$alokasi = $this->input->post('alokasi');
 			$this->T_realisasi_model->update($this->input->post('id_realisasi', TRUE), $data);
 			$this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Update Record Success</strong></div>');
-			redirect(site_url('t_realisasi'));
+			redirect(site_url('t_realisasi/realisasi/' . $id_rincian . '/' . $alokasi));
 		}
 	}
 
