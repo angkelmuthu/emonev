@@ -114,7 +114,7 @@
                                 <?php foreach ($dt_rincian as $dt) { ?>
                                     <tr>
                                         <td><?php echo $dt->nama_dak_komponen ?></td>
-                                        <td><?php echo $dt->nama_dak_komponen_sub ?></td>
+                                        <td><?php echo $dt->nama_dak_rincian ?></td>
                                         <td>
                                             <?php if (!empty($dt->kode_alkes)) {
                                                 echo $dt->nama_alkes;
