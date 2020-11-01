@@ -116,6 +116,9 @@
                                         <td><?php echo $dt->nama_dak_komponen ?></td>
                                         <td><?php echo $dt->nama_dak_rincian ?></td>
                                         <td>
+                                            <?php if ($this->session->userdata('id_jenis_satker') == '1' || $this->session->userdata('id_jenis_satker') == '2') { ?>
+                                                <span class="text-truncate text-truncate-md badge border border-primary text-primary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="LokUs : <?php echo $dt->nama_nonsatker_lokasi; ?>">LokUs : <?php echo $dt->nama_nonsatker_lokasi; ?></span><br>
+                                            <?php } ?>
                                             <?php if (!empty($dt->kode_alkes)) {
                                                 echo $dt->nama_alkes;
                                             } else { ?>
