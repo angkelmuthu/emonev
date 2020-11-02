@@ -11,6 +11,7 @@ class M_dak_alokasi_satker extends CI_Controller
         is_login();
         $this->load->model('M_dak_alokasi_satker_model');
         $this->load->library('form_validation');
+        $this->load->library('upload');
     }
 
     public function index()
@@ -276,6 +277,52 @@ class M_dak_alokasi_satker extends CI_Controller
 
         xlsEOF();
         exit();
+    }
+    public function upload()
+    {
+        if (isset($_FILES["gambar"]["name"])) {
+            $config['upload_path'] = './upload_ba/';
+            $config['allowed_types'] = 'jpg|jpeg|png|pdf';
+            $config['overwrite']            = true;
+            $config['max_size']             = 1024; // 1MB
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload('gambar')) {
+                // $this->upload->display_errors();
+                // return FALSE;
+                $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> File gagal diupload</strong> ' . $this->upload->display_errors() . '</div>');
+                redirect(site_url('m_dak_alokasi_satker'));
+            } else {
+                $data = $this->upload->data();
+                //Compress Image
+                // $config['image_library'] = 'gd2';
+                // $config['source_image'] = './upload_ba/' . $data['file_name'];
+                // $config['create_thumb'] = FALSE;
+                // $config['maintain_ratio'] = TRUE;
+                // $config['new_image'] = './upload_ba/' . $data['file_name'];
+                // $this->load->library('image_lib', $config);
+                // $this->image_lib->resize();
+                $config['file_name']            = $data['file_name'];
+
+                $image = $data['file_name'];
+            }
+        }
+        $data = array(
+            'tahun' => $this->input->post('tahun', TRUE),
+            'id_dak_sub_bidang' => $this->input->post('id_dak_sub_bidang', TRUE),
+            'id_satker' => $this->input->post('id_satker', TRUE),
+            'file_ba' => $image,
+            'created_date' => date('Y-m-d H:i:sa'),
+        );
+
+        $this->M_dak_alokasi_satker_model->file_ba($data);
+        $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> File berhasil terupload</strong></div>');
+        redirect(site_url('m_dak_alokasi_satker'));
     }
 }
 

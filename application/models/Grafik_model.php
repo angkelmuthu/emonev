@@ -28,12 +28,17 @@ class Grafik_model extends CI_Model
     }
 
 
-    public function grafik_covid($id_satker=null){
+    public function grafik_covid($id_satker=null,$id_output=null){
         $whereSatker = '';
+        $whereOutput = '';
         if(!empty($id_satker)){
           $query = $this->db->get_where('m_satker', array('nama' => ''.str_replace('%20',' ', $id_satker).''),1);
           $d = $query->result_array();
           $whereSatker = "AND mac.id_satker = '".$d[0]['id_satker']."'";   
+        }
+
+        if(!empty($id_output)){
+            $whereOutput = "AND mac.id_sub_kegiatan = '".$id_output."'";
         }
         $sql = $this->db->query("select mac.id,rac.id_alokasi_covid,kac.nama_kegiatan,rac.jenis_input, rac.inputan_nilai, m_satker.nama,m_satker.id_satker,mac.alokasi_akhir,mac.kegiatan,mac.id_sub_kegiatan,sumber_dana,level,rac.kategori_kontrak
                         from m_alokasi_anggaran_covid mac
@@ -41,7 +46,7 @@ class Grafik_model extends CI_Model
                         LEFT JOIN m_kegiatan_anggaran_covid  kac on mac.kegiatan = kac.id
                         LEFT join m_satker on mac.id_satker = m_satker.id_satker
                         LEFT JOIN m_sub_kegiatan_anggaran_covid ON m_sub_kegiatan_anggaran_covid.id = mac.id_sub_kegiatan
-                        where 1=1 ".$whereSatker."
+                        where 1=1 ".$whereSatker." ".$whereOutput."
                         order by mac.id_satker;");
 
         $data = $sql->result_array();
@@ -49,5 +54,11 @@ class Grafik_model extends CI_Model
         //echo $this->db->last_query();
 
         return $data;
+    }
+
+
+    public function grafik_berdasarkan_output($id_output){
+       $d = $this->grafik_covid(null,$id_output);
+       return $d;
     }
 }

@@ -45,4 +45,12 @@ class Grafik extends CI_Controller
         else
         $this->template->load('grafik_detail','grafik/grafik_covid_v2',$data);
     }
+
+    public function realisasi_satker_per_output($id_output=null){
+        error_reporting(E_ALL & ~E_NOTICE);
+        $data['m_kegiatan'] =  $this->db->get('m_kegiatan_anggaran_covid')->result();
+        $data['m_sub_kegiatan'] =  $this->db->get_where('m_sub_kegiatan_anggaran_covid',array('nama_sub_kegiatan'=>''.str_replace('%20',' ', $id_output).''))->result();
+        $data['result'] = $this->Grafik_model->grafik_berdasarkan_output($data['m_sub_kegiatan'][0]->id);
+        $this->template->load('grafik_detail','grafik/detail_output_satker',$data);
+    }
 }

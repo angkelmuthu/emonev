@@ -11,6 +11,8 @@ class Blokir extends CI_Controller
             return redirect('dashboard');
         } elseif ($role == '3') {
             return redirect('dash_satker');
+        } elseif ($role == '4') {
+            return redirect('welcome');
         }
     }
 }

@@ -210,7 +210,7 @@
             <div id="panel-1" class="panel">
                 <div class="panel-hdr">
                     <h2>
-                        Alokasi Dan Realisasi Anggaran Covid 19 Per Sub Kegiatan
+                        Alokasi Dan Realisasi Anggaran Covid 19 Per Output
                     </h2>
                 </div>
                 <div class="panel-container show">
@@ -728,6 +728,12 @@ columnSeries.columns.template.adapter.add("fill", function(fill, target) {
  target.stroke = colors[name];
  return colors[name];
 })
+
+columnSeries.columns.template.events.on("hit", function(ev) {
+ //detail_grafik(ev.target.dataItem.dataContext.country);
+ window.location.assign("<?php echo base_url('grafik/realisasi_satker_per_output'); ?>/"+ev.target.dataItem.dataContext.provider);
+ //console.log("clicked on ", ev.target);
+}, this);
 
 
 var rangeTemplate = categoryAxis.axisRanges.template;

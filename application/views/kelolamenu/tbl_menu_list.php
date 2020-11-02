@@ -107,7 +107,7 @@
             },
             columns: [{
                     "data": "id_menu",
-                    "orderable": false
+                    "orderable": true
                 }, {
                     "data": "title"
                 }, {

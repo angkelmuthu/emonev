@@ -41,7 +41,7 @@
                 $id_user_level = $this->session->userdata('id_user_level');
                 $sql_menu = "SELECT *
             FROM tbl_menu
-            WHERE id_menu in(select id_menu from tbl_hak_akses where id_user_level=$id_user_level) and is_main_menu=0 and is_aktif='y' order by url ASC";
+            WHERE id_menu in(select id_menu from tbl_hak_akses where id_user_level=$id_user_level) and is_main_menu=0 and is_aktif='y' order by title ASC";
             } else {
                 $sql_menu = "select * from tbl_menu where is_aktif='y' and is_main_menu=0 order by title ASC";
             }
