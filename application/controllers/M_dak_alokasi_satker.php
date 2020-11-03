@@ -324,6 +324,24 @@ class M_dak_alokasi_satker extends CI_Controller
             </button><strong> File berhasil terupload</strong></div>');
         redirect(site_url('m_dak_alokasi_satker'));
     }
+    public function delete_file($id, $file)
+    {
+        $nfile = './upload_ba/' . $file;
+        if (unlink($nfile)) {
+            $this->M_dak_alokasi_satker_model->delete_ba($id);
+            $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> Delete Record Success</strong></div>');
+            redirect(site_url('m_dak_alokasi_satker'));
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> Record Not Found</strong></div>');
+            redirect(site_url('m_dak_alokasi_satker'));
+        }
+    }
 }
 
 /* End of file M_dak_alokasi.php */

@@ -23,7 +23,7 @@
                                         <div class="input-group">
                                             <?php
                                             if ($q <> '') {
-                                            ?>
+                                                ?>
                                                 <div class="input-group-prepend">
                                                     <a href="<?php echo site_url('m_dak_alokasi_satker'); ?>" class="btn btn-danger waves-effect waves-themed">Reset</a>
                                                 </div>
@@ -95,7 +95,7 @@
                                 <tbody><?php
                                         //print_r($this->db->last_query());
                                         foreach ($m_dak_alokasi_data as $m_dak_alokasi) {
-                                        ?>
+                                            ?>
                                         <tr>
                                             <td width="10px"><?php echo ++$start ?></td>
                                             <td><?php echo $m_dak_alokasi->nama_dak_sub_bidang ?></td>
@@ -105,22 +105,22 @@
                                             <td>Rp. <?php echo angka($m_dak_alokasi->nilai_alokasi) ?></td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->ttl_rincian) ?></td>
                                             <td><?php if ($m_dak_alokasi->ttl_rincian > 0) {
-                                                    echo round($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100, 2);
-                                                } else {
-                                                    echo '0';
-                                                } ?> %</td>
+                                                        echo round($m_dak_alokasi->ttl_rincian / $m_dak_alokasi->nilai_alokasi * 100, 2);
+                                                    } else {
+                                                        echo '0';
+                                                    } ?> %</td>
                                             <td>Rp. <?php echo angka($m_dak_alokasi->ttl_realisasi) ?></td>
                                             <td><?php if ($m_dak_alokasi->ttl_rincian > 0) {
-                                                    echo round($m_dak_alokasi->ttl_realisasi / $m_dak_alokasi->nilai_alokasi * 100, 2);
-                                                } else {
-                                                    echo '0';
-                                                } ?> %</td>
+                                                        echo round($m_dak_alokasi->ttl_realisasi / $m_dak_alokasi->nilai_alokasi * 100, 2);
+                                                    } else {
+                                                        echo '0';
+                                                    } ?> %</td>
                                             <!-- <td><?php echo $m_dak_alokasi->updated_by ?></td>
                                             <td><?php echo $m_dak_alokasi->updated_date ?></td> -->
                                             <td style="text-align:center" width="200px">
                                                 <?php
-                                                echo anchor(site_url('t_dak_rincian/rincian/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i> Rincian Alokasi', 'class="btn btn-info btn-sm waves-effect waves-themed"');
-                                                ?>
+                                                    echo anchor(site_url('t_dak_rincian/rincian/' . $m_dak_alokasi->id_dak_alokasi), '<i class="fal fa-eye" aria-hidden="true"></i> Rincian Alokasi', 'class="btn btn-info btn-sm waves-effect waves-themed"');
+                                                    ?>
                                                 <button type="button" class="btn btn-sm btn-warning waves-effect waves-themed" data-toggle="modal" data-target="#modal-petugas">Upload BA Bersih</button>
                                                 <div class="modal fade" id="modal-petugas" tabindex="-1" role="dialog" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
@@ -133,32 +133,66 @@
                                                                     <span aria-hidden="true"><i class="fal fa-times"></i></span>
                                                                 </button>
                                                             </div>
-                                                            <form action="<?php echo base_url(); ?>m_dak_alokasi_satker/upload" method="post" enctype="multipart/form-data">
+
+                                                            <?php
+                                                                $this->db->where('id_satker', $m_dak_alokasi->id_satker);
+                                                                $this->db->where('id_dak_sub_bidang', $m_dak_alokasi->id_dak_sub_bidang);
+                                                                $this->db->where('tahun', $m_dak_alokasi->tahun);
+                                                                $query = $this->db->get('t_upload_ba');
+                                                                //$num = $query->num_rows();
+                                                                if ($query->num_rows() > 0) { ?>
+
                                                                 <div class="modal-body">
                                                                     <div class="alert alert-warning" role="alert">
-                                                                        <strong>Perhatian!</strong> File yang dapat diupload ada PDF, JPG dan PNG.
+                                                                        <strong>Perhatian!</strong> File yang dapat diupload maksimal 1 sub bidang 1 file, jika ingin mengganti file,silahkan hapus dahulu file yang lama.
                                                                     </div>
-                                                                    <input type="hidden" name="tahun" value="<?php echo $m_dak_alokasi->tahun ?>">
-                                                                    <input type="hidden" name="id_dak_sub_bidang" value="<?php echo $m_dak_alokasi->id_dak_sub_bidang ?>">
-                                                                    <input type="hidden" name="id_satker" value="<?php echo $m_dak_alokasi->id_satker ?>">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="example-fileinput">Upload File</label>
-                                                                        <input type="file" id="example-fileinput" class="form-control-file" name="gambar">
-                                                                    </div>
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td>Nama File</td>
+                                                                            <td>Lihat</td>
+                                                                            <td>Hapus</td>
+                                                                        </tr>
+
+                                                                        <?php foreach ($query->result() as $row) {
+                                                                                    echo '<tr><td>' . $row->file_ba . '</td><td><a href="' . base_url() . 'upload_ba/' . $row->file_ba . '" class="btn btn-xs btn-primary" target="_blank">lihat</a></td><td><a href="' . base_url() . 'm_dak_alokasi_satker/delete_file/' . $row->id_file . '/' . $row->file_ba . '" class="btn btn-xs btn-danger">hapus</a></td></tr>';
+                                                                                } ?>
+                                                                    </table>
                                                                 </div>
                                                                 <div class="modal-footer">
-
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Upload</button>
                                                                 </div>
-                                                            </form>
+
+                                                            <?php } else { ?>
+                                                                <form action="<?php echo base_url(); ?>m_dak_alokasi_satker/upload" method="post" enctype="multipart/form-data">
+                                                                    <div class="modal-body">
+                                                                        <div class="alert alert-warning" role="alert">
+                                                                            <strong>Perhatian!</strong> Besar file yang dapat diupload maksimal 1MB dengan extensi PDF/JPG/PNG.
+                                                                        </div>
+                                                                        <input type="hidden" name="tahun" value="<?php echo $m_dak_alokasi->tahun ?>">
+                                                                        <input type="hidden" name="id_dak_sub_bidang" value="<?php echo $m_dak_alokasi->id_dak_sub_bidang ?>">
+                                                                        <input type="hidden" name="id_satker" value="<?php echo $m_dak_alokasi->id_satker ?>">
+                                                                        <div class="form-group">
+                                                                            <label class="form-label" for="example-fileinput">Upload File</label>
+                                                                            <input type="file" id="example-fileinput" class="form-control-file" name="gambar">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-primary">Upload</button>
+                                                                    </div>
+                                                                </form>
+                                                            <?php } ?>
+
+
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
                                     <?php
-                                        }
+                                    }
                                     ?>
                                 </tbody>
                             </table>

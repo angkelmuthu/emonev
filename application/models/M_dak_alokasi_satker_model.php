@@ -104,6 +104,11 @@ class M_dak_alokasi_satker_model extends CI_Model
     {
         $this->db->insert('t_upload_ba', $data);
     }
+    function delete_ba($id)
+    {
+        $this->db->where('id_file', $id);
+        $this->db->delete('t_upload_ba');
+    }
 }
 
 /* End of file M_dak_alokasi_model.php */
