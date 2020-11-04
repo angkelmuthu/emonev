@@ -170,13 +170,24 @@
 													<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV" checked>
 													<label class="custom-control-label" for="TriwulanIV">Triwulan IV</label>
 												</div>
-											<?php } elseif ($tahun == '2020') { ?>
+											<?php } elseif ($tahun == '2020') {
+												if ($periode == 'Triwulan III') {
+													$t3 = 'checked';
+													$t4 = '';
+												} elseif ($periode == 'Triwulan IV') {
+													$t3 = '';
+													$t4 = 'checked';
+												} else {
+													$t3 = '';
+													$t4 = '';
+												}
+											?>
 												<div class="custom-control custom-radio custom-control-inline">
-													<input type="radio" name="periode" id="TriwulanIII" class="custom-control-input" value="Triwulan III">
+													<input type="radio" name="periode" id="TriwulanIII" class="custom-control-input" value="Triwulan III" <?php echo $t3 ?>>
 													<label class="custom-control-label" for="TriwulanIII">Triwulan III</label>
 												</div>
 												<div class="custom-control custom-radio custom-control-inline">
-													<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV">
+													<input type="radio" name="periode" id="TriwulanIV" class="custom-control-input" value="Triwulan IV" <?php echo $t4 ?>>
 													<label class="custom-control-label" for="TriwulanIV">Triwulan IV</label>
 												</div>
 											<?php } else { ?>
@@ -203,7 +214,7 @@
 								<tr>
 									<td width='200'>Satuan <br><span class="help-block">*wajib diisi</span></td>
 									<!-- <td>Alokasi : <input type="text" class="form-control" value="<?php echo $satuan; ?>" readonly /></td> -->
-									<td>Realisasi : <?php echo select2_dinamis('realisasi_satuan', 'm_satuan', 'satuan', 'id_satuan') ?></td>
+									<td>Realisasi : <?php echo select2_dinamis_satuan('realisasi_satuan', 'm_satuan', 'satuan', 'id_satuan', $realisasi_satuan) ?></td>
 								</tr>
 								<tr>
 									<td width='200'>Volume <br><span class="help-block">*wajib diisi</span></td>
@@ -232,12 +243,12 @@
 									<td width='200'>Progress <br><span class="help-block">*wajib diisi</span></td>
 									<td colspan="2">
 										<!-- <input type="text" class="form-control" name="id_progress" id="id_progress" placeholder="Id Progress" value="<?php echo $id_progress; ?>" /> -->
-										<?php echo select2_dinamis('id_progress', 'm_progress_jenis', 'nama_progres', 'id_progres_jenis') ?>
+										<?php echo select2_dinamis_satuan('id_progress', 'm_progress_jenis', 'nama_progres', 'id_progres_jenis', $id_progress) ?>
 									</td>
 								</tr>
 								<tr>
 									<td width='200'>Hambatan</td>
-									<td colspan="2"><?php echo select2_hambatan('id_rincian_hambatan', 'm_hambatan_rincian', 'nama_rincian_hambatan', 'id_rincian_hambatan') ?></td>
+									<td colspan="2"><?php echo select2_dinamis_satuan('id_rincian_hambatan', 'm_hambatan_rincian', 'nama_rincian_hambatan', 'id_rincian_hambatan', $id_rincian_hambatan) ?></td>
 								</tr>
 								<tr>
 									<td width='200'>Rencana Tindak Lanjut </td>
@@ -342,5 +353,16 @@
 			$("#realisasi_nilai").val(fixed);
 			$("#realisasi_persen").val(persen);
 		});
+		var hargax = $("#realisasi_harga_satuan").val();
+		var harga = parseInt(hargax.replace(/,.*|[^0-9]/g, ''), 10);
+		var jumlah = $("#realisasi_fisik").val();
+		//var alokasi_nilai = $("#alokasi_nilai").val();
+		var alokasi_nilai = <?php echo $total; ?>;
+		var total = harga * parseInt(jumlah);
+		fixed = total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+		var persenx = (total / alokasi_nilai) * 100;
+		persen = persenx.toFixed(2) + '%';
+		$("#realisasi_nilai").val(fixed);
+		$("#realisasi_persen").val(persen);
 	});
 </script>

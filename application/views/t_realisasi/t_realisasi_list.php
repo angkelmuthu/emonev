@@ -163,7 +163,7 @@
                                         <td><?php echo $dt->nama_progres ?></td>
                                         <td>
                                             <?php echo anchor(site_url('t_realisasi/read/' . $this->uri->segment(3) . '/' . $this->uri->segment(4) . '/' . $dt->id_realisasi), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
-                                            <?php //echo anchor(site_url('t_realisasi/update/' . $this->uri->segment(3) . '/' . $this->uri->segment(4) . '/' . $dt->id_realisasi), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-sm waves-effect waves-themed"');
+                                            <?php echo anchor(site_url('t_realisasi/update/' . $this->uri->segment(3) . '/' . $this->uri->segment(4) . '/' . $dt->id_realisasi), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-sm waves-effect waves-themed"');
                                             ?>
 
                                         </td>

@@ -225,11 +225,13 @@ class T_realisasi extends CI_Controller
 		$this->_rules();
 
 		if ($this->form_validation->run() == FALSE) {
+			$id_rincian = $this->input->post('id_rincian');
+			$alokasi = $this->input->post('alokasi');
 			$this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Maaf, Data yang anda masukkan tidak lengkap.</strong></div>');
-			redirect(site_url('t_realisasi/create/' . $this->input->post('id_rincian')));
+			redirect(site_url('t_realisasi/update/' . $id_rincian . '/' . $alokasi . '/' . $this->input->post('id_rincian')));
 		} else {
 			$data = array(
 				'id_rincian' => $this->input->post('id_rincian', TRUE),
